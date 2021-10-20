@@ -64,4 +64,4 @@ Explain how to run the automated tests.
 
 # Authors
 
-Your names and emails
+Adam Farley adamfarley4@gmail.com
