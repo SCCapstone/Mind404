@@ -1,7 +1,6 @@
 # Grubber
 
-This first paragraph should be a short description of the app. You can add links
-to your wiki pages that have more detailed descriptions.
+Grubber is a program that provides a consumer the autonomous ability to quickly hire people for odd jobs the typical person is not normally fond of, all within one app. Whether it is lawn care, indoor house cleaning services, pressure washing and much more, you have the ability to receive an instant estimated quote and purchase these services at the touch of a button.
 
 Your audience for the Readme.md are other developers who are joining your team.
 Specifically, the file should contain detailed instructions that any developer
