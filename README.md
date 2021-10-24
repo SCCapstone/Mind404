@@ -16,7 +16,7 @@ In order to build this project you first have to install:
     * We recommend using [Visual Studio Code](https://code.visualstudio.com/), which is available on all OS's
 
 
-<font size="4">*For more information, view the Expo Cli Quickstart section found here, [React Native Developer Docs](https://reactnative.dev/docs/environment-setup)*</font>
+*For more information, view the Expo Cli Quickstart section found here, [React Native Developer Docs](https://reactnative.dev/docs/environment-setup)*
 
 ## Setup
 
@@ -58,4 +58,5 @@ Explain how to run the automated tests.
 
 # Authors
 
-Adam Farley adamfarley4@gmail.com
+<p>Adam Farley adamfarley4@gmail.com</p>
+<p>Raymond Seas rseas@email.sc.edu</p>
