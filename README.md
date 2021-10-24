@@ -17,12 +17,15 @@ run in their laptop. For example:
 In order to build this project you first have to install:
 
 * [Node.js](https://nodejs.org/en/)
-* [MongoDB](https://www.mongodb.com/)
+* [Android Studio](https://developer.android.com/studio/?gclid=Cj0KCQjwiNSLBhCPARIsAKNS4_czZZ8qTIG6V1sBmGGpt5doHKe01koHvBUY1MGQVu9Z5VZL4kSrSd0aAuH7EALw_wcB&gclsrc=aw.ds)
+  * Android Studio will be used as the emulator for the app.  Once downloaded, proceed to create a new AVD running Android 10.0 and API 29.
 
 If possible, list the actual commands you used to install these, so the reader
 can just cut-n-paste the commands and get everything setup.
 
 You only need to add instructions for the OS you are using.
+
+For 
 
 ## Setup
 
