@@ -8,10 +8,10 @@ In order to build this project you first have to install:
 
 * [Node.js](https://nodejs.org/en/)
 * [Android Studio](https://developer.android.com/studio/?gclid=Cj0KCQjwiNSLBhCPARIsAKNS4_czZZ8qTIG6V1sBmGGpt5doHKe01koHvBUY1MGQVu9Z5VZL4kSrSd0aAuH7EALw_wcB&gclsrc=aw.ds)
- * Android Studio is recommended as the primary emulator for the app.  Once downloaded, proceed to create a new AVD running Android 10.0 and API 29.
- *You may also download the Expo Go client app on your mobile device
+   * Android Studio is recommended as the primary emulator for the app.  Once downloaded, proceed to create a new AVD running Android 10.0 and API 29.
+   * You may also download the Expo Go client app on your mobile device
 * CLI command line utility
- * To do this, enter "npm install -g expo-cli" into your terminal
+   * To do this, enter "npm install -g expo-cli" into your terminal
 
 ## Setup
 
