@@ -15,7 +15,7 @@ In order to build this project you first have to install:
 * A Code editor, to view and edit code
     * We recommend using [Visual Studio Code](https://code.visualstudio.com/), which is available on all OS's
 
-*For more information view the Expo Cli Quickstart section of the [React Native Developer Docs](https://reactnative.dev/docs/environment-setup)
+*For more information view the Expo Cli Quickstart section of the [React Native Developer Docs](https://reactnative.dev/docs/environment-setup)*
 
 ## Setup
 
