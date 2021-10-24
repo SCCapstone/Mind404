@@ -11,10 +11,12 @@ In order to build this project you first have to install:
    * Android Studio is recommended as the primary emulator for the app.  Once downloaded, proceed to create a new AVD running Android 10.0 and API 29.
    * You may also choose to use the Expo client app on your mobile device, downloadable in the google play store
 * CLI command line utility
-   * To do this, enter the following command into your terminal
-        >  npm install -g expo-cli
+   * To do this, enter `npm install -g expo-cli` into your terminal
 * A Code editor, to view and edit code
     * We recommend using [Visual Studio Code](https://code.visualstudio.com/), which is available on all OS's
+
+*For more information view the Expo Cli Quickstart section of the [React Native Developer Docs](https://reactnative.dev/docs/environment-setup)
+
 ## Setup
 
 Here you list all the one-time things the developer needs to do after cloning
