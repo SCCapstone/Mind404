@@ -27,7 +27,10 @@ database for running your webapp locally.
 
 ## Running
 
-Specify the commands for a developer to run the app from the cloned repo.
+In order to run the application:
+
+* Enter command `npm start` in cloned repo
+* After execution, enter `a`
 
 # Deployment
 
