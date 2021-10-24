@@ -17,6 +17,16 @@ export default function App() {
           ])
         }
       />
+      <Button
+        title="Log in"
+        color="blue"
+        onPress={() =>
+          Alert.alert("Title", "Message", [
+            {text: "Yes", onPress: () => console.log("Yes") },
+            {text: "No", onPress: () => console.log("No") },
+          ])
+        }
+      />
       <StatusBar style="auto" />
     </View>
   );
