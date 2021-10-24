@@ -11,8 +11,8 @@ In order to build this project you first have to install:
    * Android Studio is recommended as the primary emulator for the app.  Once downloaded, proceed to create a new AVD running Android 10.0 and API 29.
    * You may also download the Expo Go client app on your mobile device
 * CLI command line utility
-   * To do this, enter "npm install -g expo-cli" into your terminal
-
+   * To do this, enter the following command into your terminal
+        >  npm install -g expo-cli
 ## Setup
 
 Here you list all the one-time things the developer needs to do after cloning
