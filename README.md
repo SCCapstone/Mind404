@@ -20,10 +20,10 @@ In order to build this project you first have to install:
 
 ## Setup
 
-Here you list all the one-time things the developer needs to do after cloning
-your repo. Sometimes there is no need for this section, but some apps require
-some first-time configuration from the developer, for example: setting up a
-database for running your webapp locally.
+
+* Download node.js 14.18
+* Run command "npm install -g expo -cli"
+
 
 ## Running
 
@@ -31,6 +31,8 @@ In order to run the application:
 
 * Enter command `npm start` in cloned repo
 * After execution, enter `a`
+* Have android emulator waiting for start. 
+
 
 # Deployment
 
