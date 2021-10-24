@@ -16,7 +16,7 @@ In order to build this project you first have to install:
     * We recommend using [Visual Studio Code](https://code.visualstudio.com/), which is available on all OS's
 
 
-<font size="8">*For more information, view the Expo Cli Quickstart section found here, [React Native Developer Docs](https://reactnative.dev/docs/environment-setup)*</font>
+<font size="4">*For more information, view the Expo Cli Quickstart section found here, [React Native Developer Docs](https://reactnative.dev/docs/environment-setup)*</font>
 
 ## Setup
 
