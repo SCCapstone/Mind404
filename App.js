@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontSize: 20,
+    fontSize: 21,
     position: 'absolute',
     top: 295,
     left: 105,
