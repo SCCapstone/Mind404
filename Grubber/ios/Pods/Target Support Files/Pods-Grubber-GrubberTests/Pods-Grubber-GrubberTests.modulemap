@@ -1,0 +1,6 @@
+module Pods_Grubber_GrubberTests {
+  umbrella header "Pods-Grubber-GrubberTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

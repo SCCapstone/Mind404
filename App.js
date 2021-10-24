@@ -1,15 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image, Alert } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View, Button, Image, Alert } from 'react-native';
+
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Welcome to Grubber!</Text>
-      <Image source={require('./assets/grubber.png')}/>
+      <ImageBackground source={require('./assets/GrubberBackground.png')} resizeMode='cover' style={styles.backgroundImage}>
+      <Text style={styles.text}>Welcome to Grubber!</Text>
+      <Image source={require('./assets/grubber.png')} style={styles.logo}/>
       <Button
         title="Click me"
         color="orange"
+        style={styles.loginButton}
         onPress={() =>
           Alert.alert("Title", "Message", [
             {text: "Yes", onPress: () => console.log("Yes") },
@@ -19,7 +22,8 @@ export default function App() {
       />
       <Button
         title="Log in"
-        color="blue"
+        color= "blue"
+        style={styles.loginButton}
         onPress={() =>
           Alert.alert("Title", "Message", [
             {text: "Yes", onPress: () => console.log("Yes") },
@@ -27,6 +31,7 @@ export default function App() {
           ])
         }
       />
+      </ImageBackground>
       <StatusBar style="auto" />
     </View>
   );
@@ -35,8 +40,33 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  logo: {
+    position: 'absolute',
+    top: 225,
+    left: 80,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 20,
+    position: 'absolute',
+    top: 295,
+    left: 105,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  backgroundImage: {
+    width: '100%',
+    height: '100%',
+  },
+  loginButton: {
+    margin: 5,
   },
 });
