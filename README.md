@@ -14,7 +14,7 @@ In order to build this project you first have to install:
    * To do this, enter the following command into your terminal
         >  npm install -g expo-cli
 * A Code editor, to view and edit code
-    * We recommend using [Visual Studio Code](https://code.visualstudio.com/) available on all OS's
+    * We recommend using [Visual Studio Code](https://code.visualstudio.com/), which is available on all OS's
 ## Setup
 
 Here you list all the one-time things the developer needs to do after cloning
