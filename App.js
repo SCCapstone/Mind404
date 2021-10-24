@@ -31,6 +31,17 @@ export default function App() {
           ])
         }
       />
+      <Button
+        title="Create an account"
+        color= "blue"
+        style={styles.loginButton}
+        onPress={() =>
+          Alert.alert("Would you like to create an account", [
+            {text: "Yes", onPress: () => console.log("Yes") },
+            {text: "No", onPress: () => console.log("No") },
+          ])
+        }
+      />
       </ImageBackground>
       <StatusBar style="auto" />
     </View>
