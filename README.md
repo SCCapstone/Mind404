@@ -2,30 +2,16 @@
 
 Grubber is a program that provides a consumer the autonomous ability to quickly hire people for odd jobs the typical person is not normally fond of, all within one app. Whether it is lawn care, indoor house cleaning services, pressure washing and much more, you have the ability to receive an instant estimated quote and purchase these services at the touch of a button.
 
-Your audience for the Readme.md are other developers who are joining your team.
-Specifically, the file should contain detailed instructions that any developer
-can follow to install, compile, run, and test your project. These are not only
-useful to new developers, but also to you when you have to re-install everything
-because your old laptop crashed. Also, the teachers of this class will be
-following your instructions.
-
 ## External Requirements
-
-List all the stuff the reader will need to install in order to get you app to 
-run in their laptop. For example:
 
 In order to build this project you first have to install:
 
 * [Node.js](https://nodejs.org/en/)
 * [Android Studio](https://developer.android.com/studio/?gclid=Cj0KCQjwiNSLBhCPARIsAKNS4_czZZ8qTIG6V1sBmGGpt5doHKe01koHvBUY1MGQVu9Z5VZL4kSrSd0aAuH7EALw_wcB&gclsrc=aw.ds)
-  * Android Studio will be used as the emulator for the app.  Once downloaded, proceed to create a new AVD running Android 10.0 and API 29.
-
-If possible, list the actual commands you used to install these, so the reader
-can just cut-n-paste the commands and get everything setup.
-
-You only need to add instructions for the OS you are using.
-
-For 
+ * Android Studio is recommended as the primary emulator for the app.  Once downloaded, proceed to create a new AVD running Android 10.0 and API 29.
+ *You may also download the Expo Go client app on your mobile device
+* CLI command line utility
+ * To do this, enter "npm install -g expo-cli" into your terminal
 
 ## Setup
 
