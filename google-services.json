@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "451766757997",
+    "firebase_url": "https://grubber-4a87a-default-rtdb.firebaseio.com",
+    "project_id": "grubber-4a87a",
+    "storage_bucket": "grubber-4a87a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:451766757997:android:47b7c66cc83be2b7b56d64",
+        "android_client_info": {
+          "package_name": "com.Mind404.Grubber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "451766757997-kntinnn5q43t1g4gljns9ojcfuc0oksp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeI06Aho0bBUTWeLxCP46Ygt6XwH9smEw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "451766757997-kntinnn5q43t1g4gljns9ojcfuc0oksp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
