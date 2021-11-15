@@ -34,7 +34,7 @@ const LoginScreen = ({ navigation, route }) => {
           value={number}
           placeholder="password"
         />
-        <Button onPress={() => navigation.navigate("Map")}>LOG IN</Button>
+        <Button onPress={() => navigation.navigate("Map")}>Login</Button>
       </SafeAreaView>
     </ImageBackground>
   );
@@ -43,6 +43,7 @@ const LoginScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   BiggerText: {
     fontSize: 20,
+    textAlign: "center",
   },
   backgroundImage: {
     width: "100%",
@@ -53,6 +54,7 @@ const styles = StyleSheet.create({
     margin: 10,
     borderWidth: 4,
     padding: 20,
+    fontSize: 20,
   },
 });
 

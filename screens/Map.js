@@ -12,7 +12,8 @@ import {
   TextInput,
   ImageBackground,
 } from "react-native";
-import Button from "../components/Button";
+import Button from "../components/Button.js";
+
 const Map = ({ navigation }) => {
   return (
     <ImageBackground
