@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { Text, StyleSheet, ImageBackground } from 'react-native'
+import Button from "../components/Button.js";
 
 const NewAccountScreen = ({ navigation, route }) => { 
     return(
     <ImageBackground
         source={ require('../assets/GrubberBackground.png')}
         resizeMode='cover' style={styles.backgroundImage}>
-            <Text> Name: </Text>
+            <Text> New Account page </Text>
+            <Text> WILL BE BUNCH OF INPUT HERE </Text>
+            <Button onPress={() => navigation.navigate("Map")}>Login</Button>
     </ImageBackground>
     );
 };

@@ -25,9 +25,9 @@ const Map = ({ navigation }) => {
         <Text style={styles.welcome}>Welcome Username!</Text>
         <View style={styles.map} />
         <View style={styles.navBar}>
-          <Button>a</Button>
-          <Button>b</Button>
-          <Button>c</Button>
+        <Button onPress={() => navigation.navigate("ViewServices")}>ViewServices</Button>
+        <Button onPress={() => navigation.navigate("ViewPastServices")}>ViewPastServices</Button>
+        <Button onPress={() => navigation.navigate("PurchaseServices")}>PurchaseServices</Button>
         </View>
       </View>
     </ImageBackground>
