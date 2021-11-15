@@ -20,13 +20,11 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.title}/>
         <Button
           title="Create an account" color="blue"
-          onPress={() => navigation.navigate('NewAccount')} />
+          onPress={() => navigation.navigate('CreateAnAccount')} />
         <Text style={styles.title}/>
         <Button
           title="Settings" color="blue"
           onPress={() => navigation.navigate('Settings')} />
-        <Text style={styles.title}/>
-
       </View>
       
       </ImageBackground>
