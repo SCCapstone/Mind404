@@ -1,60 +1,53 @@
 import * as React from "react";
-import {
-  SafeAreaView,
-  Text,
-  StyleSheet,
-  ImageBackground,
-  TextInput,
-} from "react-native";
+//import React, {useContext, useState} from 'react';
+import { SafeAreaView, Text, TouchableOpacity, Image, StyleSheet,ImageBackground,TextInput} from "react-native";
 import Button from "../components/Button";
+import { AuthContext } from '../navigation/AuthProvider';
 
-const NewAccountScreen = ({ navigation, route }) => { 
-    const [text, onChangeText] = React.useState("text");
-    const [number, onChangeNumber] = React.useState(null);
+const NewAccountScreen = ({ navigation}) => { 
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [confirmPassword, setConfirmPassword] = useState();
+    const {register} = useContext(AuthContext);
     return(
-    <ImageBackground
-      source={require("../assets/GrubberBackground.png")}
-      resizeMode="cover"
-      style={styles.backgroundImage}
-    >
-      <Text style={styles.BiggerText}>
-        {" "}
-        Please enter your information below.
-      </Text>
-      <SafeAreaView>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText}
-          placeholder="First Name"
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText}
-          placeholder="Last Name"
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText}
-          placeholder="Date of Birth"
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeText}
-          placeholder="email"
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeNumber}
-          value={number}
-          placeholder="password"
-        />
-        <Button onPress={() => navigation.navigate("Map")}>Login</Button>
-      </SafeAreaView>
-    </ImageBackground>
-    );
-};
+      <View style={styles.container}>
+        <Text style={styles.text}> Create an Account </Text>
+        <FormInput
+          labelValue={email}
+          onChangeText={(userEmail) => setEmail(userEmail)}
+          placeholderText="Email"
+          autoCapitalize="none"
+          autoCorrect={false} />
+          <FormInput
+          labelValue={password}
+          onChangeText={(userEmail) => setEmail(userEmail)}
+          placeholderText="Email"
+          autoCapitalize="none"
+          autoCorrect={false} 
+          />
+          <FormInput
+          labelValue={confirmPassword}
+          onChangeText={(userPassword) => setConfirmPassword(userPassword)}
+          placeholderText="Confirm Password"
+          autoCapitalize="none"
+          autoCorrect={false} 
+          secureTextEntry={true}
+          />
+        <FormButton
+        buttonTitle="Sign Up"
+        onPress={() => register(email, password)}
+      />
+          </View>
+    ); null }
 
 const styles = StyleSheet.create({
+    container: {
+      backgroundColor: '#f9fafd',
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 20,
+    },
     BiggerText: {
       fontSize: 20,
       textAlign: "center",
@@ -72,4 +65,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default NewAccountScreen
+export default NewAccountScreen;

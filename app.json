@@ -25,7 +25,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.Mind404.Grubber",
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./node_modules/react-native/template/android/app/google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"
