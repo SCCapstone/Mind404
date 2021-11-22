@@ -11,7 +11,7 @@ export default StyleSheet.create({
     logo: {
         flex: 1,
         height: 120,
-        width: 90,
+        width: 380,
         alignSelf: "center",
         margin: 30
     },
@@ -54,5 +54,9 @@ export default StyleSheet.create({
         color: "#788eec",
         fontWeight: "bold",
         fontSize: 16
-    }
+    },
+    backgroundImage: {
+        width: "100%",
+        height: "100%",
+      }
 })

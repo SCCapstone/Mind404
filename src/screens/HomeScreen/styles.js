@@ -3,17 +3,28 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
-    },
-    input: {
-        height: 48,
-        borderRadius: 5,
-        overflow: 'hidden',
-        backgroundColor: 'white',
-        marginTop: 10,
-        marginBottom: 10,
-        marginLeft: 30,
-        marginRight: 30,
-        paddingLeft: 16
-    }
-})
+        justifyContent: "center",
+        marginHorizontal: 16,
+      },
+      backgroundImage: {
+        width: "100%",
+        height: "100%",
+      },
+      logo: {
+        position: "absolute",
+        top: 160,
+        left: 80,
+        right: 0,
+        bottom: 0,
+        justifyContent: "center",
+        alignItems: "center",
+      },
+      title: {
+        textAlign: "center",
+        marginVertical: 8,
+      },
+      space: {
+        textAlign: "center",
+        marginVertical: 120,
+      },
+    });
