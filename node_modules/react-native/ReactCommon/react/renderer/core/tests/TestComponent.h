@@ -14,7 +14,6 @@
 #include <react/renderer/components/view/ViewEventEmitter.h>
 #include <react/renderer/components/view/ViewProps.h>
 #include <react/renderer/core/ConcreteComponentDescriptor.h>
-#include <react/renderer/core/PropsParserContext.h>
 #include <react/renderer/core/RawProps.h>
 #include <react/renderer/core/ShadowNode.h>
 
@@ -36,11 +35,8 @@ class TestProps : public ViewProps {
  public:
   TestProps() = default;
 
-  TestProps(
-      const PropsParserContext &context,
-      const TestProps &sourceProps,
-      const RawProps &rawProps)
-      : ViewProps(context, sourceProps, rawProps) {}
+  TestProps(const TestProps &sourceProps, const RawProps &rawProps)
+      : ViewProps(sourceProps, rawProps) {}
 };
 
 using SharedTestProps = std::shared_ptr<const TestProps>;
@@ -49,11 +45,11 @@ class TestShadowNode;
 
 using SharedTestShadowNode = std::shared_ptr<const TestShadowNode>;
 
-class TestShadowNode final : public ConcreteViewShadowNode<
-                                 TestComponentName,
-                                 TestProps,
-                                 ViewEventEmitter,
-                                 TestState> {
+class TestShadowNode : public ConcreteViewShadowNode<
+                           TestComponentName,
+                           TestProps,
+                           ViewEventEmitter,
+                           TestState> {
  public:
   using ConcreteViewShadowNode::ConcreteViewShadowNode;
 

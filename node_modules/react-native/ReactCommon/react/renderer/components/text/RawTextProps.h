@@ -10,7 +10,6 @@
 #include <memory>
 
 #include <react/renderer/core/Props.h>
-#include <react/renderer/core/PropsParserContext.h>
 #include <react/renderer/debug/DebugStringConvertible.h>
 
 namespace facebook {
@@ -23,10 +22,7 @@ using SharedRawTextProps = std::shared_ptr<const RawTextProps>;
 class RawTextProps : public Props {
  public:
   RawTextProps() = default;
-  RawTextProps(
-      const PropsParserContext &context,
-      const RawTextProps &sourceProps,
-      const RawProps &rawProps);
+  RawTextProps(const RawTextProps &sourceProps, const RawProps &rawProps);
 
 #pragma mark - Props
 

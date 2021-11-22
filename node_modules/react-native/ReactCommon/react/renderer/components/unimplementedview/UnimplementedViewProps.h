@@ -8,7 +8,6 @@
 #pragma once
 
 #include <react/renderer/components/view/ViewProps.h>
-#include <react/renderer/core/PropsParserContext.h>
 
 namespace facebook {
 namespace react {

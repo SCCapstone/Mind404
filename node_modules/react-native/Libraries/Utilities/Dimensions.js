@@ -8,26 +8,29 @@
  * @flow
  */
 
-import EventEmitter, {
-  type EventSubscription,
-} from '../vendor/emitter/EventEmitter';
+'use strict';
+
+import EventEmitter from '../vendor/emitter/EventEmitter';
 import RCTDeviceEventEmitter from '../EventEmitter/RCTDeviceEventEmitter';
 import NativeDeviceInfo, {
   type DisplayMetrics,
-  type DisplayMetricsAndroid,
   type DimensionsPayload,
 } from './NativeDeviceInfo';
 import invariant from 'invariant';
 
-const eventEmitter = new EventEmitter<{
-  change: [DimensionsPayload],
-}>();
+type DimensionsValue = {
+  window?: DisplayMetrics,
+  screen?: DisplayMetrics,
+  ...
+};
+
+const eventEmitter = new EventEmitter();
 let dimensionsInitialized = false;
-let dimensions: DimensionsPayload;
+let dimensions: DimensionsValue;
 
 class Dimensions {
   /**
-   * NOTE: `useWindowDimensions` is the preferred API for React components.
+   * NOTE: `useWindowDimensions` is the preffered API for React components.
    *
    * Initial dimensions are set before `runApplication` is called so they should
    * be available before any other require's are run, but may be updated later.
@@ -41,9 +44,9 @@ class Dimensions {
    * Example: `const {height, width} = Dimensions.get('window');`
    *
    * @param {string} dim Name of dimension as defined when calling `set`.
-   * @returns {DisplayMetrics? | DisplayMetricsAndroid?} Value for the dimension.
+   * @returns {Object?} Value for the dimension.
    */
-  static get(dim: string): DisplayMetrics | DisplayMetricsAndroid {
+  static get(dim: string): Object {
     invariant(dimensions[dim], 'No dimension set for key ' + dim);
     return dimensions[dim];
   }
@@ -52,9 +55,9 @@ class Dimensions {
    * This should only be called from native code by sending the
    * didUpdateDimensions event.
    *
-   * @param {DimensionsPayload} dims Simple string-keyed object of dimensions to set
+   * @param {object} dims Simple string-keyed object of dimensions to set
    */
-  static set(dims: $ReadOnly<DimensionsPayload>): void {
+  static set(dims: $ReadOnly<{[key: string]: any, ...}>): void {
     // We calculate the window dimensions in JS so that we don't encounter loss of
     // precision in transferring the dimensions (which could be non-integers) over
     // the bridge.
@@ -97,20 +100,17 @@ class Dimensions {
    *   are the same as the return values of `Dimensions.get('window')` and
    *   `Dimensions.get('screen')`, respectively.
    */
-  static addEventListener(
-    type: 'change',
-    handler: Function,
-  ): EventSubscription {
+  static addEventListener(type: 'change', handler: Function) {
     invariant(
       type === 'change',
       'Trying to subscribe to unknown event: "%s"',
       type,
     );
-    return eventEmitter.addListener(type, handler);
+    eventEmitter.addListener(type, handler);
   }
 
   /**
-   * @deprecated Use `remove` on the EventSubscription from `addEventListener`.
+   * Remove an event handler.
    */
   static removeEventListener(type: 'change', handler: Function) {
     invariant(
@@ -118,12 +118,11 @@ class Dimensions {
       'Trying to remove listener for unknown event: "%s"',
       type,
     );
-    // NOTE: This will report a deprecation notice via `console.error`.
     eventEmitter.removeListener(type, handler);
   }
 }
 
-let initialDims: ?$ReadOnly<DimensionsPayload> =
+let initialDims: ?$ReadOnly<{[key: string]: any, ...}> =
   global.nativeExtensions &&
   global.nativeExtensions.DeviceInfo &&
   global.nativeExtensions.DeviceInfo.Dimensions;

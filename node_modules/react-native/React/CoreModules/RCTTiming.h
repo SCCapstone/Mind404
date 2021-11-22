@@ -9,7 +9,6 @@
 
 #import <React/RCTBridgeModule.h>
 #import <React/RCTFrameUpdate.h>
-#import <React/RCTInitializing.h>
 #import <React/RCTInvalidating.h>
 
 @protocol RCTTimingDelegate
@@ -20,7 +19,7 @@
 
 @end
 
-@interface RCTTiming : NSObject <RCTBridgeModule, RCTInvalidating, RCTFrameUpdateObserver, RCTInitializing>
+@interface RCTTiming : NSObject <RCTBridgeModule, RCTInvalidating, RCTFrameUpdateObserver>
 
 - (instancetype)initWithDelegate:(id<RCTTimingDelegate>)delegate;
 - (void)createTimerForNextFrame:(nonnull NSNumber *)callbackID

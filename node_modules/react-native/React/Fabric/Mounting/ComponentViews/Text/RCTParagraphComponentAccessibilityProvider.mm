@@ -13,7 +13,6 @@
 #import <react/renderer/textlayoutmanager/RCTTextLayoutManager.h>
 #import <react/renderer/textlayoutmanager/TextLayoutManager.h>
 
-#import "RCTAccessibilityElement.h"
 #import "RCTConversions.h"
 #import "RCTFabricComponentsPlugins.h"
 #import "RCTLocalizationProvider.h"
@@ -57,15 +56,14 @@ using namespace facebook::react;
   // build an array of the accessibleElements
   NSMutableArray<UIAccessibilityElement *> *elements = [NSMutableArray new];
 
-  NSString *accessibilityLabel = _view.accessibilityLabel;
-  if (accessibilityLabel.length == 0) {
+  NSString *accessibilityLabel = [_view valueForKey:@"accessibilityLabel"];
+  if (!accessibilityLabel.length) {
     accessibilityLabel = RCTNSStringFromString(_attributedString.getString());
   }
   // add first element has the text for the whole textview in order to read out the whole text
-  RCTAccessibilityElement *firstElement =
-      [[RCTAccessibilityElement alloc] initWithAccessibilityContainer:_view.superview];
+  UIAccessibilityElement *firstElement = [[UIAccessibilityElement alloc] initWithAccessibilityContainer:_view];
   firstElement.isAccessibilityElement = YES;
-  firstElement.accessibilityTraits = _view.accessibilityTraits;
+  firstElement.accessibilityTraits = UIAccessibilityTraitStaticText;
   firstElement.accessibilityLabel = accessibilityLabel;
   firstElement.accessibilityFrame = UIAccessibilityConvertFrameToScreenCoordinates(_view.bounds, _view);
   [firstElement setAccessibilityActivationPoint:CGPointMake(
@@ -80,11 +78,7 @@ using namespace facebook::react;
                            enumerateAttribute:RCTTextAttributesAccessibilityRoleAttributeName
                                         frame:_frame
                                    usingBlock:^(CGRect fragmentRect, NSString *_Nonnull fragmentText, NSString *value) {
-                                     if ([fragmentText isEqualToString:firstElement.accessibilityLabel]) {
-                                       // The fragment is the entire paragraph. This is handled as `firstElement`.
-                                       return;
-                                     }
-                                     if ((![value isEqualToString:@"button"] && ![value isEqualToString:@"link"])) {
+                                     if (![value isEqualToString:@"button"] && ![value isEqualToString:@"link"]) {
                                        return;
                                      }
                                      if ([value isEqualToString:@"button"] &&
@@ -93,8 +87,8 @@ using namespace facebook::react;
                                        truncatedText = fragmentText;
                                        return;
                                      }
-                                     RCTAccessibilityElement *element =
-                                         [[RCTAccessibilityElement alloc] initWithAccessibilityContainer:self->_view];
+                                     UIAccessibilityElement *element =
+                                         [[UIAccessibilityElement alloc] initWithAccessibilityContainer:self->_view];
                                      element.isAccessibilityElement = YES;
                                      if ([value isEqualToString:@"link"]) {
                                        element.accessibilityTraits = UIAccessibilityTraitLink;
@@ -104,7 +98,8 @@ using namespace facebook::react;
                                        numberOfButtons++;
                                      }
                                      element.accessibilityLabel = fragmentText;
-                                     element.frame = fragmentRect;
+                                     element.accessibilityFrame =
+                                         UIAccessibilityConvertFrameToScreenCoordinates(fragmentRect, self->_view);
                                      [elements addObject:element];
                                    }];
 

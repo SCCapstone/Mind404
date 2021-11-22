@@ -26,7 +26,7 @@ static std::string normalizeEventType(const std::string &type) {
   auto prefixedType = type;
   if (type.find("top", 0) != 0) {
     prefixedType.insert(0, "top");
-    prefixedType[3] = static_cast<char>(toupper(prefixedType[3]));
+    prefixedType[3] = toupper(prefixedType[3]);
   }
   return prefixedType;
 }
@@ -52,25 +52,19 @@ EventEmitter::EventEmitter(
 void EventEmitter::dispatchEvent(
     const std::string &type,
     const folly::dynamic &payload,
-    EventPriority priority) const {
-  dispatchEvent(type, [payload](jsi::Runtime &runtime) {
-    return valueFromDynamic(runtime, payload);
-  });
-}
-
-void EventEmitter::dispatchUniqueEvent(
-    const std::string &type,
-    const folly::dynamic &payload) const {
-  dispatchUniqueEvent(type, [payload](jsi::Runtime &runtime) {
-    return valueFromDynamic(runtime, payload);
-  });
+    const EventPriority &priority) const {
+  dispatchEvent(
+      type,
+      [payload](jsi::Runtime &runtime) {
+        return valueFromDynamic(runtime, payload);
+      },
+      priority);
 }
 
 void EventEmitter::dispatchEvent(
     const std::string &type,
     const ValueFactory &payloadFactory,
-    EventPriority priority,
-    RawEvent::Category category) const {
+    const EventPriority &priority) const {
   SystraceSection s("EventEmitter::dispatchEvent");
 
   auto eventDispatcher = eventDispatcher_.lock();
@@ -79,8 +73,7 @@ void EventEmitter::dispatchEvent(
   }
 
   eventDispatcher->dispatchEvent(
-      RawEvent(
-          normalizeEventType(type), payloadFactory, eventTarget_, category),
+      RawEvent(normalizeEventType(type), payloadFactory, eventTarget_),
       priority);
 }
 
@@ -94,11 +87,8 @@ void EventEmitter::dispatchUniqueEvent(
     return;
   }
 
-  eventDispatcher->dispatchUniqueEvent(RawEvent(
-      normalizeEventType(type),
-      payloadFactory,
-      eventTarget_,
-      RawEvent::Category::Continuous));
+  eventDispatcher->dispatchUniqueEvent(
+      RawEvent(normalizeEventType(type), payloadFactory, eventTarget_));
 }
 
 void EventEmitter::setEnabled(bool enabled) const {

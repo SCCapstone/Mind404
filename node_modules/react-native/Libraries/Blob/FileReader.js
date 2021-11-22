@@ -8,6 +8,8 @@
  * @format
  */
 
+'use strict';
+
 const Blob = require('./Blob');
 const EventTarget = require('event-target-shim');
 
@@ -46,7 +48,7 @@ class FileReader extends (EventTarget(...READER_EVENTS): any) {
   _error: ?Error;
   _result: ?ReaderResult;
   _aborted: boolean = false;
-  _subscriptions: Array<any> = [];
+  _subscriptions: Array<*> = [];
 
   constructor() {
     super();

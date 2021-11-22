@@ -40,6 +40,11 @@ public class ReactSliderEvent extends Event<ReactSliderEvent> {
   }
 
   @Override
+  public short getCoalescingKey() {
+    return 0;
+  }
+
+  @Override
   public void dispatch(RCTEventEmitter rctEventEmitter) {
     rctEventEmitter.receiveEvent(getViewTag(), getEventName(), serializeEventData());
   }

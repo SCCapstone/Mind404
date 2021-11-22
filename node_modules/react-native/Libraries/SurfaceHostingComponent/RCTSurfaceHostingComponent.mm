@@ -55,7 +55,7 @@
   return component;
 }
 
-- (RCLayout)computeLayoutThatFits:(CKSizeRange)constrainedSize
+- (CKComponentLayout)computeLayoutThatFits:(CKSizeRange)constrainedSize
 {
   // Optimistically communicating layout constraints to the `_surface`,
   // just to provide layout constraints to React Native as early as possible.

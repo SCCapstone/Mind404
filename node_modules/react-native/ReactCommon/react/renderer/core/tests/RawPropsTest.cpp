@@ -8,9 +8,7 @@
 #include <memory>
 
 #include <gtest/gtest.h>
-#include <react/debug/flags.h>
 #include <react/renderer/core/ConcreteShadowNode.h>
-#include <react/renderer/core/PropsParserContext.h>
 #include <react/renderer/core/ShadowNode.h>
 #include <react/renderer/core/propsConversions.h>
 
@@ -22,11 +20,9 @@ class PropsSingleFloat : public Props {
  public:
   PropsSingleFloat() = default;
   PropsSingleFloat(
-      const PropsParserContext &context,
       const PropsSingleFloat &sourceProps,
       const RawProps &rawProps)
       : floatValue(convertRawProp(
-            context,
             rawProps,
             "floatValue",
             sourceProps.floatValue,
@@ -40,11 +36,9 @@ class PropsSingleDouble : public Props {
  public:
   PropsSingleDouble() = default;
   PropsSingleDouble(
-      const PropsParserContext &context,
       const PropsSingleDouble &sourceProps,
       const RawProps &rawProps)
       : doubleValue(convertRawProp(
-            context,
             rawProps,
             "doubleValue",
             sourceProps.doubleValue,
@@ -57,16 +51,9 @@ class PropsSingleDouble : public Props {
 class PropsSingleInt : public Props {
  public:
   PropsSingleInt() = default;
-  PropsSingleInt(
-      const PropsParserContext &context,
-      const PropsSingleInt &sourceProps,
-      const RawProps &rawProps)
-      : intValue(convertRawProp(
-            context,
-            rawProps,
-            "intValue",
-            sourceProps.intValue,
-            17)) {}
+  PropsSingleInt(const PropsSingleInt &sourceProps, const RawProps &rawProps)
+      : intValue(
+            convertRawProp(rawProps, "intValue", sourceProps.intValue, 17)) {}
 
  private:
   const int intValue{17};
@@ -76,35 +63,26 @@ class PropsPrimitiveTypes : public Props {
  public:
   PropsPrimitiveTypes() = default;
   PropsPrimitiveTypes(
-      const PropsParserContext &context,
       const PropsPrimitiveTypes &sourceProps,
       const RawProps &rawProps)
-      : intValue(convertRawProp(
-            context,
-            rawProps,
-            "intValue",
-            sourceProps.intValue,
-            17)),
+      : intValue(
+            convertRawProp(rawProps, "intValue", sourceProps.intValue, 17)),
         doubleValue(convertRawProp(
-            context,
             rawProps,
             "doubleValue",
             sourceProps.doubleValue,
             17.56)),
         floatValue(convertRawProp(
-            context,
             rawProps,
             "floatValue",
             sourceProps.floatValue,
             56.75)),
         stringValue(convertRawProp(
-            context,
             rawProps,
             "stringValue",
             sourceProps.stringValue,
             "")),
         boolValue(convertRawProp(
-            context,
             rawProps,
             "boolValue",
             sourceProps.boolValue,
@@ -122,11 +100,9 @@ class PropsMultiLookup : public Props {
  public:
   PropsMultiLookup() = default;
   PropsMultiLookup(
-      const PropsParserContext &context,
       const PropsMultiLookup &sourceProps,
       const RawProps &rawProps)
       : floatValue(convertRawProp(
-            context,
             rawProps,
             "floatValue",
             sourceProps.floatValue,
@@ -135,12 +111,7 @@ class PropsMultiLookup : public Props {
         // pattern that does occur a lot: nested structs that access props we
         // have already accessed populating Props
         derivedFloatValue(
-            convertRawProp(
-                context,
-                rawProps,
-                "floatValue",
-                sourceProps.floatValue,
-                40) *
+            convertRawProp(rawProps, "floatValue", sourceProps.floatValue, 40) *
             2) {}
 
   const float floatValue{17.5};
@@ -148,15 +119,12 @@ class PropsMultiLookup : public Props {
 };
 
 TEST(RawPropsTest, handleProps) {
-  ContextContainer contextContainer{};
-  PropsParserContext parserContext{-1, contextContainer};
-
   const auto &raw = RawProps(folly::dynamic::object("nativeID", "abc"));
   auto parser = RawPropsParser();
   parser.prepare<Props>();
-  raw.parse(parser, parserContext);
+  raw.parse(parser);
 
-  auto props = std::make_shared<Props>(parserContext, Props(), raw);
+  auto props = std::make_shared<Props>(Props(), raw);
 
   // Props are not sealed after applying raw props.
   EXPECT_FALSE(props->getSealed());
@@ -165,13 +133,10 @@ TEST(RawPropsTest, handleProps) {
 }
 
 TEST(RawPropsTest, handleRawPropsSingleString) {
-  ContextContainer contextContainer{};
-  PropsParserContext parserContext{-1, contextContainer};
-
   const auto &raw = RawProps(folly::dynamic::object("nativeID", "abc"));
   auto parser = RawPropsParser();
   parser.prepare<Props>();
-  raw.parse(parser, parserContext);
+  raw.parse(parser);
 
   std::string value = (std::string)*raw.at("nativeID", nullptr, nullptr);
 
@@ -179,14 +144,11 @@ TEST(RawPropsTest, handleRawPropsSingleString) {
 }
 
 TEST(RawPropsTest, handleRawPropsSingleFloat) {
-  ContextContainer contextContainer{};
-  PropsParserContext parserContext{-1, contextContainer};
-
   const auto &raw =
       RawProps(folly::dynamic::object("floatValue", (float)42.42));
   auto parser = RawPropsParser();
   parser.prepare<PropsSingleFloat>();
-  raw.parse(parser, parserContext);
+  raw.parse(parser);
 
   float value = (float)*raw.at("floatValue", nullptr, nullptr);
 
@@ -194,14 +156,11 @@ TEST(RawPropsTest, handleRawPropsSingleFloat) {
 }
 
 TEST(RawPropsTest, handleRawPropsSingleDouble) {
-  ContextContainer contextContainer{};
-  PropsParserContext parserContext{-1, contextContainer};
-
   const auto &raw =
       RawProps(folly::dynamic::object("doubleValue", (double)42.42));
   auto parser = RawPropsParser();
   parser.prepare<PropsSingleDouble>();
-  raw.parse(parser, parserContext);
+  raw.parse(parser);
 
   double value = (double)*raw.at("doubleValue", nullptr, nullptr);
 
@@ -209,13 +168,10 @@ TEST(RawPropsTest, handleRawPropsSingleDouble) {
 }
 
 TEST(RawPropsTest, handleRawPropsSingleInt) {
-  ContextContainer contextContainer{};
-  PropsParserContext parserContext{-1, contextContainer};
-
   const auto &raw = RawProps(folly::dynamic::object("intValue", (int)42.42));
   auto parser = RawPropsParser();
   parser.prepare<PropsSingleInt>();
-  raw.parse(parser, parserContext);
+  raw.parse(parser);
 
   int value = (int)*raw.at("intValue", nullptr, nullptr);
 
@@ -223,13 +179,10 @@ TEST(RawPropsTest, handleRawPropsSingleInt) {
 }
 
 TEST(RawPropsTest, handleRawPropsSingleIntGetManyTimes) {
-  ContextContainer contextContainer{};
-  PropsParserContext parserContext{-1, contextContainer};
-
   const auto &raw = RawProps(folly::dynamic::object("intValue", (int)42.42));
   auto parser = RawPropsParser();
   parser.prepare<PropsSingleInt>();
-  raw.parse(parser, parserContext);
+  raw.parse(parser);
 
   EXPECT_EQ((int)*raw.at("intValue", nullptr, nullptr), 42);
   EXPECT_EQ((int)*raw.at("intValue", nullptr, nullptr), 42);
@@ -237,17 +190,13 @@ TEST(RawPropsTest, handleRawPropsSingleIntGetManyTimes) {
 }
 
 TEST(RawPropsTest, handleRawPropsPrimitiveTypes) {
-  ContextContainer contextContainer{};
-  PropsParserContext parserContext{-1, contextContainer};
-
-  const auto &raw = RawProps(
-      folly::dynamic::object("intValue", (int)42)("doubleValue", (double)17.42)(
-          "floatValue",
-          (float)66.67)("stringValue", "helloworld")("boolValue", true));
+  const auto &raw = RawProps(folly::dynamic::object("intValue", (int)42)(
+      "doubleValue", (double)17.42)("floatValue", (float)66.67)(
+      "stringValue", "helloworld")("boolValue", true));
 
   auto parser = RawPropsParser();
   parser.prepare<PropsPrimitiveTypes>();
-  raw.parse(parser, parserContext);
+  raw.parse(parser);
 
   EXPECT_EQ((int)*raw.at("intValue", nullptr, nullptr), 42);
   EXPECT_NEAR((double)*raw.at("doubleValue", nullptr, nullptr), 17.42, 0.0001);
@@ -259,17 +208,13 @@ TEST(RawPropsTest, handleRawPropsPrimitiveTypes) {
 }
 
 TEST(RawPropsTest, handleRawPropsPrimitiveTypesGetTwice) {
-  ContextContainer contextContainer{};
-  PropsParserContext parserContext{-1, contextContainer};
-
-  const auto &raw = RawProps(
-      folly::dynamic::object("intValue", (int)42)("doubleValue", (double)17.42)(
-          "floatValue",
-          (float)66.67)("stringValue", "helloworld")("boolValue", true));
+  const auto &raw = RawProps(folly::dynamic::object("intValue", (int)42)(
+      "doubleValue", (double)17.42)("floatValue", (float)66.67)(
+      "stringValue", "helloworld")("boolValue", true));
 
   auto parser = RawPropsParser();
   parser.prepare<PropsPrimitiveTypes>();
-  raw.parse(parser, parserContext);
+  raw.parse(parser);
 
   EXPECT_EQ((int)*raw.at("intValue", nullptr, nullptr), 42);
   EXPECT_NEAR((double)*raw.at("doubleValue", nullptr, nullptr), 17.42, 0.0001);
@@ -289,17 +234,13 @@ TEST(RawPropsTest, handleRawPropsPrimitiveTypesGetTwice) {
 }
 
 TEST(RawPropsTest, handleRawPropsPrimitiveTypesGetOutOfOrder) {
-  ContextContainer contextContainer{};
-  PropsParserContext parserContext{-1, contextContainer};
-
-  const auto &raw = RawProps(
-      folly::dynamic::object("intValue", (int)42)("doubleValue", (double)17.42)(
-          "floatValue",
-          (float)66.67)("stringValue", "helloworld")("boolValue", true));
+  const auto &raw = RawProps(folly::dynamic::object("intValue", (int)42)(
+      "doubleValue", (double)17.42)("floatValue", (float)66.67)(
+      "stringValue", "helloworld")("boolValue", true));
 
   auto parser = RawPropsParser();
   parser.prepare<PropsPrimitiveTypes>();
-  raw.parse(parser, parserContext);
+  raw.parse(parser);
 
   EXPECT_EQ((int)*raw.at("intValue", nullptr, nullptr), 42);
   EXPECT_NEAR((double)*raw.at("doubleValue", nullptr, nullptr), 17.42, 0.0001);
@@ -319,14 +260,11 @@ TEST(RawPropsTest, handleRawPropsPrimitiveTypesGetOutOfOrder) {
 }
 
 TEST(RawPropsTest, handleRawPropsPrimitiveTypesIncomplete) {
-  ContextContainer contextContainer{};
-  PropsParserContext parserContext{-1, contextContainer};
-
   const auto &raw = RawProps(folly::dynamic::object("intValue", (int)42));
 
   auto parser = RawPropsParser();
   parser.prepare<PropsPrimitiveTypes>();
-  raw.parse(parser, parserContext);
+  raw.parse(parser);
 
   EXPECT_EQ((int)*raw.at("intValue", nullptr, nullptr), 42);
   EXPECT_EQ(raw.at("doubleValue", nullptr, nullptr), nullptr);
@@ -337,16 +275,13 @@ TEST(RawPropsTest, handleRawPropsPrimitiveTypesIncomplete) {
   EXPECT_EQ((int)*raw.at("intValue", nullptr, nullptr), 42);
 }
 
-#ifdef REACT_NATIVE_DEBUG
+#ifndef NDEBUG
 TEST(RawPropsTest, handleRawPropsPrimitiveTypesIncorrectLookup) {
-  ContextContainer contextContainer{};
-  PropsParserContext parserContext{-1, contextContainer};
-
   const auto &raw = RawProps(folly::dynamic::object("intValue", (int)42));
 
   auto parser = RawPropsParser();
   parser.prepare<PropsPrimitiveTypes>();
-  raw.parse(parser, parserContext);
+  raw.parse(parser);
 
   // Before D18662135, looking up an invalid key would trigger
   // an infinite loop. This is out of contract, so we should only
@@ -357,16 +292,12 @@ TEST(RawPropsTest, handleRawPropsPrimitiveTypesIncorrectLookup) {
 #endif
 
 TEST(RawPropsTest, handlePropsMultiLookup) {
-  ContextContainer contextContainer{};
-  PropsParserContext parserContext{-1, contextContainer};
-
   const auto &raw = RawProps(folly::dynamic::object("floatValue", (float)10.0));
   auto parser = RawPropsParser();
   parser.prepare<PropsMultiLookup>();
-  raw.parse(parser, parserContext);
+  raw.parse(parser);
 
-  auto props = std::make_shared<PropsMultiLookup>(
-      parserContext, PropsMultiLookup(), raw);
+  auto props = std::make_shared<PropsMultiLookup>(PropsMultiLookup(), raw);
 
   // Props are not sealed after applying raw props.
   EXPECT_FALSE(props->getSealed());

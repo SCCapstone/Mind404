@@ -23,7 +23,6 @@ using namespace facebook::react;
 RCT_EXPORT_MODULE()
 
 @synthesize bridge = _bridge;
-@synthesize bundleManager = _bundleManager;
 
 + (BOOL)requiresMainQueueSetup
 {
@@ -38,7 +37,7 @@ RCT_EXPORT_MODULE()
 - (NSDictionary<NSString *, id> *)getConstants
 {
   return @{
-    @"scriptURL" : self.bundleManager.bundleURL.absoluteString ?: @"",
+    @"scriptURL" : self.bridge.bundleURL.absoluteString ?: @"",
   };
 }
 

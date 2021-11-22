@@ -15,7 +15,7 @@
 
 @interface RCTNativeAnimatedNodesManager : NSObject
 
-- (nonnull instancetype)initWithBridge:(RCTBridge *)bridge
+- (nonnull instancetype)initWithBridge:(nonnull RCTBridge *)bridge
                       surfacePresenter:(id<RCTSurfacePresenterStub>)surfacePresenter;
 
 - (void)updateAnimations;

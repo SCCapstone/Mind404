@@ -9,11 +9,7 @@
 
 #include <react/renderer/graphics/Geometry.h>
 
-#ifdef ANDROID
 #include <folly/dynamic.h>
-#include <react/renderer/mapbuffer/MapBuffer.h>
-#include <react/renderer/mapbuffer/MapBufferBuilder.h>
-#endif
 
 namespace facebook {
 namespace react {
@@ -25,7 +21,6 @@ class ScrollViewState final {
  public:
   Point contentOffset;
   Rect contentBoundingRect;
-  int scrollAwayPaddingTop;
 
   /*
    * Returns size of scrollable area.
@@ -35,19 +30,13 @@ class ScrollViewState final {
 #ifdef ANDROID
   ScrollViewState() = default;
   ScrollViewState(ScrollViewState const &previousState, folly::dynamic data)
-      : contentOffset(
-            {(Float)data["contentOffsetLeft"].getDouble(),
-             (Float)data["contentOffsetTop"].getDouble()}),
-        contentBoundingRect({}),
-        scrollAwayPaddingTop((Float)data["scrollAwayPaddingTop"].getDouble()){};
+      : contentOffset({(Float)data["contentOffsetLeft"].getDouble(),
+                       (Float)data["contentOffsetTop"].getDouble()}),
+        contentBoundingRect({}){};
 
   folly::dynamic getDynamic() const {
     return folly::dynamic::object("contentOffsetLeft", contentOffset.x)(
-        "contentOffsetTop", contentOffset.y)(
-        "scrollAwayPaddingTop", scrollAwayPaddingTop);
-  };
-  MapBuffer getMapBuffer() const {
-    return MapBufferBuilder::EMPTY();
+        "contentOffsetTop", contentOffset.y);
   };
 #endif
 };

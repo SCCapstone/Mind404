@@ -12,10 +12,8 @@
 #include <folly/Conv.h>
 #include <folly/dynamic.h>
 #include <glog/logging.h>
-#include <react/debug/react_native_assert.h>
 #include <react/renderer/components/view/primitives.h>
 #include <react/renderer/core/LayoutMetrics.h>
-#include <react/renderer/core/PropsParserContext.h>
 #include <react/renderer/graphics/Geometry.h>
 #include <react/renderer/graphics/Transform.h>
 #include <stdlib.h>
@@ -49,7 +47,7 @@ inline Float floatFromYogaFloat(float value) {
 }
 
 inline float yogaFloatFromFloat(Float value) {
-  if (!std::isfinite(value)) {
+  if (std::isinf(value)) {
     return YGUndefined;
   }
 
@@ -91,7 +89,7 @@ inline YGFloatOptional yogaOptionalFloatFromFloat(Float value) {
 inline YGValue yogaStyleValueFromFloat(
     const Float &value,
     YGUnit unit = YGUnitPoint) {
-  if (!std::isfinite(value)) {
+  if (std::isnan(value)) {
     return YGValueUndefined;
   }
 
@@ -119,13 +117,11 @@ inline better::optional<Float> optionalFloatFromYogaValue(
 inline LayoutMetrics layoutMetricsFromYogaNode(YGNode &yogaNode) {
   auto layoutMetrics = LayoutMetrics{};
 
-  layoutMetrics.frame = Rect{
-      Point{
-          floatFromYogaFloat(YGNodeLayoutGetLeft(&yogaNode)),
-          floatFromYogaFloat(YGNodeLayoutGetTop(&yogaNode))},
-      Size{
-          floatFromYogaFloat(YGNodeLayoutGetWidth(&yogaNode)),
-          floatFromYogaFloat(YGNodeLayoutGetHeight(&yogaNode))}};
+  layoutMetrics.frame =
+      Rect{Point{floatFromYogaFloat(YGNodeLayoutGetLeft(&yogaNode)),
+                 floatFromYogaFloat(YGNodeLayoutGetTop(&yogaNode))},
+           Size{floatFromYogaFloat(YGNodeLayoutGetWidth(&yogaNode)),
+                floatFromYogaFloat(YGNodeLayoutGetHeight(&yogaNode))}};
 
   layoutMetrics.borderWidth = EdgeInsets{
       floatFromYogaFloat(YGNodeLayoutGetBorder(&yogaNode, YGEdgeLeft)),
@@ -166,11 +162,8 @@ inline YGDirection yogaDirectionFromLayoutDirection(LayoutDirection direction) {
   }
 }
 
-inline void fromRawValue(
-    const PropsParserContext &context,
-    const RawValue &value,
-    YGDirection &result) {
-  react_native_assert(value.hasType<std::string>());
+inline void fromRawValue(const RawValue &value, YGDirection &result) {
+  assert(value.hasType<std::string>());
   auto stringValue = (std::string)value;
   if (stringValue == "inherit") {
     result = YGDirectionInherit;
@@ -185,14 +178,11 @@ inline void fromRawValue(
     return;
   }
   LOG(FATAL) << "Could not parse YGDirection:" << stringValue;
-  react_native_assert(false);
+  assert(false);
 }
 
-inline void fromRawValue(
-    const PropsParserContext &context,
-    const RawValue &value,
-    YGFlexDirection &result) {
-  react_native_assert(value.hasType<std::string>());
+inline void fromRawValue(const RawValue &value, YGFlexDirection &result) {
+  assert(value.hasType<std::string>());
   auto stringValue = (std::string)value;
   if (stringValue == "row") {
     result = YGFlexDirectionRow;
@@ -211,14 +201,11 @@ inline void fromRawValue(
     return;
   }
   LOG(FATAL) << "Could not parse YGFlexDirection:" << stringValue;
-  react_native_assert(false);
+  assert(false);
 }
 
-inline void fromRawValue(
-    const PropsParserContext &context,
-    const RawValue &value,
-    YGJustify &result) {
-  react_native_assert(value.hasType<std::string>());
+inline void fromRawValue(const RawValue &value, YGJustify &result) {
+  assert(value.hasType<std::string>());
   auto stringValue = (std::string)value;
   if (stringValue == "flex-start") {
     result = YGJustifyFlexStart;
@@ -245,14 +232,11 @@ inline void fromRawValue(
     return;
   }
   LOG(FATAL) << "Could not parse YGJustify:" << stringValue;
-  react_native_assert(false);
+  assert(false);
 }
 
-inline void fromRawValue(
-    const PropsParserContext &context,
-    const RawValue &value,
-    YGAlign &result) {
-  react_native_assert(value.hasType<std::string>());
+inline void fromRawValue(const RawValue &value, YGAlign &result) {
+  assert(value.hasType<std::string>());
   auto stringValue = (std::string)value;
   if (stringValue == "auto") {
     result = YGAlignAuto;
@@ -287,14 +271,11 @@ inline void fromRawValue(
     return;
   }
   LOG(FATAL) << "Could not parse YGAlign:" << stringValue;
-  react_native_assert(false);
+  assert(false);
 }
 
-inline void fromRawValue(
-    const PropsParserContext &context,
-    const RawValue &value,
-    YGPositionType &result) {
-  react_native_assert(value.hasType<std::string>());
+inline void fromRawValue(const RawValue &value, YGPositionType &result) {
+  assert(value.hasType<std::string>());
   auto stringValue = (std::string)value;
   if (stringValue == "static") {
     result = YGPositionTypeStatic;
@@ -309,14 +290,11 @@ inline void fromRawValue(
     return;
   }
   LOG(FATAL) << "Could not parse YGPositionType:" << stringValue;
-  react_native_assert(false);
+  assert(false);
 }
 
-inline void fromRawValue(
-    const PropsParserContext &context,
-    const RawValue &value,
-    YGWrap &result) {
-  react_native_assert(value.hasType<std::string>());
+inline void fromRawValue(const RawValue &value, YGWrap &result) {
+  assert(value.hasType<std::string>());
   auto stringValue = (std::string)value;
   if (stringValue == "nowrap") {
     result = YGWrapNoWrap;
@@ -331,14 +309,11 @@ inline void fromRawValue(
     return;
   }
   LOG(FATAL) << "Could not parse YGWrap:" << stringValue;
-  react_native_assert(false);
+  assert(false);
 }
 
-inline void fromRawValue(
-    const PropsParserContext &context,
-    const RawValue &value,
-    YGOverflow &result) {
-  react_native_assert(value.hasType<std::string>());
+inline void fromRawValue(const RawValue &value, YGOverflow &result) {
+  assert(value.hasType<std::string>());
   auto stringValue = (std::string)value;
   if (stringValue == "visible") {
     result = YGOverflowVisible;
@@ -353,14 +328,11 @@ inline void fromRawValue(
     return;
   }
   LOG(FATAL) << "Could not parse YGOverflow:" << stringValue;
-  react_native_assert(false);
+  assert(false);
 }
 
-inline void fromRawValue(
-    const PropsParserContext &context,
-    const RawValue &value,
-    YGDisplay &result) {
-  react_native_assert(value.hasType<std::string>());
+inline void fromRawValue(const RawValue &value, YGDisplay &result) {
+  assert(value.hasType<std::string>());
   auto stringValue = (std::string)value;
   if (stringValue == "flex") {
     result = YGDisplayFlex;
@@ -371,13 +343,10 @@ inline void fromRawValue(
     return;
   }
   LOG(FATAL) << "Could not parse YGDisplay:" << stringValue;
-  react_native_assert(false);
+  assert(false);
 }
 
-inline void fromRawValue(
-    const PropsParserContext &context,
-    const RawValue &value,
-    YGStyle::ValueRepr &result) {
+inline void fromRawValue(const RawValue &value, YGStyle::ValueRepr &result) {
   if (value.hasType<Float>()) {
     result = yogaStyleValueFromFloat((Float)value);
     return;
@@ -401,10 +370,7 @@ inline void fromRawValue(
   result = YGValueUndefined;
 }
 
-inline void fromRawValue(
-    const PropsParserContext &context,
-    const RawValue &value,
-    YGFloatOptional &result) {
+inline void fromRawValue(const RawValue &value, YGFloatOptional &result) {
   if (value.hasType<float>()) {
     result = YGFloatOptional((float)value);
     return;
@@ -416,30 +382,27 @@ inline void fromRawValue(
     }
   }
   LOG(FATAL) << "Could not parse YGFloatOptional";
-  react_native_assert(false);
+  assert(false);
 }
 
 inline Float toRadians(const RawValue &value) {
   if (value.hasType<Float>()) {
     return (Float)value;
   }
-  react_native_assert(value.hasType<std::string>());
+  assert(value.hasType<std::string>());
   auto stringValue = (std::string)value;
   char *suffixStart;
   double num = strtod(
       stringValue.c_str(), &suffixStart); // can't use std::stod, probably
                                           // because of old Android NDKs
   if (0 == strncmp(suffixStart, "deg", 3)) {
-    return static_cast<Float>(num * M_PI / 180.0f);
+    return num * M_PI / 180;
   }
-  return static_cast<Float>(num); // assume suffix is "rad"
+  return num; // assume suffix is "rad"
 }
 
-inline void fromRawValue(
-    const PropsParserContext &context,
-    const RawValue &value,
-    Transform &result) {
-  react_native_assert(value.hasType<std::vector<RawValue>>());
+inline void fromRawValue(const RawValue &value, Transform &result) {
+  assert(value.hasType<std::vector<RawValue>>());
   auto transformMatrix = Transform{};
   auto configurations = static_cast<std::vector<RawValue>>(value);
 
@@ -457,9 +420,9 @@ inline void fromRawValue(
     auto &parameters = pair->second;
 
     if (operation == "matrix") {
-      react_native_assert(parameters.hasType<std::vector<Float>>());
+      assert(parameters.hasType<std::vector<Float>>());
       auto numbers = (std::vector<Float>)parameters;
-      react_native_assert(numbers.size() == transformMatrix.matrix.size());
+      assert(numbers.size() == transformMatrix.matrix.size());
       auto i = 0;
       for (auto number : numbers) {
         transformMatrix.matrix[i++] = number;
@@ -513,11 +476,8 @@ inline void fromRawValue(
   result = transformMatrix;
 }
 
-inline void fromRawValue(
-    const PropsParserContext &context,
-    const RawValue &value,
-    PointerEventsMode &result) {
-  react_native_assert(value.hasType<std::string>());
+inline void fromRawValue(const RawValue &value, PointerEventsMode &result) {
+  assert(value.hasType<std::string>());
   auto stringValue = (std::string)value;
   if (stringValue == "auto") {
     result = PointerEventsMode::Auto;
@@ -536,14 +496,11 @@ inline void fromRawValue(
     return;
   }
   LOG(FATAL) << "Could not parse PointerEventsMode:" << stringValue;
-  react_native_assert(false);
+  assert(false);
 }
 
-inline void fromRawValue(
-    const PropsParserContext &context,
-    const RawValue &value,
-    BackfaceVisibility &result) {
-  react_native_assert(value.hasType<std::string>());
+inline void fromRawValue(const RawValue &value, BackfaceVisibility &result) {
+  assert(value.hasType<std::string>());
   auto stringValue = (std::string)value;
   if (stringValue == "auto") {
     result = BackfaceVisibility::Auto;
@@ -558,14 +515,11 @@ inline void fromRawValue(
     return;
   }
   LOG(FATAL) << "Could not parse BackfaceVisibility:" << stringValue;
-  react_native_assert(false);
+  assert(false);
 }
 
-inline void fromRawValue(
-    const PropsParserContext &context,
-    const RawValue &value,
-    BorderStyle &result) {
-  react_native_assert(value.hasType<std::string>());
+inline void fromRawValue(const RawValue &value, BorderStyle &result) {
+  assert(value.hasType<std::string>());
   auto stringValue = (std::string)value;
   if (stringValue == "solid") {
     result = BorderStyle::Solid;
@@ -580,7 +534,7 @@ inline void fromRawValue(
     return;
   }
   LOG(FATAL) << "Could not parse BorderStyle:" << stringValue;
-  react_native_assert(false);
+  assert(false);
 }
 
 inline std::string toString(

@@ -8,14 +8,12 @@
 #pragma once
 
 #include <react/renderer/components/iostextinput/primitives.h>
-#include <react/renderer/core/PropsParserContext.h>
 #include <react/renderer/core/propsConversions.h>
 
 namespace facebook {
 namespace react {
 
 inline void fromRawValue(
-    const PropsParserContext &context,
     const RawValue &value,
     AutocapitalizationType &result) {
   auto string = (std::string)value;
@@ -38,10 +36,7 @@ inline void fromRawValue(
   abort();
 }
 
-inline void fromRawValue(
-    const PropsParserContext &context,
-    const RawValue &value,
-    KeyboardAppearance &result) {
+inline void fromRawValue(const RawValue &value, KeyboardAppearance &result) {
   auto string = (std::string)value;
   if (string == "default") {
     result = KeyboardAppearance::Default;
@@ -58,10 +53,7 @@ inline void fromRawValue(
   abort();
 }
 
-inline void fromRawValue(
-    const PropsParserContext &context,
-    const RawValue &value,
-    ReturnKeyType &result) {
+inline void fromRawValue(const RawValue &value, ReturnKeyType &result) {
   auto string = (std::string)value;
   if (string == "default") {
     result = ReturnKeyType::Default;
@@ -127,7 +119,6 @@ inline void fromRawValue(
 }
 
 inline void fromRawValue(
-    const PropsParserContext &context,
     const RawValue &value,
     TextInputAccessoryVisibilityMode &result) {
   auto string = (std::string)value;
@@ -150,10 +141,7 @@ inline void fromRawValue(
   abort();
 }
 
-inline void fromRawValue(
-    const PropsParserContext &context,
-    const RawValue &value,
-    KeyboardType &result) {
+inline void fromRawValue(const RawValue &value, KeyboardType &result) {
   auto string = (std::string)value;
   if (string == "default") {
     result = KeyboardType::Default;
@@ -175,10 +163,6 @@ inline void fromRawValue(
     result = KeyboardType::NumberPad;
     return;
   }
-  if (string == "url") {
-    result = KeyboardType::URL;
-    return;
-  }
   if (string == "decimal-pad") {
     result = KeyboardType::DecimalPad;
     return;
@@ -191,6 +175,10 @@ inline void fromRawValue(
   }
   if (string == "numbers-and-punctuation") {
     result = KeyboardType::NumbersAndPunctuation;
+    return;
+  }
+  if (string == "url") {
+    result = KeyboardType::URL;
     return;
   }
   if (string == "name-phone-pad") {

@@ -344,7 +344,6 @@ class SpringAnimation extends Animation {
       this.__debouncedOnEnd({finished: true});
       return;
     }
-    // $FlowFixMe[method-unbinding] added when improving typing for this parameters
     this._animationFrame = requestAnimationFrame(this.onUpdate.bind(this));
   }
 

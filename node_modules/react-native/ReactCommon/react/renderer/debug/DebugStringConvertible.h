@@ -13,10 +13,24 @@
 #include <unordered_set>
 #include <vector>
 
-#include "flags.h"
-
 namespace facebook {
 namespace react {
+
+#ifndef NDEBUG
+#define RN_DEBUG_STRING_CONVERTIBLE 1
+#endif
+
+// To Debug Yoga layout, uncomment the following line.
+// #define RN_DEBUG_YOGA_LOGGER 1
+//
+// Additional logging can be enabled editing yoga.cpp (e.g. gPrintChanges,
+// gPrintSkips)
+
+// To Debug introspection of RN Shadow tree, uncomment the following line:
+// #define RN_SHADOW_TREE_INTROSPECTION 1
+
+// To enable asserts (crashing) when checking stub trees
+// #define RN_VALIDATE_SHADOW_TREE_STUB 1
 
 #if RN_DEBUG_STRING_CONVERTIBLE
 
@@ -192,16 +206,16 @@ std::string getDebugChildrenDescription(
     return "";
   }
 
-  auto separator = options.format ? std::string{"\n"} : std::string{""};
+  auto trailing = options.format ? std::string{"\n"} : std::string{""};
   auto childrenString = std::string{""};
   options.depth++;
 
   for (auto child : getDebugChildren(object, options)) {
-    childrenString += getDebugDescription(child, options) + separator;
+    childrenString += getDebugDescription(child, options) + trailing;
   }
 
-  if (!childrenString.empty() && !separator.empty()) {
-    // Removing separator fragment.
+  if (!childrenString.empty() && !trailing.empty()) {
+    // Removing trailing fragment.
     childrenString.erase(childrenString.end() - 1);
   }
 
@@ -230,16 +244,16 @@ std::string getDebugDescription(
   auto childrenString = getDebugChildrenDescription(object, options);
   auto propsString = getDebugPropsDescription(object, options);
 
-  auto prefix =
+  auto leading =
       options.format ? std::string(options.depth * 2, ' ') : std::string{""};
-  auto separator = options.format ? std::string{"\n"} : std::string{""};
+  auto trailing = options.format ? std::string{"\n"} : std::string{""};
 
-  return prefix + "<" + nameString +
+  return leading + "<" + nameString +
       (valueString.empty() ? "" : "=" + valueString) +
       (propsString.empty() ? "" : " " + propsString) +
       (childrenString.empty() ? "/>"
-                              : ">" + separator + childrenString + separator +
-               prefix + "</" + nameString + ">");
+                              : ">" + trailing + childrenString + trailing +
+               leading + "</" + nameString + ">");
 }
 
 /*

@@ -35,7 +35,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL passThroughTouches;
 @property (nonatomic, assign) NSTimeInterval loadingViewFadeDelay;
 @property (nonatomic, assign) NSTimeInterval loadingViewFadeDuration;
-@property (nonatomic, assign) CGSize minimumSize;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge
                     moduleName:(NSString *)moduleName

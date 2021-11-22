@@ -32,11 +32,10 @@ using namespace facebook::react;
 {
   RCTAssert(
       childComponentView.superview == nil,
-      @"Attempt to mount already mounted component view. (parent: %@, child: %@, index: %@, existing parent: %@)",
+      @"Attempt to mount already mounted component view. (parent: %@, child: %@, index: %@)",
       self,
       childComponentView,
-      @(index),
-      @([childComponentView.superview tag]));
+      @(index));
   [self insertSubview:childComponentView atIndex:index];
 }
 
@@ -50,12 +49,10 @@ using namespace facebook::react;
       @(index));
   RCTAssert(
       (self.subviews.count > index) && [self.subviews objectAtIndex:index] == childComponentView,
-      @"Attempt to unmount a view which has a different index. (parent: %@, child: %@, index: %@, actual index: %@, tag at index: %@)",
+      @"Attempt to unmount a view which has a different index. (parent: %@, child: %@, index: %@)",
       self,
       childComponentView,
-      @(index),
-      @([self.subviews indexOfObject:childComponentView]),
-      @([[self.subviews objectAtIndex:index] tag]));
+      @(index));
 
   [childComponentView removeFromSuperview];
 }
@@ -135,17 +132,6 @@ using namespace facebook::react;
   return nullptr;
 }
 
-- (BOOL)isJSResponder
-{
-  // Default implementation always returns `NO`.
-  return NO;
-}
-
-- (void)setIsJSResponder:(BOOL)isJSResponder
-{
-  // Default implementation does nothing.
-}
-
 - (void)setPropKeysManagedByAnimated_DO_NOT_USE_THIS_IS_BROKEN:(nullable NSSet<NSString *> *)propKeys
 {
   // Default implementation does nothing.
@@ -154,18 +140,6 @@ using namespace facebook::react;
 - (nullable NSSet<NSString *> *)propKeysManagedByAnimated_DO_NOT_USE_THIS_IS_BROKEN
 {
   return nil;
-}
-
-- (void)updateClippedSubviewsWithClipRect:(CGRect)clipRect relativeToView:(UIView *)clipView
-{
-  clipRect = [clipView convertRect:clipRect toView:self];
-
-  // Normal views don't support unmounting, so all
-  // this does is forward message to our subviews,
-  // in case any of those do support it
-  for (UIView *subview in self.subviews) {
-    [subview updateClippedSubviewsWithClipRect:clipRect relativeToView:self];
-  }
 }
 
 @end

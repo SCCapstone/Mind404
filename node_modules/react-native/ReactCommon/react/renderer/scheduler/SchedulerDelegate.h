@@ -34,32 +34,26 @@ class SchedulerDelegate {
    */
   virtual void schedulerDidRequestPreliminaryViewAllocation(
       SurfaceId surfaceId,
-      const ShadowNode &shadowView) = 0;
-
-  /*
-   * Called right after a ShadowNode is cloned.
-   */
-  virtual void schedulerDidCloneShadowNode(
-      SurfaceId surfaceId,
-      const ShadowNode &oldShadowNode,
-      const ShadowNode &newShadowNode) = 0;
+      const ShadowView &shadowView) = 0;
 
   virtual void schedulerDidDispatchCommand(
       const ShadowView &shadowView,
       std::string const &commandName,
       folly::dynamic const args) = 0;
 
-  virtual void schedulerDidSendAccessibilityEvent(
-      const ShadowView &shadowView,
-      std::string const &eventType) = 0;
-
   /*
    * Set JS responder for a view
    */
-  virtual void schedulerDidSetIsJSResponder(
-      ShadowView const &shadowView,
-      bool isJSResponder,
+  virtual void schedulerDidSetJSResponder(
+      SurfaceId surfaceId,
+      const ShadowView &shadowView,
+      const ShadowView &initialShadowView,
       bool blockNativeResponder) = 0;
+
+  /*
+   * Clear the JSResponder for a view
+   */
+  virtual void schedulerDidClearJSResponder() = 0;
 
   virtual ~SchedulerDelegate() noexcept = default;
 };

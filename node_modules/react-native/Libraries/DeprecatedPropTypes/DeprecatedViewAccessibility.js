@@ -15,7 +15,6 @@ module.exports = {
   DeprecatedAccessibilityRoles: [
     'none',
     'button',
-    'togglebutton',
     'link',
     'search',
     'image',
@@ -40,7 +39,6 @@ module.exports = {
     'tab',
     'tablist',
     'timer',
-    'list',
     'toolbar',
   ],
 };

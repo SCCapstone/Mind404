@@ -46,9 +46,9 @@ const NativeAnimatedAPI = NativeAnimatedHelper.API;
 function _flush(rootNode: AnimatedValue): void {
   const animatedStyles = new Set();
   function findAnimatedStyles(node) {
-    /* $FlowFixMe[prop-missing] (>=0.68.0 site=react_native_fb) This comment
-     * suppresses an error found when Flow v0.68 was deployed. To see the error
-     * delete this comment and run Flow. */
+    /* $FlowFixMe(>=0.68.0 site=react_native_fb) This comment suppresses an
+     * error found when Flow v0.68 was deployed. To see the error delete this
+     * comment and run Flow. */
     if (typeof node.update === 'function') {
       animatedStyles.add(node);
     } else {
@@ -56,19 +56,8 @@ function _flush(rootNode: AnimatedValue): void {
     }
   }
   findAnimatedStyles(rootNode);
-  // $FlowFixMe[prop-missing]
+  /* $FlowFixMe */
   animatedStyles.forEach(animatedStyle => animatedStyle.update());
-}
-
-/**
- * Some operations are executed only on batch end, which is _mostly_ scheduled when
- * Animated component props change. For some of the changes which require immediate execution
- * (e.g. setValue), we create a separate batch in case none is scheduled.
- */
-function _executeAsAnimatedBatch(id: string, operation: () => void) {
-  NativeAnimatedAPI.setWaitingForIdentifier(id);
-  operation();
-  NativeAnimatedAPI.unsetWaitingForIdentifier(id);
 }
 
 /**
@@ -126,9 +115,7 @@ class AnimatedValue extends AnimatedWithChildren {
       !this.__isNative /* don't perform a flush for natively driven values */,
     );
     if (this.__isNative) {
-      _executeAsAnimatedBatch(this.__getNativeTag().toString(), () => {
-        NativeAnimatedAPI.setAnimatedNodeValue(this.__getNativeTag(), value);
-      });
+      NativeAnimatedAPI.setAnimatedNodeValue(this.__getNativeTag(), value);
     }
   }
 
@@ -196,12 +183,6 @@ class AnimatedValue extends AnimatedWithChildren {
   resetAnimation(callback?: ?(value: number) => void): void {
     this.stopAnimation(callback);
     this._value = this._startingValue;
-    if (this.__isNative) {
-      NativeAnimatedAPI.setAnimatedNodeValue(
-        this.__getNativeTag(),
-        this._startingValue,
-      );
-    }
   }
 
   _onAnimatedValueUpdateReceived(value: number): void {

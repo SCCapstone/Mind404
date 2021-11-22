@@ -8,11 +8,14 @@
  * @flow strict-local
  */
 
+'use strict';
+
 import codegenNativeComponent from '../Utilities/codegenNativeComponent';
 import type {HostComponent} from '../Renderer/shims/ReactNativeTypes';
 import type {
   WithDefault,
   DirectEventHandler,
+  BubblingEventHandler,
   Int32,
 } from '../Types/CodegenTypes';
 
@@ -90,14 +93,7 @@ type NativeProps = $ReadOnly<{|
    *
    * See https://reactnative.dev/docs/modal.html#ondismiss
    */
-  onDismiss?: ?DirectEventHandler<null>,
-
-  /**
-   * The `visible` prop determines whether your modal is visible.
-   *
-   * See https://reactnative.dev/docs/modal.html#visible
-   */
-  visible?: WithDefault<boolean, false>,
+  onDismiss?: ?BubblingEventHandler<null>,
 
   /**
    * Deprecated. Use the `animationType` prop instead.

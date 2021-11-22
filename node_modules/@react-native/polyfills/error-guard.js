@@ -59,10 +59,7 @@ const ErrorUtils = {
   ): ?TOut {
     try {
       _inGuard++;
-      /* $FlowFixMe[incompatible-call] : TODO T48204745 (1) apply(context,
-       * null) is fine. (2) array -> rest array should work */
-      /* $FlowFixMe[incompatible-type] : TODO T48204745 (1) apply(context,
-       * null) is fine. (2) array -> rest array should work */
+      // $FlowFixMe: TODO T48204745 (1) apply(context, null) is fine. (2) array -> rest array should work
       return fun.apply(context, args);
     } catch (e) {
       ErrorUtils.reportError(e);
@@ -77,10 +74,7 @@ const ErrorUtils = {
     args?: ?TArgs,
   ): ?TOut {
     if (ErrorUtils.inGuard()) {
-      /* $FlowFixMe[incompatible-call] : TODO T48204745 (1) apply(context,
-       * null) is fine. (2) array -> rest array should work */
-      /* $FlowFixMe[incompatible-type] : TODO T48204745 (1) apply(context,
-       * null) is fine. (2) array -> rest array should work */
+      // $FlowFixMe: TODO T48204745 (1) apply(context, null) is fine. (2) array -> rest array should work
       return fun.apply(context, args);
     } else {
       ErrorUtils.applyWithGuard(fun, context, args);

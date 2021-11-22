@@ -10,7 +10,6 @@
 #include <cmath>
 
 #include <glog/logging.h>
-#include <react/debug/react_native_assert.h>
 
 namespace facebook {
 namespace react {
@@ -190,7 +189,7 @@ Transform Transform::Interpolate(
   // transform If at any point we hit an "Arbitrary" Transform, return at that
   // point
   Transform result = Transform::Identity();
-  for (size_t i = 0, j = 0;
+  for (int i = 0, j = 0;
        i < lhs.operations.size() || j < rhs.operations.size();) {
     bool haveLHS = i < lhs.operations.size();
     bool haveRHS = j < rhs.operations.size();
@@ -227,8 +226,8 @@ Transform Transform::Interpolate(
         (haveRHS && rhs.operations[j].type == type
              ? rhs.operations[j++]
              : Transform::DefaultTransformOperation(type));
-    react_native_assert(type == lhsOp.type);
-    react_native_assert(type == rhsOp.type);
+    assert(type == lhsOp.type);
+    assert(type == rhsOp.type);
 
     result = result *
         Transform::FromTransformOperation(TransformOperation{

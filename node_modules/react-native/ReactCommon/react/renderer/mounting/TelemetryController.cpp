@@ -30,7 +30,7 @@ bool TelemetryController::pullTransaction(
   auto surfaceId = transaction.getSurfaceId();
   auto number = transaction.getNumber();
   auto telemetry = transaction.getTelemetry();
-  auto numberOfMutations = static_cast<int>(transaction.getMutations().size());
+  auto numberOfMutations = transaction.getMutations().size();
 
   mutex_.lock();
   auto compoundTelemetry = compoundTelemetry_;

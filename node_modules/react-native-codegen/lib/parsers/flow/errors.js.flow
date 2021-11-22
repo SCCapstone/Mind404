@@ -11,17 +11,11 @@
 'use strict';
 
 class ParserError extends Error {
-  nodes: $ReadOnlyArray<$FlowFixMe>;
-  constructor(
-    hasteModuleName: string,
-    astNodeOrNodes: $FlowFixMe,
-    message: string,
-  ) {
+  node: $FlowFixMe;
+  constructor(hasteModuleName: string, astNode: $FlowFixMe, message: string) {
     super(`Module ${hasteModuleName}: ${message}`);
 
-    this.nodes = Array.isArray(astNodeOrNodes)
-      ? astNodeOrNodes
-      : [astNodeOrNodes];
+    this.node = astNode;
 
     // assign the error class name in your custom error (as a shortcut)
     this.name = this.constructor.name;

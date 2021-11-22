@@ -20,7 +20,7 @@ import com.facebook.react.uimanager.LayoutShadowNode;
 import com.facebook.react.uimanager.PixelUtil;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
-import com.facebook.react.uimanager.UIManagerHelper;
+import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.uimanager.ViewManagerDelegate;
 import com.facebook.react.uimanager.ViewProps;
 import com.facebook.react.uimanager.annotations.ReactProp;
@@ -81,11 +81,15 @@ public class ReactSwitchManager extends SimpleViewManager<ReactSwitch>
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
           ReactContext reactContext = (ReactContext) buttonView.getContext();
 
-          int reactTag = buttonView.getId();
-          UIManagerHelper.getEventDispatcherForReactTag(reactContext, reactTag)
-              .dispatchEvent(
-                  new ReactSwitchEvent(
-                      UIManagerHelper.getSurfaceId(reactContext), reactTag, isChecked));
+          UIManagerModule uiManager = reactContext.getNativeModule(UIManagerModule.class);
+
+          if (uiManager == null) {
+            return;
+          }
+
+          uiManager
+              .getEventDispatcher()
+              .dispatchEvent(new ReactSwitchEvent(buttonView.getId(), isChecked));
         }
       };
 

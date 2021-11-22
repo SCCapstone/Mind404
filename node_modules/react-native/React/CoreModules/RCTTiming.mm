@@ -118,9 +118,11 @@ RCT_EXPORT_MODULE()
   return self;
 }
 
-- (void)initialize
+- (void)setBridge:(RCTBridge *)bridge
 {
+  RCTAssert(!_bridge, @"Should never be initialized twice!");
   [self setup];
+  _bridge = bridge;
 }
 
 - (void)setup

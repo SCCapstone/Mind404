@@ -12,7 +12,6 @@
 #include <react/renderer/components/view/ViewProps.h>
 #include <react/renderer/core/LayoutConstraints.h>
 #include <react/renderer/core/LayoutContext.h>
-#include <react/renderer/core/PropsParserContext.h>
 
 namespace facebook {
 namespace react {
@@ -20,12 +19,8 @@ namespace react {
 class RootProps final : public ViewProps {
  public:
   RootProps() = default;
+  RootProps(RootProps const &sourceProps, RawProps const &rawProps);
   RootProps(
-      const PropsParserContext &context,
-      RootProps const &sourceProps,
-      RawProps const &rawProps);
-  RootProps(
-      const PropsParserContext &context,
       RootProps const &sourceProps,
       LayoutConstraints const &layoutConstraints,
       LayoutContext const &layoutContext);

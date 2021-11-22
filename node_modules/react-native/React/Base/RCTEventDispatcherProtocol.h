@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 
 #import <React/RCTBridge.h>
+#import <React/RCTJSInvokerModule.h>
 
 /**
  * The threshold at which text inputs will start warning that the JS thread
@@ -79,7 +80,7 @@ typedef NS_ENUM(NSInteger, RCTTextEventType) {
  * This class wraps the -[RCTBridge enqueueJSCall:args:] method, and
  * provides some convenience methods for generating event calls.
  */
-@protocol RCTEventDispatcherProtocol <RCTBridgeModule, RCTJSDispatcherModule>
+@protocol RCTEventDispatcherProtocol <RCTBridgeModule, RCTJSDispatcherModule, RCTJSInvokerModule>
 
 /**
  * Deprecated, do not use.

@@ -8,16 +8,13 @@
  * @flow strict-local
  */
 
+'use strict';
+
 import Dimensions from './Dimensions';
-import {
-  type DisplayMetrics,
-  type DisplayMetricsAndroid,
-} from './NativeDeviceInfo';
+import {type DisplayMetrics} from './NativeDeviceInfo';
 import {useEffect, useState} from 'react';
 
-export default function useWindowDimensions():
-  | DisplayMetrics
-  | DisplayMetricsAndroid {
+export default function useWindowDimensions(): DisplayMetrics {
   const [dimensions, setDimensions] = useState(() => Dimensions.get('window'));
   useEffect(() => {
     function handleChange({window}) {
@@ -30,13 +27,13 @@ export default function useWindowDimensions():
         setDimensions(window);
       }
     }
-    const subscription = Dimensions.addEventListener('change', handleChange);
+    Dimensions.addEventListener('change', handleChange);
     // We might have missed an update between calling `get` in render and
     // `addEventListener` in this handler, so we set it here. If there was
     // no change, React will filter out this update as a no-op.
     handleChange({window: Dimensions.get('window')});
     return () => {
-      subscription.remove();
+      Dimensions.removeEventListener('change', handleChange);
     };
   }, [dimensions]);
   return dimensions;

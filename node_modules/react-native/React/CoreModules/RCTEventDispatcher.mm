@@ -42,12 +42,14 @@ static uint16_t RCTUniqueCoalescingKeyGenerator = 0;
 
 @synthesize bridge = _bridge;
 @synthesize dispatchToJSThread = _dispatchToJSThread;
-@synthesize callableJSModules = _callableJSModules;
+@synthesize invokeJS = _invokeJS;
+@synthesize invokeJSWithModuleDotMethod = _invokeJSWithModuleDotMethod;
 
 RCT_EXPORT_MODULE()
 
-- (void)initialize
+- (void)setBridge:(RCTBridge *)bridge
 {
+  _bridge = bridge;
   _events = [NSMutableDictionary new];
   _eventQueue = [NSMutableArray new];
   _eventQueueLock = [NSLock new];
@@ -58,14 +60,26 @@ RCT_EXPORT_MODULE()
 
 - (void)sendAppEventWithName:(NSString *)name body:(id)body
 {
-  [_callableJSModules invokeModule:@"RCTNativeAppEventEmitter"
-                            method:@"emit"
-                          withArgs:body ? @[ name, body ] : @[ name ]];
+  if (_bridge) {
+    [_bridge enqueueJSCall:@"RCTNativeAppEventEmitter"
+                    method:@"emit"
+                      args:body ? @[ name, body ] : @[ name ]
+                completion:NULL];
+  } else if (_invokeJS) {
+    _invokeJS(@"RCTNativeAppEventEmitter", @"emit", body ? @[ name, body ] : @[ name ]);
+  }
 }
 
 - (void)sendDeviceEventWithName:(NSString *)name body:(id)body
 {
-  [_callableJSModules invokeModule:@"RCTDeviceEventEmitter" method:@"emit" withArgs:body ? @[ name, body ] : @[ name ]];
+  if (_bridge) {
+    [_bridge enqueueJSCall:@"RCTDeviceEventEmitter"
+                    method:@"emit"
+                      args:body ? @[ name, body ] : @[ name ]
+                completion:NULL];
+  } else if (_invokeJS) {
+    _invokeJS(@"RCTDeviceEventEmitter", @"emit", body ? @[ name, body ] : @[ name ]);
+  }
 }
 
 - (void)sendTextEventWithType:(RCTTextEventType)type
@@ -182,12 +196,11 @@ RCT_EXPORT_MODULE()
 
 - (void)dispatchEvent:(id<RCTEvent>)event
 {
-  NSString *moduleDotMethod = [[event class] moduleDotMethod];
-  NSArray<NSString *> *const components = [moduleDotMethod componentsSeparatedByString:@"."];
-  NSString *const moduleName = components[0];
-  NSString *const methodName = components[1];
-
-  [_callableJSModules invokeModule:moduleName method:methodName withArgs:[event arguments]];
+  if (_bridge) {
+    [_bridge enqueueJSCall:[[event class] moduleDotMethod] args:[event arguments]];
+  } else if (_invokeJSWithModuleDotMethod) {
+    _invokeJSWithModuleDotMethod([[event class] moduleDotMethod], [event arguments]);
+  }
 }
 
 - (dispatch_queue_t)methodQueue
@@ -209,12 +222,6 @@ RCT_EXPORT_MODULE()
   for (NSNumber *eventId in eventQueue) {
     [self dispatchEvent:events[eventId]];
   }
-}
-
-- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
-    (const facebook::react::ObjCTurboModule::InitParams &)params
-{
-  return nullptr;
 }
 
 @end

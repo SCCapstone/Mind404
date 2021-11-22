@@ -9,13 +9,11 @@
 
 #include <folly/dynamic.h>
 #include <react/renderer/components/scrollview/primitives.h>
-#include <react/renderer/core/PropsParserContext.h>
 
 namespace facebook {
 namespace react {
 
 inline void fromRawValue(
-    const PropsParserContext &context,
     const RawValue &value,
     ScrollViewSnapToAlignment &result) {
   auto string = (std::string)value;
@@ -35,7 +33,6 @@ inline void fromRawValue(
 }
 
 inline void fromRawValue(
-    const PropsParserContext &context,
     const RawValue &value,
     ScrollViewIndicatorStyle &result) {
   auto string = (std::string)value;
@@ -55,7 +52,6 @@ inline void fromRawValue(
 }
 
 inline void fromRawValue(
-    const PropsParserContext &context,
     const RawValue &value,
     ScrollViewKeyboardDismissMode &result) {
   auto string = (std::string)value;
@@ -75,7 +71,6 @@ inline void fromRawValue(
 }
 
 inline void fromRawValue(
-    const PropsParserContext &context,
     const RawValue &value,
     ContentInsetAdjustmentBehavior &result) {
   auto string = (std::string)value;

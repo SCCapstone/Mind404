@@ -11,7 +11,8 @@
 #include <react/renderer/core/ShadowNode.h>
 #include <react/renderer/mounting/MountingCoordinator.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 /*
  * Abstract class for UIManager's delegate.
@@ -30,16 +31,8 @@ class UIManagerDelegate {
    * might use this to optimistically allocate a new native view
    * instances.
    */
-  virtual void uiManagerDidCreateShadowNode(const ShadowNode &shadowNode) = 0;
-
-  /*
-   * Called each time when UIManager clones a Shadow Node. Receiver
-   * might use this to optimistically allocate a new native view
-   * instances.
-   */
-  virtual void uiManagerDidCloneShadowNode(
-      const ShadowNode &oldShadowNode,
-      const ShadowNode &newShadowNode) = 0;
+  virtual void uiManagerDidCreateShadowNode(
+      const ShadowNode::Shared &shadowNode) = 0;
 
   /*
    * Called when UIManager wants to dispatch a command to the mounting layer.
@@ -50,23 +43,20 @@ class UIManagerDelegate {
       folly::dynamic const args) = 0;
 
   /*
-   * Called when UIManager wants to dispatch some accessibility event
-   * to the mounting layer. eventType is platform-specific and not all
-   * platforms will necessarily implement the same set of events.
+   * Set JS responder for a view
    */
-  virtual void uiManagerDidSendAccessibilityEvent(
-      const ShadowNode::Shared &shadowNode,
-      std::string const &eventType) = 0;
+  virtual void uiManagerDidSetJSResponder(
+      SurfaceId surfaceId,
+      ShadowNode::Shared const &shadowView,
+      bool blockNativeResponder) = 0;
 
   /*
-   * Set JS responder for a view.
+   * Clear the JSResponder for a view
    */
-  virtual void uiManagerDidSetIsJSResponder(
-      ShadowNode::Shared const &shadowNode,
-      bool isJSResponder,
-      bool blockNativeResponder) = 0;
+  virtual void uiManagerDidClearJSResponder() = 0;
 
   virtual ~UIManagerDelegate() noexcept = default;
 };
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

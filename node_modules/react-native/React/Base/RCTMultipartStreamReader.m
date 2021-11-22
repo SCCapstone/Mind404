@@ -7,6 +7,8 @@
 
 #import "RCTMultipartStreamReader.h"
 
+#import <QuartzCore/CAAnimation.h>
+
 #define CRLF @"\r\n"
 
 @implementation RCTMultipartStreamReader {

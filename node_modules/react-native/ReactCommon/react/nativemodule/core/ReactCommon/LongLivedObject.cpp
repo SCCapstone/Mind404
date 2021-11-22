@@ -43,7 +43,6 @@ void LongLivedObjectCollection::clear() const {
 
 // LongLivedObject
 LongLivedObject::LongLivedObject() {}
-LongLivedObject::~LongLivedObject() {}
 
 void LongLivedObject::allowRelease() {
   LongLivedObjectCollection::get().remove(this);

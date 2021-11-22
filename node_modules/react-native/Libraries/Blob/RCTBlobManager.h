@@ -8,9 +8,8 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBridgeModule.h>
 #import <React/RCTURLRequestHandler.h>
-#import <React/RCTInitializing.h>
 
-@interface RCTBlobManager : NSObject <RCTBridgeModule, RCTURLRequestHandler, RCTInitializing>
+@interface RCTBlobManager : NSObject <RCTBridgeModule, RCTURLRequestHandler>
 
 - (NSString *)store:(NSData *)data;
 

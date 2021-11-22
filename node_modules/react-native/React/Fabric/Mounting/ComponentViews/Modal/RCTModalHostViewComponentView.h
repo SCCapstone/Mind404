@@ -25,8 +25,6 @@
  * Subclasses may override this method.
  * Default implementation calls `[UIViewController dismissViewControllerAnimated:completion:]`.
  */
-- (void)dismissViewController:(UIViewController *)modalViewController
-                     animated:(BOOL)animated
-                   completion:(void (^)(void))completion;
+- (void)dismissViewController:(UIViewController *)modalViewController animated:(BOOL)animated;
 
 @end

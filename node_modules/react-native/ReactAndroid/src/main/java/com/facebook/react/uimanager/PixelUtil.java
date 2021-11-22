@@ -24,6 +24,11 @@ public class PixelUtil {
     return toPixelFromDIP((float) value);
   }
 
+  /** Convert from PX to SP */
+  public static float toSPFromPixel(float value) {
+    return value / DisplayMetricsHolder.getScreenDisplayMetrics().scaledDensity;
+  }
+
   /** Convert from SP to PX */
   public static float toPixelFromSP(float value) {
     return toPixelFromSP(value, Float.NaN);
@@ -53,6 +58,6 @@ public class PixelUtil {
 
   /** @return {@link float} that represents the density of the display metrics for device screen. */
   public static float getDisplayMetricDensity() {
-    return DisplayMetricsHolder.getWindowDisplayMetrics().density;
+    return DisplayMetricsHolder.getScreenDisplayMetrics().density;
   }
 }

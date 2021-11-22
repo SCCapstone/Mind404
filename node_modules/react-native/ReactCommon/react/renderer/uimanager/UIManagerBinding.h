@@ -7,14 +7,14 @@
 
 #pragma once
 
-#include <ReactCommon/RuntimeExecutor.h>
 #include <folly/dynamic.h>
 #include <jsi/jsi.h>
 #include <react/renderer/core/RawValue.h>
 #include <react/renderer/uimanager/UIManager.h>
 #include <react/renderer/uimanager/primitives.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 /*
  * Exposes UIManager to JavaScript realm.
@@ -29,16 +29,7 @@ class UIManagerBinding : public jsi::HostObject {
    * Thread synchronization must be enforced externally.
    */
   static std::shared_ptr<UIManagerBinding> createAndInstallIfNeeded(
-      jsi::Runtime &runtime,
-      RuntimeExecutor const &runtimeExecutor);
-
-  /*
-   * Returns a pointer to UIManagerBinding previously installed into a runtime.
-   * Thread synchronization must be enforced externally.
-   */
-  static std::shared_ptr<UIManagerBinding> getBinding(jsi::Runtime &runtime);
-
-  UIManagerBinding(RuntimeExecutor const &runtimeExecutor);
+      jsi::Runtime &runtime);
 
   ~UIManagerBinding();
 
@@ -57,24 +48,7 @@ class UIManagerBinding : public jsi::HostObject {
       jsi::Runtime &runtime,
       SurfaceId surfaceId,
       std::string const &moduleName,
-      folly::dynamic const &initalProps,
-      DisplayMode displayMode) const;
-
-  /*
-   * Updates the React Native Surface identified with surfaceId and moduleName
-   * with the given props.
-   * Thread synchronization must be enforced externally.
-   */
-  void setSurfaceProps(
-      jsi::Runtime &runtime,
-      SurfaceId surfaceId,
-      std::string const &moduleName,
-      folly::dynamic const &props,
-      DisplayMode displayMode) const;
-
-  jsi::Value getInspectorDataForInstance(
-      jsi::Runtime &runtime,
-      SharedEventEmitter eventEmitter) const;
+      folly::dynamic const &initalProps) const;
 
   /*
    * Stops React Native Surface with given id.
@@ -90,7 +64,6 @@ class UIManagerBinding : public jsi::HostObject {
       jsi::Runtime &runtime,
       EventTarget const *eventTarget,
       std::string const &type,
-      ReactEventPriority priority,
       ValueFactory const &payloadFactory) const;
 
   /*
@@ -110,9 +83,7 @@ class UIManagerBinding : public jsi::HostObject {
  private:
   std::shared_ptr<UIManager> uiManager_;
   std::unique_ptr<EventHandler const> eventHandler_;
-  mutable ReactEventPriority currentEventPriority_;
-
-  RuntimeExecutor runtimeExecutor_;
 };
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

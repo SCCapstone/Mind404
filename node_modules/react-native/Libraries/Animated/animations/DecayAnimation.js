@@ -84,7 +84,6 @@ class DecayAnimation extends Animation {
     if (this._useNativeDriver) {
       this.__startNativeAnimation(animatedValue);
     } else {
-      // $FlowFixMe[method-unbinding] added when improving typing for this parameters
       this._animationFrame = requestAnimationFrame(this.onUpdate.bind(this));
     }
   }
@@ -106,7 +105,6 @@ class DecayAnimation extends Animation {
 
     this._lastValue = value;
     if (this.__active) {
-      // $FlowFixMe[method-unbinding] added when improving typing for this parameters
       this._animationFrame = requestAnimationFrame(this.onUpdate.bind(this));
     }
   }

@@ -20,15 +20,11 @@ class PtrJNodeMapVanilla {
 
 public:
   PtrJNodeMapVanilla() : ptrsToIdxs_{}, javaNodes_{} {}
-  PtrJNodeMapVanilla(jlongArray javaNativePointers, jobjectArray javaNodes)
+  PtrJNodeMapVanilla(
+      jlong* nativePointers,
+      size_t nativePointersSize,
+      jobjectArray javaNodes)
       : javaNodes_{javaNodes} {
-
-    JNIEnv* env = getCurrentEnv();
-    size_t nativePointersSize = env->GetArrayLength(javaNativePointers);
-    std::vector<jlong> nativePointers(nativePointersSize);
-    env->GetLongArrayRegion(
-        javaNativePointers, 0, nativePointersSize, nativePointers.data());
-
     for (size_t i = 0; i < nativePointersSize; ++i) {
       ptrsToIdxs_[(YGNodeRef) nativePointers[i]] = i;
     }

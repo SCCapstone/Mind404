@@ -8,7 +8,6 @@
 #pragma once
 
 #include <react/renderer/core/EventQueue.h>
-#include <react/renderer/core/EventQueueProcessor.h>
 
 namespace facebook {
 namespace react {
@@ -19,11 +18,16 @@ namespace react {
  */
 class BatchedEventQueue final : public EventQueue {
  public:
-  BatchedEventQueue(
-      EventQueueProcessor eventProcessor,
-      std::unique_ptr<EventBeat> eventBeat);
+  using EventQueue::EventQueue;
 
   void onEnqueue() const override;
+
+  /*
+   * Enqueues and (probably later) dispatch a given event.
+   * Deletes last RawEvent from the queu if it has the same type and target.
+   * Can be called on any thread.
+   */
+  void enqueueUniqueEvent(const RawEvent &rawEvent) const;
 };
 
 } // namespace react

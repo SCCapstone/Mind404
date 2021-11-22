@@ -10,7 +10,7 @@
 
 'use strict';
 
-import type {ExtendedError} from './ExtendedError';
+import type {ExtendedError} from './Devtools/parseErrorStack';
 import type {ExceptionData} from './NativeExceptionsManager';
 
 class SyntheticError extends Error {
@@ -105,37 +105,35 @@ function reportException(
     }
 
     if (__DEV__ && isHandledByLogBox) {
-      const LogBox = require('../LogBox/LogBox');
-      LogBox.addException({
+      const LogBoxData = require('../LogBox/Data/LogBoxData');
+      LogBoxData.addException({
         ...data,
         isComponentError: !!e.isComponentError,
       });
     }
 
-    if (isFatal || e.type !== 'warn') {
-      NativeExceptionsManager.reportException(data);
+    NativeExceptionsManager.reportException(data);
 
-      if (__DEV__ && !global.RN$Express) {
-        if (e.preventSymbolication === true) {
-          return;
-        }
-        const symbolicateStackTrace = require('./Devtools/symbolicateStackTrace');
-        symbolicateStackTrace(stack)
-          .then(({stack: prettyStack}) => {
-            if (prettyStack) {
-              NativeExceptionsManager.updateExceptionMessage(
-                data.message,
-                prettyStack,
-                currentExceptionID,
-              );
-            } else {
-              throw new Error('The stack is null');
-            }
-          })
-          .catch(error => {
-            console.log('Unable to symbolicate stack trace: ' + error.message);
-          });
+    if (__DEV__ && !global.RN$Express) {
+      if (e.preventSymbolication === true) {
+        return;
       }
+      const symbolicateStackTrace = require('./Devtools/symbolicateStackTrace');
+      symbolicateStackTrace(stack)
+        .then(({stack: prettyStack}) => {
+          if (prettyStack) {
+            NativeExceptionsManager.updateExceptionMessage(
+              data.message,
+              prettyStack,
+              currentExceptionID,
+            );
+          } else {
+            throw new Error('The stack is null');
+          }
+        })
+        .catch(error => {
+          console.log('Unable to symbolicate stack trace: ' + error.message);
+        });
     }
   } else if (reportToConsole) {
     // we feed back into console.error, to make sure any methods that are
@@ -171,17 +169,15 @@ function handleException(e: mixed, isFatal: boolean) {
   }
   try {
     inExceptionHandler = true;
-    /* $FlowFixMe[class-object-subtyping] added when improving typing for this
-     * parameters */
     reportException(error, isFatal, /*reportToConsole*/ true);
   } finally {
     inExceptionHandler = false;
   }
 }
 
-function reactConsoleErrorHandler(...args) {
+function reactConsoleErrorHandler() {
   // bubble up to any original handlers
-  console._errorOriginal(...args);
+  console._errorOriginal.apply(console, arguments);
   if (!console.reportErrorsAsExceptions) {
     return;
   }
@@ -217,35 +213,31 @@ function reactConsoleErrorHandler(...args) {
     return;
   }
 
-  let error;
-
-  const firstArg = args[0];
-  if (firstArg?.stack) {
+  if (arguments[0] && arguments[0].stack) {
     // reportException will console.error this with high enough fidelity.
-    error = firstArg;
+    reportException(
+      arguments[0],
+      /* isFatal */ false,
+      /*reportToConsole*/ false,
+    );
   } else {
     const stringifySafe = require('../Utilities/stringifySafe').default;
-    if (typeof firstArg === 'string' && firstArg.startsWith('Warning: ')) {
+    const str = Array.prototype.map
+      .call(arguments, value =>
+        typeof value === 'string' ? value : stringifySafe(value),
+      )
+      .join(' ');
+
+    if (str.slice(0, 9) === 'Warning: ') {
       // React warnings use console.error so that a stack trace is shown, but
       // we don't (currently) want these to show a redbox
       // (Note: Logic duplicated in polyfills/console.js.)
       return;
     }
-    const message = args
-      .map(arg => (typeof arg === 'string' ? arg : stringifySafe(arg)))
-      .join(' ');
-
-    error = new SyntheticError(message);
+    const error: ExtendedError = new SyntheticError(str);
     error.name = 'console.error';
+    reportException(error, /* isFatal */ false, /*reportToConsole*/ false);
   }
-
-  reportException(
-    /* $FlowFixMe[class-object-subtyping] added when improving typing for this
-     * parameters */
-    error,
-    false, // isFatal
-    false, // reportToConsole
-  );
 }
 
 /**

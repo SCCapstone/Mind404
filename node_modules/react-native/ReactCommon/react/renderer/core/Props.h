@@ -9,7 +9,6 @@
 
 #include <folly/dynamic.h>
 
-#include <react/renderer/core/PropsParserContext.h>
 #include <react/renderer/core/ReactPrimitives.h>
 #include <react/renderer/core/Sealable.h>
 #include <react/renderer/debug/DebugStringConvertible.h>
@@ -29,10 +28,7 @@ class Props : public virtual Sealable, public virtual DebugStringConvertible {
   using Shared = std::shared_ptr<Props const>;
 
   Props() = default;
-  Props(
-      const PropsParserContext &context,
-      const Props &sourceProps,
-      RawProps const &rawProps);
+  Props(Props const &sourceProps, RawProps const &rawProps);
   virtual ~Props() = default;
 
   std::string nativeId;

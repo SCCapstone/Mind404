@@ -159,6 +159,13 @@ Point LayoutableShadowNode::getContentOriginOffset() const {
   return {0, 0};
 }
 
+LayoutMetrics LayoutableShadowNode::getRelativeLayoutMetrics(
+    LayoutableShadowNode const &ancestorLayoutableShadowNode,
+    LayoutInspectingPolicy policy) const {
+  return computeRelativeLayoutMetrics(
+      getFamily(), ancestorLayoutableShadowNode, policy);
+}
+
 LayoutableShadowNode::UnsharedList
 LayoutableShadowNode::getLayoutableChildNodes() const {
   LayoutableShadowNode::UnsharedList layoutableChildren;
@@ -216,7 +223,7 @@ ShadowNode::Shared LayoutableShadowNode::findNodeAtPoint(
     ShadowNode::Shared node,
     Point point) {
   auto layoutableShadowNode =
-      traitCast<const LayoutableShadowNode *>(node.get());
+      dynamic_cast<const LayoutableShadowNode *>(node.get());
 
   if (!layoutableShadowNode) {
     return nullptr;

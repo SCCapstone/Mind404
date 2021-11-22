@@ -33,6 +33,7 @@ class AnimatedProps extends AnimatedNode {
     }
     this._props = props;
     this._callback = callback;
+    this.__attach();
   }
 
   __getValue(): Object {

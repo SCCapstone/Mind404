@@ -6,7 +6,6 @@
  */
 
 #include <react/renderer/components/view/ViewProps.h>
-#include <react/renderer/core/PropsParserContext.h>
 #include <react/renderer/graphics/Color.h>
 #include <react/renderer/imagemanager/primitives.h>
 
@@ -17,10 +16,7 @@ namespace react {
 class ImageProps final : public ViewProps {
  public:
   ImageProps() = default;
-  ImageProps(
-      const PropsParserContext &context,
-      const ImageProps &sourceProps,
-      const RawProps &rawProps);
+  ImageProps(const ImageProps &sourceProps, const RawProps &rawProps);
 
 #pragma mark - Props
 

@@ -12,7 +12,6 @@
 #include <react/renderer/componentregistry/ComponentDescriptorProvider.h>
 #include <react/renderer/componentregistry/ComponentDescriptorRegistry.h>
 #include <react/renderer/core/ComponentDescriptor.h>
-#include <react/utils/ContextContainer.h>
 
 namespace facebook {
 namespace react {

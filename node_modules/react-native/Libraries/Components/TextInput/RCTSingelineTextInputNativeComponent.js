@@ -8,11 +8,14 @@
  * @format
  */
 
+'use strict';
+
 import type {HostComponent} from '../../Renderer/shims/ReactNativeTypes';
+import requireNativeComponent from '../../ReactNative/requireNativeComponent';
 import codegenNativeCommands from '../../Utilities/codegenNativeCommands';
 import type {TextInputNativeCommands} from './TextInputNativeCommands';
-import RCTTextInputViewConfig from './RCTTextInputViewConfig';
-import * as NativeComponentRegistry from '../../NativeComponent/NativeComponentRegistry';
+import RCTSinglelineTextInputViewConfig from './RCTSinglelineTextInputViewConfig';
+const ReactNativeViewConfigRegistry = require('../../Renderer/shims/ReactNativeViewConfigRegistry');
 
 type NativeType = HostComponent<mixed>;
 
@@ -22,10 +25,17 @@ export const Commands: NativeCommands = codegenNativeCommands<NativeCommands>({
   supportedCommands: ['focus', 'blur', 'setTextAndSelection'],
 });
 
-const SinglelineTextInputNativeComponent: HostComponent<mixed> = NativeComponentRegistry.get<mixed>(
-  'RCTSinglelineTextInputView',
-  () => RCTTextInputViewConfig,
-);
+let SinglelineTextInputNativeComponent;
+if (global.RN$Bridgeless) {
+  ReactNativeViewConfigRegistry.register('RCTSinglelineTextInputView', () => {
+    return RCTSinglelineTextInputViewConfig;
+  });
+  SinglelineTextInputNativeComponent = 'RCTSinglelineTextInputView';
+} else {
+  SinglelineTextInputNativeComponent = requireNativeComponent<mixed>(
+    'RCTSinglelineTextInputView',
+  );
+}
 
 // flowlint-next-line unclear-type:off
 export default ((SinglelineTextInputNativeComponent: any): HostComponent<mixed>);

@@ -8,19 +8,22 @@
  * @flow
  */
 
+'use strict';
+
 import View from '../Components/View/View';
 import RCTDeviceEventEmitter from '../EventEmitter/RCTDeviceEventEmitter';
 import StyleSheet from '../StyleSheet/StyleSheet';
 import {type EventSubscription} from '../vendor/emitter/EventEmitter';
 import {RootTagContext, createRootTag} from './RootTag';
-import type {RootTag} from './RootTag';
+import PropTypes from 'prop-types';
 import * as React from 'react';
+
+type Context = {rootTag: number, ...};
 
 type Props = $ReadOnly<{|
   children?: React.Node,
   fabric?: boolean,
-  useConcurrentRoot?: boolean,
-  rootTag: number | RootTag,
+  rootTag: number,
   initialProps?: {...},
   showArchitectureIndicator?: boolean,
   WrapperComponent?: ?React.ComponentType<any>,
@@ -43,6 +46,18 @@ class AppContainer extends React.Component<Props, State> {
   _subscription: ?EventSubscription = null;
 
   static getDerivedStateFromError: any = undefined;
+
+  static childContextTypes:
+    | any
+    | {|rootTag: React$PropType$Primitive<number>|} = {
+    rootTag: PropTypes.number,
+  };
+
+  getChildContext(): Context {
+    return {
+      rootTag: this.props.rootTag,
+    };
+  }
 
   componentDidMount(): void {
     if (__DEV__) {
@@ -131,5 +146,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+if (__DEV__) {
+  if (!global.__RCTProfileIsProfiling) {
+    const LogBox = require('../LogBox/LogBox');
+    LogBox.install();
+  }
+}
 
 module.exports = AppContainer;

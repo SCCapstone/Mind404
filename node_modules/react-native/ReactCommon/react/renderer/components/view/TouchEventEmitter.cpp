@@ -12,10 +12,8 @@ namespace react {
 
 #pragma mark - Touches
 
-static void setTouchPayloadOnObject(
-    jsi::Object &object,
-    jsi::Runtime &runtime,
-    Touch const &touch) {
+static jsi::Value touchPayload(jsi::Runtime &runtime, Touch const &touch) {
+  auto object = jsi::Object(runtime);
   object.setProperty(runtime, "locationX", touch.offsetPoint.x);
   object.setProperty(runtime, "locationY", touch.offsetPoint.y);
   object.setProperty(runtime, "pageX", touch.pagePoint.x);
@@ -26,6 +24,7 @@ static void setTouchPayloadOnObject(
   object.setProperty(runtime, "target", touch.target);
   object.setProperty(runtime, "timestamp", touch.timestamp * 1000);
   object.setProperty(runtime, "force", touch.force);
+  return object;
 }
 
 static jsi::Value touchesPayload(
@@ -34,9 +33,7 @@ static jsi::Value touchesPayload(
   auto array = jsi::Array(runtime, touches.size());
   int i = 0;
   for (auto const &touch : touches) {
-    auto object = jsi::Object(runtime);
-    setTouchPayloadOnObject(object, runtime, touch);
-    array.setValueAtIndex(runtime, i++, object);
+    array.setValueAtIndex(runtime, i++, touchPayload(runtime, touch));
   }
   return array;
 }
@@ -51,34 +48,23 @@ static jsi::Value touchEventPayload(
       runtime, "changedTouches", touchesPayload(runtime, event.changedTouches));
   object.setProperty(
       runtime, "targetTouches", touchesPayload(runtime, event.targetTouches));
-
-  if (!event.changedTouches.empty()) {
-    auto const &firstChangedTouch = *event.changedTouches.begin();
-    setTouchPayloadOnObject(object, runtime, firstChangedTouch);
-  }
   return object;
 }
 
 void TouchEventEmitter::dispatchTouchEvent(
     std::string const &type,
     TouchEvent const &event,
-    EventPriority priority,
-    RawEvent::Category category) const {
+    EventPriority const &priority) const {
   dispatchEvent(
       type,
       [event](jsi::Runtime &runtime) {
         return touchEventPayload(runtime, event);
       },
-      priority,
-      category);
+      priority);
 }
 
 void TouchEventEmitter::onTouchStart(TouchEvent const &event) const {
-  dispatchTouchEvent(
-      "touchStart",
-      event,
-      EventPriority::AsynchronousBatched,
-      RawEvent::Category::ContinuousStart);
+  dispatchTouchEvent("touchStart", event, EventPriority::AsynchronousBatched);
 }
 
 void TouchEventEmitter::onTouchMove(TouchEvent const &event) const {
@@ -88,19 +74,11 @@ void TouchEventEmitter::onTouchMove(TouchEvent const &event) const {
 }
 
 void TouchEventEmitter::onTouchEnd(TouchEvent const &event) const {
-  dispatchTouchEvent(
-      "touchEnd",
-      event,
-      EventPriority::AsynchronousBatched,
-      RawEvent::Category::ContinuousEnd);
+  dispatchTouchEvent("touchEnd", event, EventPriority::AsynchronousBatched);
 }
 
 void TouchEventEmitter::onTouchCancel(TouchEvent const &event) const {
-  dispatchTouchEvent(
-      "touchCancel",
-      event,
-      EventPriority::AsynchronousBatched,
-      RawEvent::Category::ContinuousEnd);
+  dispatchTouchEvent("touchCancel", event, EventPriority::AsynchronousBatched);
 }
 
 } // namespace react

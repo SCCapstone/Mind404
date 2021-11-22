@@ -14,19 +14,22 @@
 
 #include <condition_variable>
 
-#include <react/debug/react_native_assert.h>
 #include <react/renderer/mounting/ShadowViewMutation.h>
 
 namespace facebook {
 namespace react {
 
-MountingCoordinator::MountingCoordinator(ShadowTreeRevision baseRevision)
+MountingCoordinator::MountingCoordinator(
+    ShadowTreeRevision baseRevision,
+    std::weak_ptr<MountingOverrideDelegate const> delegate,
+    bool enableReparentingDetection)
     : surfaceId_(baseRevision.rootShadowNode->getSurfaceId()),
       baseRevision_(baseRevision),
-      telemetryController_(*this) {
+      mountingOverrideDelegate_(delegate),
+      telemetryController_(*this),
+      enableReparentingDetection_(enableReparentingDetection) {
 #ifdef RN_SHADOW_TREE_INTROSPECTION
-  stubViewTree_ = buildStubViewTreeWithoutUsingDifferentiator(
-      *baseRevision_.rootShadowNode);
+  stubViewTree_ = stubViewTreeFromShadowNode(*baseRevision_.rootShadowNode);
 #endif
 }
 
@@ -38,7 +41,7 @@ void MountingCoordinator::push(ShadowTreeRevision const &revision) const {
   {
     std::lock_guard<std::mutex> lock(mutex_);
 
-    react_native_assert(
+    assert(
         !lastRevision_.has_value() || revision.number != lastRevision_->number);
 
     if (!lastRevision_.has_value() || lastRevision_->number < revision.number) {
@@ -90,7 +93,9 @@ better::optional<MountingTransaction> MountingCoordinator::pullTransaction()
     telemetry.willDiff();
 
     auto mutations = calculateShadowViewMutations(
-        *baseRevision_.rootShadowNode, *lastRevision_->rootShadowNode);
+        *baseRevision_.rootShadowNode,
+        *lastRevision_->rootShadowNode,
+        enableReparentingDetection_);
 
     telemetry.didDiff();
 
@@ -137,8 +142,8 @@ better::optional<MountingTransaction> MountingCoordinator::pullTransaction()
     // tree therefore we cannot validate the validity of the mutation
     // instructions.
     if (!shouldOverridePullTransaction && lastRevision_.has_value()) {
-      auto stubViewTree = buildStubViewTreeWithoutUsingDifferentiator(
-          *lastRevision_->rootShadowNode);
+      auto stubViewTree =
+          stubViewTreeFromShadowNode(*lastRevision_->rootShadowNode);
 
       bool treesEqual = stubViewTree_ == stubViewTree;
 
@@ -163,8 +168,7 @@ better::optional<MountingTransaction> MountingCoordinator::pullTransaction()
         }
       }
 
-      react_native_assert(
-          (treesEqual) && "Incorrect set of mutations detected.");
+      assert((treesEqual) && "Incorrect set of mutations detected.");
     }
   }
 #endif
@@ -178,12 +182,6 @@ better::optional<MountingTransaction> MountingCoordinator::pullTransaction()
 
 TelemetryController const &MountingCoordinator::getTelemetryController() const {
   return telemetryController_;
-}
-
-void MountingCoordinator::setMountingOverrideDelegate(
-    std::weak_ptr<MountingOverrideDelegate const> delegate) const {
-  std::lock_guard<std::mutex> lock(mutex_);
-  mountingOverrideDelegate_ = delegate;
 }
 
 } // namespace react

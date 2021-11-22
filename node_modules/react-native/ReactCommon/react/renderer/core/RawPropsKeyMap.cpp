@@ -7,8 +7,6 @@
 
 #include "RawPropsKeyMap.h"
 
-#include <react/debug/react_native_assert.h>
-
 #include <algorithm>
 #include <cassert>
 #include <cstdlib>
@@ -63,30 +61,30 @@ void RawPropsKeyMap::reindex() noexcept {
   buckets_.resize(kPropNameLengthHardCap);
 
   auto length = RawPropsPropNameLength{0};
-  for (size_t i = 0; i < items_.size(); i++) {
+  for (auto i = 0; i < items_.size(); i++) {
     auto &item = items_[i];
     if (item.length != length) {
       for (auto j = length; j < item.length; j++) {
-        buckets_[j] = static_cast<RawPropsPropNameLength>(i);
+        buckets_[j] = i;
       }
       length = item.length;
     }
   }
 
   for (auto j = length; j < buckets_.size(); j++) {
-    buckets_[j] = static_cast<RawPropsPropNameLength>(items_.size());
+    buckets_[j] = items_.size();
   }
 }
 
 RawPropsValueIndex RawPropsKeyMap::at(
     char const *name,
     RawPropsPropNameLength length) noexcept {
-  react_native_assert(length > 0);
-  react_native_assert(length < kPropNameLengthHardCap);
+  assert(length > 0);
+  assert(length < kPropNameLengthHardCap);
   // 1. Find the bucket.
   auto lower = int{buckets_[length - 1]};
   auto upper = int{buckets_[length]} - 1;
-  react_native_assert(lower - 1 <= upper);
+  assert(lower - 1 <= upper);
 
   // 2. Binary search in the bucket.
   while (lower <= upper) {

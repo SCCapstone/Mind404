@@ -24,6 +24,7 @@ require('./UIManagerTestModule');
 require('./CatalystRootViewTestModule');
 require('./DatePickerDialogTestModule');
 require('./MeasureLayoutTestModule');
+require('./PickerAndroidTestModule');
 require('./ScrollViewTestModule');
 require('./ShareTestModule');
 require('./SwipeRefreshLayoutTestModule');
@@ -84,6 +85,10 @@ const apps = [
   {
     appKey: 'NativeIdTestApp',
     component: () => require('./NativeIdTestModule').NativeIdTestApp,
+  },
+  {
+    appKey: 'PickerAndroidTestApp',
+    component: () => require('./PickerAndroidTestModule').PickerAndroidTestApp,
   },
   {
     appKey: 'ScrollViewTestApp',

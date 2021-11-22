@@ -16,7 +16,6 @@ namespace facebook {
 namespace react {
 
 static TextAttributes convertRawProp(
-    const PropsParserContext &context,
     const RawProps &rawProps,
     const TextAttributes sourceTextAttributes,
     const TextAttributes defaultTextAttributes) {
@@ -24,19 +23,16 @@ static TextAttributes convertRawProp(
 
   // Color
   textAttributes.foregroundColor = convertRawProp(
-      context,
       rawProps,
       "color",
       sourceTextAttributes.foregroundColor,
       defaultTextAttributes.foregroundColor);
   textAttributes.backgroundColor = convertRawProp(
-      context,
       rawProps,
       "backgroundColor",
       sourceTextAttributes.backgroundColor,
       defaultTextAttributes.backgroundColor);
   textAttributes.opacity = convertRawProp(
-      context,
       rawProps,
       "opacity",
       sourceTextAttributes.opacity,
@@ -44,75 +40,58 @@ static TextAttributes convertRawProp(
 
   // Font
   textAttributes.fontFamily = convertRawProp(
-      context,
       rawProps,
       "fontFamily",
       sourceTextAttributes.fontFamily,
       defaultTextAttributes.fontFamily);
   textAttributes.fontSize = convertRawProp(
-      context,
       rawProps,
       "fontSize",
       sourceTextAttributes.fontSize,
       defaultTextAttributes.fontSize);
   textAttributes.fontSizeMultiplier = convertRawProp(
-      context,
       rawProps,
       "fontSizeMultiplier",
       sourceTextAttributes.fontSizeMultiplier,
       defaultTextAttributes.fontSizeMultiplier);
   textAttributes.fontWeight = convertRawProp(
-      context,
       rawProps,
       "fontWeight",
       sourceTextAttributes.fontWeight,
       defaultTextAttributes.fontWeight);
   textAttributes.fontStyle = convertRawProp(
-      context,
       rawProps,
       "fontStyle",
       sourceTextAttributes.fontStyle,
       defaultTextAttributes.fontStyle);
   textAttributes.fontVariant = convertRawProp(
-      context,
       rawProps,
       "fontVariant",
       sourceTextAttributes.fontVariant,
       defaultTextAttributes.fontVariant);
   textAttributes.allowFontScaling = convertRawProp(
-      context,
       rawProps,
       "allowFontScaling",
       sourceTextAttributes.allowFontScaling,
       defaultTextAttributes.allowFontScaling);
   textAttributes.letterSpacing = convertRawProp(
-      context,
       rawProps,
       "letterSpacing",
       sourceTextAttributes.letterSpacing,
       defaultTextAttributes.letterSpacing);
-  textAttributes.textTransform = convertRawProp(
-      context,
-      rawProps,
-      "textTransform",
-      sourceTextAttributes.textTransform,
-      defaultTextAttributes.textTransform);
 
   // Paragraph
   textAttributes.lineHeight = convertRawProp(
-      context,
       rawProps,
       "lineHeight",
       sourceTextAttributes.lineHeight,
       defaultTextAttributes.lineHeight);
   textAttributes.alignment = convertRawProp(
-      context,
       rawProps,
       "textAlign",
       sourceTextAttributes.alignment,
       defaultTextAttributes.alignment);
   textAttributes.baseWritingDirection = convertRawProp(
-      context,
       rawProps,
       "baseWritingDirection",
       sourceTextAttributes.baseWritingDirection,
@@ -120,25 +99,21 @@ static TextAttributes convertRawProp(
 
   // Decoration
   textAttributes.textDecorationColor = convertRawProp(
-      context,
       rawProps,
       "textDecorationColor",
       sourceTextAttributes.textDecorationColor,
       defaultTextAttributes.textDecorationColor);
   textAttributes.textDecorationLineType = convertRawProp(
-      context,
       rawProps,
       "textDecorationLine",
       sourceTextAttributes.textDecorationLineType,
       defaultTextAttributes.textDecorationLineType);
   textAttributes.textDecorationLineStyle = convertRawProp(
-      context,
       rawProps,
       "textDecorationLineStyle",
       sourceTextAttributes.textDecorationLineStyle,
       defaultTextAttributes.textDecorationLineStyle);
   textAttributes.textDecorationLinePattern = convertRawProp(
-      context,
       rawProps,
       "textDecorationLinePattern",
       sourceTextAttributes.textDecorationLinePattern,
@@ -146,19 +121,16 @@ static TextAttributes convertRawProp(
 
   // Shadow
   textAttributes.textShadowOffset = convertRawProp(
-      context,
       rawProps,
       "textShadowOffset",
       sourceTextAttributes.textShadowOffset,
       defaultTextAttributes.textShadowOffset);
   textAttributes.textShadowRadius = convertRawProp(
-      context,
       rawProps,
       "textShadowRadius",
       sourceTextAttributes.textShadowRadius,
       defaultTextAttributes.textShadowRadius);
   textAttributes.textShadowColor = convertRawProp(
-      context,
       rawProps,
       "textShadowColor",
       sourceTextAttributes.textShadowColor,
@@ -166,14 +138,12 @@ static TextAttributes convertRawProp(
 
   // Special
   textAttributes.isHighlighted = convertRawProp(
-      context,
       rawProps,
       "isHighlighted",
       sourceTextAttributes.isHighlighted,
       defaultTextAttributes.isHighlighted);
 
   textAttributes.accessibilityRole = convertRawProp(
-      context,
       rawProps,
       "accessibilityRole",
       sourceTextAttributes.accessibilityRole,
@@ -183,11 +153,9 @@ static TextAttributes convertRawProp(
 }
 
 BaseTextProps::BaseTextProps(
-    const PropsParserContext &context,
     const BaseTextProps &sourceProps,
     const RawProps &rawProps)
     : textAttributes(convertRawProp(
-          context,
           rawProps,
           sourceProps.textAttributes,
           TextAttributes{})){};

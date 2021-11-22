@@ -9,7 +9,8 @@
 #include <react/renderer/core/EventBeat.h>
 #include <react/utils/RunLoopObserver.h>
 
-namespace facebook::react {
+namespace facebook {
+namespace react {
 
 /*
  * Event beat associated with JavaScript runtime.
@@ -34,8 +35,7 @@ class AsynchronousEventBeat : public EventBeat,
  private:
   RunLoopObserver::Unique uiRunLoopObserver_;
   RuntimeExecutor runtimeExecutor_;
-
-  mutable std::atomic<bool> isBeatCallbackScheduled_{false};
 };
 
-} // namespace facebook::react
+} // namespace react
+} // namespace facebook

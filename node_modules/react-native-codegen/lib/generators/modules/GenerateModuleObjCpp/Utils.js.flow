@@ -12,6 +12,9 @@
 
 import type {StructProperty} from './StructCollector';
 
+function capitalize(string: string): string {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 function getSafePropertyName(property: StructProperty): string {
   if (property.name === 'id') {
     return `${property.name}_`;
@@ -27,6 +30,7 @@ function getNamespacedStructName(
 }
 
 module.exports = {
+  capitalize,
   getSafePropertyName,
   getNamespacedStructName,
 };

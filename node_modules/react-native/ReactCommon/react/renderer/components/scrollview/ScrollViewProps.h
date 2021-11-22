@@ -9,7 +9,6 @@
 
 #include <react/renderer/components/scrollview/primitives.h>
 #include <react/renderer/components/view/ViewProps.h>
-#include <react/renderer/core/PropsParserContext.h>
 
 namespace facebook {
 namespace react {
@@ -18,10 +17,7 @@ namespace react {
 class ScrollViewProps final : public ViewProps {
  public:
   ScrollViewProps() = default;
-  ScrollViewProps(
-      const PropsParserContext &context,
-      ScrollViewProps const &sourceProps,
-      RawProps const &rawProps);
+  ScrollViewProps(ScrollViewProps const &sourceProps, RawProps const &rawProps);
 
 #pragma mark - Props
 
@@ -32,13 +28,12 @@ class ScrollViewProps final : public ViewProps {
   bool canCancelContentTouches{true};
   bool centerContent{};
   bool automaticallyAdjustContentInsets{};
-  bool automaticallyAdjustsScrollIndicatorInsets{true};
-  Float decelerationRate{0.998f};
+  Float decelerationRate{0.998};
   bool directionalLockEnabled{};
   ScrollViewIndicatorStyle indicatorStyle{};
   ScrollViewKeyboardDismissMode keyboardDismissMode{};
-  Float maximumZoomScale{1.0f};
-  Float minimumZoomScale{1.0f};
+  Float maximumZoomScale{1.0};
+  Float minimumZoomScale{1.0};
   bool scrollEnabled{true};
   bool pagingEnabled{};
   bool pinchGestureEnabled{true};
@@ -46,7 +41,7 @@ class ScrollViewProps final : public ViewProps {
   bool showsHorizontalScrollIndicator{true};
   bool showsVerticalScrollIndicator{true};
   Float scrollEventThrottle{};
-  Float zoomScale{1.0f};
+  Float zoomScale{1.0};
   EdgeInsets contentInset{};
   Point contentOffset{};
   EdgeInsets scrollIndicatorInsets{};

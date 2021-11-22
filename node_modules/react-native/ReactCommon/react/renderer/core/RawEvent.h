@@ -19,53 +19,16 @@ namespace react {
 /*
  * Represents ready-to-dispatch event object.
  */
-struct RawEvent {
-  /*
-   * Defines category of a native platform event. This is used to deduce types
-   * of events for Concurrent Mode.
-   */
-  enum class Category {
-    /*
-     * Start of a continuous event. To be used with touchStart.
-     */
-    ContinuousStart,
-
-    /*
-     * End of a continuous event. To be used with touchEnd.
-     */
-    ContinuousEnd,
-
-    /*
-     * Priority for this event will be determined from other events in the
-     * queue. If it is triggered by continuous event, its priority will be
-     * default. If it is not triggered by continuous event, its priority will be
-     * discrete.
-     */
-    Unspecified,
-
-    /*
-     * Forces discrete type for the event. Regardless if continuous event is
-     * ongoing.
-     */
-    Discrete,
-
-    /*
-     * Forces continuous type for the event. Regardless if continuous event
-     * isn't ongoing.
-     */
-    Continuous
-  };
-
+class RawEvent {
+ public:
   RawEvent(
       std::string type,
       ValueFactory payloadFactory,
-      SharedEventTarget eventTarget,
-      Category category = Category::Unspecified);
+      SharedEventTarget eventTarget);
 
   std::string type;
   ValueFactory payloadFactory;
   SharedEventTarget eventTarget;
-  Category category;
 };
 
 } // namespace react

@@ -10,8 +10,6 @@
 
 'use strict';
 
-import type {RootTag} from 'react-native/Libraries/Types/RootTagTypes';
-
 module.exports = {
   getViewManagerConfig: (viewManagerName: string): mixed => {
     console.warn(
@@ -22,12 +20,6 @@ module.exports = {
     }
     return null;
   },
-  hasViewManagerConfig: (viewManagerName: string): boolean => {
-    return (
-      viewManagerName === 'RCTVirtualText' ||
-      viewManagerName === 'RCTShimmeringView'
-    );
-  },
   getConstants: (): {...} => ({}),
   getConstantsForViewManager: (viewManagerName: string) => {},
   getDefaultEventTypes: (): Array<$FlowFixMe> => [],
@@ -35,7 +27,7 @@ module.exports = {
   createView: (
     reactTag: ?number,
     viewName: string,
-    rootTag: RootTag,
+    rootTag: number,
     props: Object,
   ) => {},
   updateView: (reactTag: number, viewName: string, props: Object) => {},

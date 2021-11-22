@@ -20,11 +20,10 @@ namespace facebook {
 namespace react {
 
 YogaStylableProps::YogaStylableProps(
-    const PropsParserContext &context,
     YogaStylableProps const &sourceProps,
     RawProps const &rawProps)
-    : Props(context, sourceProps, rawProps),
-      yogaStyle(convertRawProp(context, rawProps, sourceProps.yogaStyle)){};
+    : Props(sourceProps, rawProps),
+      yogaStyle(convertRawProp(rawProps, sourceProps.yogaStyle)){};
 
 #pragma mark - DebugStringConvertible
 

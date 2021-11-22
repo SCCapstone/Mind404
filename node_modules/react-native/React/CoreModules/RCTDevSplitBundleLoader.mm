@@ -28,13 +28,18 @@ using namespace facebook::react;
 
 @synthesize bridge = _bridge;
 @synthesize loadScript = _loadScript;
-@synthesize moduleRegistry = _moduleRegistry;
+@synthesize turboModuleRegistry = _turboModuleRegistry;
 
 RCT_EXPORT_MODULE()
 
 + (BOOL)requiresMainQueueSetup
 {
   return NO;
+}
+
+- (void)setBridge:(RCTBridge *)bridge
+{
+  _bridge = bridge;
 }
 
 RCT_EXPORT_METHOD(loadBundle
@@ -64,7 +69,7 @@ RCT_EXPORT_METHOD(loadBundle
           }
           __typeof(self) strongSelf = weakSelf;
           strongSelf->_loadScript(source);
-          RCTDevSettings *devSettings = [strongSelf->_moduleRegistry moduleForName:"RCTDevSettings"];
+          RCTDevSettings *devSettings = [strongSelf->_turboModuleRegistry moduleForName:"RCTDevSettings"];
           [devSettings setupHMRClientWithAdditionalBundleURL:source.url];
           resolve(@YES);
         }];

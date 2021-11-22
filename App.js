@@ -1,51 +1,28 @@
-import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { firebase } from './firebase/config';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  Image,
-  TextInput,
-  ImageBackground,
-} from "react-native";
-import HomeScreen from "./screens/Home"
-import LoginScreen from "./screens/Login"
-import NewAccountScreen from "./screens/NewAccount"
-import SettingsScreen from "./screens/Settings"
-import MapScreen from "./screens/Map"
-import ViewServicesScreen from "./screens/ViewServices"
-import ViewPastServicesScreen from "./screens/ViewPastServices"
-import PurchaseServicesScreen from "./screens/PurchaseService"
+import 'react-native-gesture-handler';
+import React, { useEffect, useState } from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { LoginScreen, HomeScreen, RegistrationScreen } from './src/screens'
+import {decode, encode} from 'base-64'
+if (!global.btoa) {  global.btoa = encode }
+if (!global.atob) { global.atob = decode }
 
+const Stack = createStackNavigator();
 
-const image = { uri: "" };
-const Stack = createNativeStackNavigator();
-const Seperator = () => <View style={styles.seperator} />;
+export default function App() {
 
-const App = () => {
+  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState(null)
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: "Grubber" }}
-        />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="NewAccount" component={NewAccountScreen} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
-        <Stack.Screen name="Map" component={MapScreen} />
-        <Stack.Screen name="ViewServices" component={ViewServicesScreen} />
-        <Stack.Screen name="ViewPastServices" component={ViewPastServicesScreen} />
-        <Stack.Screen name="PurchaseServices" component={PurchaseServicesScreen} />
-
+        
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Registration" component={RegistrationScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>
   );
-};
-
-export default App;
+}

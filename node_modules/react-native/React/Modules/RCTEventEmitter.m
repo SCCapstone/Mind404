@@ -15,7 +15,7 @@
   BOOL _observationDisabled;
 }
 
-@synthesize callableJSModules = _callableJSModules;
+@synthesize invokeJS = _invokeJS;
 
 + (NSString *)moduleName
 {
@@ -48,10 +48,10 @@
 - (void)sendEventWithName:(NSString *)eventName body:(id)body
 {
   RCTAssert(
-      _callableJSModules != nil,
+      _bridge != nil || _invokeJS != nil,
       @"Error when sending event: %@ with body: %@. "
-       "RCTCallableJSModules is not set. This is probably because you've "
-       "explicitly synthesized the RCTCallableJSModules in %@, even though it's inherited "
+       "Bridge is not set. This is probably because you've "
+       "explicitly synthesized the bridge in %@, even though it's inherited "
        "from RCTEventEmitter.",
       eventName,
       body,
@@ -67,10 +67,13 @@
 
   BOOL shouldEmitEvent = (_observationDisabled || _listenerCount > 0);
 
-  if (shouldEmitEvent && _callableJSModules) {
-    [_callableJSModules invokeModule:@"RCTDeviceEventEmitter"
-                              method:@"emit"
-                            withArgs:body ? @[ eventName, body ] : @[ eventName ]];
+  if (shouldEmitEvent && _bridge) {
+    [_bridge enqueueJSCall:@"RCTDeviceEventEmitter"
+                    method:@"emit"
+                      args:body ? @[ eventName, body ] : @[ eventName ]
+                completion:NULL];
+  } else if (shouldEmitEvent && _invokeJS) {
+    _invokeJS(@"RCTDeviceEventEmitter", @"emit", body ? @[ eventName, body ] : @[ eventName ]);
   } else {
     RCTLogWarn(@"Sending `%@` with no listeners registered.", eventName);
   }

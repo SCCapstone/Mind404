@@ -10,8 +10,8 @@
 
 'use strict';
 
-import * as React from 'react';
-import SectionList from '../SectionList';
+const React = require('react');
+const SectionList = require('../SectionList');
 
 function renderMyListItem(info: {
   item: {title: string, ...},
@@ -75,7 +75,7 @@ module.exports = {
     ];
   },
 
-  testBadInheritedDefaultProp(): React.MixedElement {
+  testBadInheritedDefaultProp(): React.Element<*> {
     const sections = [];
     return (
       <SectionList
@@ -87,12 +87,12 @@ module.exports = {
     );
   },
 
-  testMissingData(): React.MixedElement {
+  testMissingData(): React.Element<*> {
     // $FlowExpectedError - missing `sections` prop
     return <SectionList renderItem={renderMyListItem} />;
   },
 
-  testBadSectionsShape(): React.MixedElement {
+  testBadSectionsShape(): React.Element<*> {
     const sections = [
       {
         key: 'a',
@@ -108,7 +108,7 @@ module.exports = {
     return <SectionList renderItem={renderMyListItem} sections={sections} />;
   },
 
-  testBadSectionsMetadata(): React.MixedElement {
+  testBadSectionsMetadata(): React.Element<*> {
     const sections = [
       {
         key: 'a',

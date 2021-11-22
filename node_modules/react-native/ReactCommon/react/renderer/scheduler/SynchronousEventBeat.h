@@ -9,7 +9,6 @@
 
 #include <ReactCommon/RuntimeExecutor.h>
 #include <react/renderer/core/EventBeat.h>
-#include <react/renderer/runtimescheduler/RuntimeScheduler.h>
 #include <react/utils/RunLoopObserver.h>
 
 namespace facebook {
@@ -24,8 +23,7 @@ class SynchronousEventBeat final : public EventBeat,
  public:
   SynchronousEventBeat(
       RunLoopObserver::Unique uiRunLoopObserver,
-      RuntimeExecutor runtimeExecutor,
-      std::shared_ptr<RuntimeScheduler> const &runtimeScheduler);
+      RuntimeExecutor runtimeExecutor);
 
   void induce() const override;
 
@@ -40,7 +38,6 @@ class SynchronousEventBeat final : public EventBeat,
 
   RunLoopObserver::Unique uiRunLoopObserver_;
   RuntimeExecutor runtimeExecutor_;
-  std::shared_ptr<RuntimeScheduler> runtimeScheduler_;
 };
 
 } // namespace react

@@ -14,7 +14,6 @@
 #include <react/renderer/components/text/BaseTextProps.h>
 #include <react/renderer/components/view/ViewProps.h>
 #include <react/renderer/core/Props.h>
-#include <react/renderer/core/PropsParserContext.h>
 
 namespace facebook {
 namespace react {
@@ -27,10 +26,7 @@ namespace react {
 class ParagraphProps : public ViewProps, public BaseTextProps {
  public:
   ParagraphProps() = default;
-  ParagraphProps(
-      const PropsParserContext &context,
-      ParagraphProps const &sourceProps,
-      RawProps const &rawProps);
+  ParagraphProps(ParagraphProps const &sourceProps, RawProps const &rawProps);
 
 #pragma mark - Props
 
