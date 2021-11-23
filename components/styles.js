@@ -1,12 +1,19 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+    //General
     container: {
         flex: 1,
         alignItems: 'center'
     },
-    title: {
+    backgroundImage: {
+        width: "100%",
+        height: "100%",
+    },
 
+    title: {
+        textAlign: "center",
+        marginVertical: 8,
     },
     logo: {
         flex: 1,
@@ -15,6 +22,8 @@ export default StyleSheet.create({
         alignSelf: "center",
         margin: 30
     },
+    //
+    // Registration/login Screen
     input: {
         height: 48,
         borderRadius: 5,
@@ -24,7 +33,9 @@ export default StyleSheet.create({
         marginBottom: 10,
         marginLeft: 30,
         marginRight: 30,
-        paddingLeft: 16
+        paddingLeft: 16,
+        borderColor: '#d3d3d3',
+        borderWidth: 1
     },
     button: {
         backgroundColor: '#788eec',
@@ -55,8 +66,34 @@ export default StyleSheet.create({
         fontWeight: "bold",
         fontSize: 16
     },
-    backgroundImage: {
-        width: "100%",
-        height: "100%",
-      }
+    //
+    //Home Screen
+    space: {
+        textAlign: "center",
+        marginVertical: 120,
+    },
+    //
+    // SettingsScreen
+    settingsButton: {
+        backgroundColor: 'gray',
+        marginLeft: 360,
+        marginRight: 15,
+        marginTop: 0,
+        height: 35,
+        borderRadius: 9,
+        alignItems: "center",
+        justifyContent: 'center'
+    },
+    //
+
+    //*****  Screen
+    
+    //
+
+    //*****  Screen
+    
+    //
+
+
+
 })
