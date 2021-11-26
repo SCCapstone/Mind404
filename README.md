@@ -20,16 +20,19 @@ In order to build this project you first have to install:
 
 ## Setup
 
+After downloading the external requirements, clone the repo and enter the following commands into your terminal:
 
-* Download node.js 14.18
-* Run command "npm install -g expo -cli"
+* `npm install`
+* `npm install react-native maps`
+* `npm i firebase@8.10.0`
+
 
 
 ## Running
 
 In order to run the application:
 
-* Enter command `npm start` in cloned repo
+* Enter command `expo start` in cloned repo
 * After execution, enter `a`
 * Have android emulator waiting for start. 
 
