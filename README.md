@@ -23,6 +23,9 @@ After downloading the external requirements, clone the repo and enter the follow
 
 * `npm install -g expo -cli`
 * `npm install`
+* `yarn add firebase`
+* `npm uninstall firebase`
+* `npm cache clear --force`
 * `npm i firebase@8.10.0`
 
 
