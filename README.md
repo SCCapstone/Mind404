@@ -7,11 +7,10 @@ Grubber is a program that provides a consumer the autonomous ability to quickly 
 In order to build this project you first have to install:
 
 * [Node.js](https://nodejs.org/en/)
+   * You will also want to install Node.js package manager npm with instructions found [here](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04).
 * [Android Studio](https://developer.android.com/studio/?gclid=Cj0KCQjwiNSLBhCPARIsAKNS4_czZZ8qTIG6V1sBmGGpt5doHKe01koHvBUY1MGQVu9Z5VZL4kSrSd0aAuH7EALw_wcB&gclsrc=aw.ds)
    * Android Studio is recommended as the primary emulator for the app.  Once downloaded, proceed to create a new AVD running Android 10.0 and API 29.
    * You may also choose to use the Expo client app on your mobile device, downloadable in the google play store
-* CLI command line utility
-   * To do this, enter `npm install -g expo-cli` into your terminal
 * A Code editor, to view and edit code
     * We recommend using [Visual Studio Code](https://code.visualstudio.com/), which is available on all OS's
 
@@ -24,18 +23,14 @@ After downloading the external requirements, clone the repo and enter the follow
 
 * npm install -g expo -cli
 * npm install
-* yarn add firebase
-* npm uninstall firebase
-* npm cache clear --force
 * npm i firebase@8.10.0
-
 
 
 ## Running
 
 In order to run the application:
 
-* Enter command `expo start` or 'npm start' in cloned repo
+* Enter command `expo start` or `npm start` in cloned repo
 * After execution, enter `a`
 * Have android emulator waiting for start. 
 
