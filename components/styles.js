@@ -73,10 +73,15 @@ export default StyleSheet.create({
     marginVertical: 120,
   },
   welcome: {
+    fontFamily: "sans-serif",
     fontWeight: "bold",
-    fontSize: 40,
+    fontSize: 35,
     width: "100%",
     textAlign: "center",
+    marginBottom: 12,
+    color: "#FFAC1C",
+    textShadowColor: "black",
+    textShadowRadius: 4,
   },
   layout: {
     display: "flex",
@@ -97,7 +102,7 @@ export default StyleSheet.create({
   settingsButton: {
     marginLeft: 360,
     marginRight: 15,
-    marginTop: 0,
+    marginTop: 30,
     height: 35,
     borderRadius: 9,
     alignItems: "center",

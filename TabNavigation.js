@@ -20,6 +20,7 @@ export default function BottomTabs() {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
           ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -29,6 +30,7 @@ export default function BottomTabs() {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="flower" color={color} size={size} />
           ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -38,6 +40,7 @@ export default function BottomTabs() {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" color={color} size={size} />
           ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -47,6 +50,7 @@ export default function BottomTabs() {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="calendar" color={color} size={size} />
           ),
+          headerShown: false,
         }}
       />
     </Tab.Navigator>

@@ -34,10 +34,15 @@ export default function HomeScreen({ navigation }) {
         style={styles.settingsButton}
         onPress={() => onSettingsCogPress()}
       >
-        <MaterialCommunityIcons name="cog-outline" color="#000" size={30} />
+        <MaterialCommunityIcons 
+          name="cog-outline" 
+          color="#000" 
+          size={30}
+          
+        />
       </TouchableOpacity>
       <View style={styles.layout}>
-        <Text style={styles.welcome}>Welcome {user.uid}</Text>
+        <Text style={styles.welcome}>Welcome Back!</Text>
         <View style={styles.mapWrapper}>
           <MapView
             style={styles.map}
