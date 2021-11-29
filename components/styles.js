@@ -105,11 +105,23 @@ export default StyleSheet.create({
   },
   //
 
-  //*****  Screen
-
+  //ServicesScreen
+  postButton: {},
   //
 
-  //*****  Screen
-
+  //ServicesPostScreen
+  multilineInput: {
+    height: 148,
+    borderRadius: 5,
+    overflow: "hidden",
+    backgroundColor: "white",
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 30,
+    marginRight: 30,
+    paddingLeft: 16,
+    borderColor: "#d3d3d3",
+    borderWidth: 1,
+  },
   //
 });
