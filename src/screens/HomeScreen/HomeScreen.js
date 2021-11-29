@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import * as React from "react";
+import React, { useContext, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   StyleSheet,
@@ -15,11 +15,15 @@ import styles from "./../../../components/styles";
 import Button from "../../../components/Button.js";
 import MapView from "react-native-maps";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { firebase } from "../../firebase/config";
 
 export default function HomeScreen({ navigation }) {
   const onSettingsCogPress = () => {
     navigation.navigate("Settings");
   };
+  
+  const user = firebase.auth().currentUser;
+
   return (
     <ImageBackground
       source={require("../../../assets/GrubberBackground.png")}
@@ -30,10 +34,10 @@ export default function HomeScreen({ navigation }) {
         style={styles.settingsButton}
         onPress={() => onSettingsCogPress()}
       >
-        <MaterialCommunityIcons name="cog-outline" color="#000" size={20} />
+        <MaterialCommunityIcons name="cog-outline" color="#000" size={30} />
       </TouchableOpacity>
       <View style={styles.layout}>
-        <Text style={styles.welcome}>Welcome Username!</Text>
+        <Text style={styles.welcome}>Welcome {user.uid}</Text>
         <View style={styles.mapWrapper}>
           <MapView
             style={styles.map}
