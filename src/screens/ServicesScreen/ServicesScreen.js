@@ -5,7 +5,7 @@ import styles from "./../../../components/styles";
 
 export default function ServicesScreen({ navigation }) {
   const onPostPress = () => {
-    navigation.navigate("ServicesPost");
+    navigation.navigate("Services Post");
   };
 
   return (
