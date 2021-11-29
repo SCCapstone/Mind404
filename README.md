@@ -21,9 +21,9 @@ In order to build this project you first have to install:
 
 After downloading the external requirements, clone the repo and enter the following commands into your terminal:
 
-* npm install -g expo -cli
-* npm install
-* npm i firebase@8.10.0
+* `npm install -g expo -cli`
+* `npm install`
+* `npm i firebase@8.10.0`
 
 
 ## Running
