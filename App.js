@@ -10,6 +10,7 @@ import {
 } from "./src/screens";
 import { decode, encode } from "base-64";
 import TabNavigation from "./TabNavigation";
+import ServicesPostScreen from "./src/screens/ServicesPostScreen/ServicesPostScreen";
 if (!global.btoa) {
   global.btoa = encode;
 }
@@ -34,6 +35,7 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Settings" component={SettingsScreen} />
+        <Stack.Screen name="ServicesPost" component={ServicesPostScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
