@@ -22,9 +22,12 @@ In order to build this project you first have to install:
 
 After downloading the external requirements, clone the repo and enter the following commands into your terminal:
 
-* `npm install`
-* `npm install react-native maps`
-* `npm i firebase@8.10.0`
+* npm install -g expo -cli
+* npm install
+* yarn add firebase
+* npm uninstall firebase
+* npm cache clear --force
+* npm i firebase@8.10.0
 
 
 
@@ -32,7 +35,7 @@ After downloading the external requirements, clone the repo and enter the follow
 
 In order to run the application:
 
-* Enter command `expo start` in cloned repo
+* Enter command `expo start` or 'npm start' in cloned repo
 * After execution, enter `a`
 * Have android emulator waiting for start. 
 
