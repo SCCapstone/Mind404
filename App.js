@@ -57,7 +57,9 @@ export default function App() {
         <Stack.Screen name="Change Password" component={ChangePasswordScreen} />
         <Stack.Screen name="Change Email" component={ChangeEmailScreen} />
         <Stack.Screen name="Prov Services" component={ProvServicesScreen} />
-        <Stack.Screen name="Services Post" component={ServicesPostScreen} />
+        <Stack.Screen name="Post Your Service" 
+          component={ServicesPostScreen} 
+        />
         <Stack.Screen name="Prov Settings" component={PSettingsScreen} />
         <Stack.Screen name="Prov Change Password" component={PChangePasswordScreen} />
         <Stack.Screen name="Prov Change Email" component={PChangeEmailScreen} />

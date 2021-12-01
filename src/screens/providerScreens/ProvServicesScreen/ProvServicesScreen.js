@@ -1,11 +1,11 @@
 import * as React from "react";
-import { Text, View, ImageBackground } from "react-native";
+import { Text, View, ImageBackground, TouchableOpacity } from "react-native";
 import Button from "./../../../../components/Button";
 import styles from "./../../../../components/styles";
 
 export default function ProvServicesScreen({ navigation }) {
   const onPostPress = () => {
-    navigation.navigate("Services Post");
+    navigation.navigate("Post Your Service");
   };
 
   return (
@@ -15,9 +15,9 @@ export default function ProvServicesScreen({ navigation }) {
       style={styles.backgroundImage}
     >
       <View style={{ flex: 1 }} />
-      <View style={styles.postButton}>
-        <Button onPress={onPostPress}>Post New Service</Button>
-      </View>
+      <TouchableOpacity style={styles.servicesPostButton} onPress={onPostPress}>
+        <Text style={styles.buttonTitle}>Post a New Service</Text>
+      </TouchableOpacity>
     </ImageBackground>
   );
 }
