@@ -3,8 +3,7 @@ import { Text, View, ImageBackground } from "react-native";
 import styles from "./../../../../components/styles";
 import { firebase } from "../../../firebase/config";
 
-
-export default function ProfileScreen() {
+const ProfileScreen = () => {
   const user = firebase.auth().currentUser;
   user.providerData.forEach((userInfo) => {
     console.log('User info for provider: ', userInfo);
@@ -16,9 +15,13 @@ export default function ProfileScreen() {
       resizeMode="cover"
       style={styles.backgroundImage}
     >
-      <View>
-        <Text style ={styles.title}> Welcome {user.userInfo}</Text>
+      <View style={styles.footerView}>
+        <Text style ={styles.welcome}> Profile: {user.firstName}</Text>
+      </View>
+      <View style = {styles.headerView}>
+        <Text style = {styles.welcome}> {user.userInfo} </Text>
       </View>
     </ImageBackground>    
   );
 }
+export default ProfileScreen; 
