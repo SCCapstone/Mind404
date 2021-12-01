@@ -10,6 +10,11 @@ import {
   ChangePasswordScreen,
   ChangeEmailScreen,
   ServicesPostScreen,
+  ProvHomeScreen,
+  ProvServicesScreen,
+  PSettingsScreen,
+  PChangeEmailScreen,
+  PChangePasswordScreen,
 } from "./src/screens";
 
 import { decode, encode } from "base-64";
@@ -37,6 +42,10 @@ export default function App() {
           options={{headerShown: false}}
         />
         <Stack.Screen name="Registration" component={RegistrationScreen} />
+        <Stack.Screen name="Prov Home" 
+          component={ProvHomeScreen} 
+          options={{ headerShown: false }}  
+        />
         <Stack.Screen
           name="Home"
           component={TabNavigation}
@@ -45,7 +54,11 @@ export default function App() {
         <Stack.Screen name="Settings" component={SettingsScreen} />
         <Stack.Screen name="Change Password" component={ChangePasswordScreen} />
         <Stack.Screen name="Change Email" component={ChangeEmailScreen} />
+        <Stack.Screen name="Prov Services" component={ProvServicesScreen} />
         <Stack.Screen name="Services Post" component={ServicesPostScreen} />
+        <Stack.Screen name="Prov Settings" component={PSettingsScreen} />
+        <Stack.Screen name="Prov Change Password" component={PChangePasswordScreen} />
+        <Stack.Screen name="Prov Change Email" component={PChangeEmailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

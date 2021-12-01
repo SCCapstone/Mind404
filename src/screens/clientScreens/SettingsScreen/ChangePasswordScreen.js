@@ -2,19 +2,19 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet, Text, View, Image, Alert, SafeAreaView, TextInput, ImageBackground, TouchableOpacity} from "react-native";
-import styles from './../../../components/styles';
-import Button from "../../../components/Button.js";
-import { firebase } from "../../firebase/config";
+import styles from "./../../../../components/styles";
+import Button from "../../../../components/Button.js";
+import { firebase } from "../../../firebase/config";
 
-export default function ChangeEmailScreen({navigation}) {
-  const [newEmail, updateEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function ChangePasswordScreen({navigation}) {
+  const [newPassword, updatePassword] = useState("");
+  const [oldPassword, setPassword] = useState("");
 
-  const onChangeEmailPress = () => {
+  const onChangePasswordPress = () => {
 
-    reauthenticate(password).then(() => {
+    reauthenticate(oldPassword).then(() => {
       var user = firebase.auth().currentUser;
-      user.updateEmail(newEmail).then (() => {
+      user.updatePassword(newPassword).then (() => {
         Alert.alert("Password has been successfully changed");
         navigation.navigate("Settings");
       }).catch((error) => {
@@ -25,24 +25,24 @@ export default function ChangeEmailScreen({navigation}) {
     });
   }
   
-  const reauthenticate = (password)=> {
+  const reauthenticate = (oldPassword)=> {
     var user = firebase.auth().currentUser;
-    var cred = firebase.auth.EmailAuthProvider.credential(user.email, password);
+    var cred = firebase.auth.EmailAuthProvider.credential(user.email, oldPassword);
     return user.reauthenticateWithCredential(cred);
   }
 
   return (
     <ImageBackground
-      source={require("../../../assets/GrubberBackground.png")}
+      source={require("../../../../assets/GrubberBackground.png")}
       resizeMode="cover"
       style={styles.backgroundImage}>
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
-          keyboardType="email-address"
-          placeholder="New Email"
-          onChangeText={(text) => updateEmail(text)}
-          value={newEmail}
+          secureTextEntry
+          placeholder="Old Password"
+          onChangeText={(text) => setPassword(text)}
+          value={oldPassword}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
@@ -50,14 +50,14 @@ export default function ChangeEmailScreen({navigation}) {
           style={styles.input}
           placeholderTextColor="#aaaaaa"
           secureTextEntry
-          placeholder="Password"
-          onChangeText={(text) => setPassword(text)}
-          value={password}
+          placeholder="New Password"
+          onChangeText={(text) => updatePassword(text)}
+          value={newPassword}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
-        <TouchableOpacity style={styles.changePasswordButton} onPress={onChangeEmailPress}>
-            <Text style={styles.buttonTitle}>Change Email</Text>
+        <TouchableOpacity style={styles.changePasswordButton} onPress={onChangePasswordPress}>
+            <Text style={styles.buttonTitle}>Change Password</Text>
         </TouchableOpacity>
         
     </ImageBackground>

@@ -1,16 +1,16 @@
 import * as React from "react";
 import { Text, View, ImageBackground } from "react-native";
-import Button from "../../../components/Button";
-import styles from "./../../../components/styles";
+import Button from "./../../../../components/Button";
+import styles from "./../../../../components/styles";
 
-export default function ServicesScreen({ navigation }) {
+export default function ProvServicesScreen({ navigation }) {
   const onPostPress = () => {
     navigation.navigate("Services Post");
   };
 
   return (
     <ImageBackground
-      source={require("../../../assets/GrubberBackground.png")}
+      source={require("../../../../assets/GrubberBackground.png")}
       resizeMode="cover"
       style={styles.backgroundImage}
     >

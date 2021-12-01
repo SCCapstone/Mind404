@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View, ImageBackground } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import styles from './../../../components/styles';
-import { firebase } from '../../firebase/config'
+import styles from "./../../../components/styles";
+import { firebase } from './../../firebase/config'
 
 
 export default function RegistrationScreen({navigation}) {
@@ -89,7 +89,11 @@ export default function RegistrationScreen({navigation}) {
                 .doc(uid)
                 .set(data)
                 .then(() => {
-                    navigation.navigate('Home', {user: data})
+                    if(typeOfUser == 'client'){
+                        navigation.navigate('Home', {user: data})
+                    } else {
+                        navigation.navigate('Prov Home', {user:data})
+                    }
                 })
                 .catch((error) => {
                     alert(error)
@@ -150,7 +154,7 @@ export default function RegistrationScreen({navigation}) {
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder='Type of User (customer or client)'
+                    placeholder='Type of User (provider or client)'
                     placeholderTextColor="#aaaaaa"
                     onChangeText={(text) => setTypeOfUser(text)}
                     value={typeOfUser}

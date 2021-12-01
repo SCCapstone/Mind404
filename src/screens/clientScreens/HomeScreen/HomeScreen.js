@@ -11,11 +11,11 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
-import styles from "./../../../components/styles";
-import Button from "../../../components/Button.js";
+import styles from "./../../../../components/styles";
+import Button from "./../../../../components/Button.js";
 import MapView from "react-native-maps";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { firebase } from "../../firebase/config";
+import { firebase } from "../../../firebase/config";
 
 export default function HomeScreen({ navigation }) {
   const onSettingsCogPress = () => {
@@ -26,7 +26,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("../../../assets/GrubberBackground.png")}
+      source={require("../../../../assets/GrubberBackground.png")}
       resizeMode="cover"
       style={styles.backgroundImage}
     >

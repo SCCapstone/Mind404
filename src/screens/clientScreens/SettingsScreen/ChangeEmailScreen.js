@@ -2,20 +2,20 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet, Text, View, Image, Alert, SafeAreaView, TextInput, ImageBackground, TouchableOpacity} from "react-native";
-import styles from './../../../components/styles';
-import Button from "../../../components/Button.js";
-import { firebase } from "../../firebase/config";
+import styles from "./../../../../components/styles";
+import Button from "../../../../components/Button.js";
+import { firebase } from "../../../firebase/config";
 
-export default function ChangePasswordScreen({navigation}) {
-  const [newPassword, updatePassword] = useState("");
-  const [oldPassword, setPassword] = useState("");
+export default function ChangeEmailScreen({navigation}) {
+  const [newEmail, updateEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const onChangePasswordPress = () => {
+  const onChangeEmailPress = () => {
 
-    reauthenticate(oldPassword).then(() => {
+    reauthenticate(password).then(() => {
       var user = firebase.auth().currentUser;
-      user.updatePassword(newPassword).then (() => {
-        Alert.alert("Password has been successfully changed");
+      user.updateEmail(newEmail).then (() => {
+        Alert.alert("Email has been successfully changed");
         navigation.navigate("Settings");
       }).catch((error) => {
         Alert.alert(error.message);
@@ -25,24 +25,24 @@ export default function ChangePasswordScreen({navigation}) {
     });
   }
   
-  const reauthenticate = (oldPassword)=> {
+  const reauthenticate = (password)=> {
     var user = firebase.auth().currentUser;
-    var cred = firebase.auth.EmailAuthProvider.credential(user.email, oldPassword);
+    var cred = firebase.auth.EmailAuthProvider.credential(user.email, password);
     return user.reauthenticateWithCredential(cred);
   }
 
   return (
     <ImageBackground
-      source={require("../../../assets/GrubberBackground.png")}
+      source={require("../../../../assets/GrubberBackground.png")}
       resizeMode="cover"
       style={styles.backgroundImage}>
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
-          secureTextEntry
-          placeholder="Old Password"
-          onChangeText={(text) => setPassword(text)}
-          value={oldPassword}
+          keyboardType="email-address"
+          placeholder="New Email"
+          onChangeText={(text) => updateEmail(text)}
+          value={newEmail}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
@@ -50,14 +50,14 @@ export default function ChangePasswordScreen({navigation}) {
           style={styles.input}
           placeholderTextColor="#aaaaaa"
           secureTextEntry
-          placeholder="New Password"
-          onChangeText={(text) => updatePassword(text)}
-          value={newPassword}
+          placeholder="Password"
+          onChangeText={(text) => setPassword(text)}
+          value={password}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
-        <TouchableOpacity style={styles.changePasswordButton} onPress={onChangePasswordPress}>
-            <Text style={styles.buttonTitle}>Change Password</Text>
+        <TouchableOpacity style={styles.changePasswordButton} onPress={onChangeEmailPress}>
+            <Text style={styles.buttonTitle}>Change Email</Text>
         </TouchableOpacity>
         
     </ImageBackground>
