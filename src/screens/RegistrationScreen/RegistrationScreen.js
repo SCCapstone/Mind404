@@ -13,7 +13,7 @@ export default function RegistrationScreen({navigation}) {
     const [password, setPassword] = useState('')
     const [typeOfUser, setTypeOfUser] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-    var customer = "CUSTOMER"
+    var provider = "PROVIDER"
     var client = "CLIENT"
 
     const onFooterLinkPress = () => {
@@ -29,7 +29,7 @@ export default function RegistrationScreen({navigation}) {
         }
 
         /**checks to see if valid type of user is entered */
-        if (typeOfUser.toUpperCase() !== customer){
+        if (typeOfUser.toUpperCase() !== provider){
             if (typeOfUser.toUpperCase() !== client) {
                 alert("Invalid Type of User entry")
                 return
