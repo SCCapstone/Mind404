@@ -7,12 +7,14 @@ import {
   HomeScreen,
   RegistrationScreen,
   SettingsScreen,
+  ChangePasswordScreen,
+  ChangeEmailScreen,
+  ServicesPostScreen,
 } from "./src/screens";
+
 import { decode, encode } from "base-64";
 import TabNavigation from "./TabNavigation";
-import ServicesPostScreen from "./src/screens/ServicesPostScreen/ServicesPostScreen";
-import ChangePasswordScreen from "./src/screens/SettingsScreen/ChangePasswordScreen"
-import ChangeEmailScreen from "./src/screens/SettingsScreen/ChangeEmailScreen";;
+
 if (!global.btoa) {
   global.btoa = encode;
 }
@@ -43,7 +45,7 @@ export default function App() {
         <Stack.Screen name="Settings" component={SettingsScreen} />
         <Stack.Screen name="Change Password" component={ChangePasswordScreen} />
         <Stack.Screen name="Change Email" component={ChangeEmailScreen} />
-        <Stack.Screen name="ServicesPost" component={ServicesPostScreen} />
+        <Stack.Screen name="Services Post" component={ServicesPostScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

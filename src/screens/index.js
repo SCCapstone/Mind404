@@ -15,3 +15,5 @@ export { default as AppointmentsScreen } from "./AppointmentsScreen/Appointments
 export { default as ChangePasswordScreen } from "./SettingsScreen/ChangePasswordScreen";
 
 export { default as ChangeEmailScreen } from "./SettingsScreen/ChangeEmailScreen";
+
+export { default as ServicesPostScreen } from "./ServicesPostScreen/ServicesPostScreen";
