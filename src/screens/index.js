@@ -29,3 +29,7 @@ export { default as PChangePasswordScreen } from "./providerScreens/ProvSettings
 export { default as ProvServicesScreen } from "./providerScreens/ProvServicesScreen/ProvServicesScreen";
 
 export { default as ServicesPostScreen } from "./providerScreens/ProvServicesScreen/ServicesPostScreen";
+
+export { default as ProvProfileScreen } from "./providerScreens/ProvProfileScreen/ProvProfileScreen";
+
+export { default as ProvAppointmentScreen } from "./providerScreens/ProvAppointmentScreen/ProvAppointmentScreen";

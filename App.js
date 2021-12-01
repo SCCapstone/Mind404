@@ -19,6 +19,7 @@ import {
 
 import { decode, encode } from "base-64";
 import TabNavigation from "./TabNavigation";
+import PTabNavigator from "./PTabNavigator";
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -42,8 +43,9 @@ export default function App() {
           options={{headerShown: false}}
         />
         <Stack.Screen name="Registration" component={RegistrationScreen} />
-        <Stack.Screen name="Prov Home" 
-          component={ProvHomeScreen} 
+        <Stack.Screen 
+          name="Prov Home" 
+          component={PTabNavigator}
           options={{ headerShown: false }}  
         />
         <Stack.Screen
