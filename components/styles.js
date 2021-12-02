@@ -100,13 +100,12 @@ export default StyleSheet.create({
   //
   // SettingsScreen
   settingsButton: {
-    marginLeft: 360,
     marginRight: 15,
     marginTop: 30,
     height: 35,
     borderRadius: 9,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
   },
   changePasswordButton: {
     backgroundColor: "#FFAC1C",
@@ -141,7 +140,7 @@ export default StyleSheet.create({
   instructionText: {
     fontSize: 18,
     fontFamily: "sans-serif",
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   servicesPostButton: {
     backgroundColor: "#FFAC1C",

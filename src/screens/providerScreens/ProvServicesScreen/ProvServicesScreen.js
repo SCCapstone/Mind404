@@ -5,6 +5,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   FlatList,
+  Linking,
 } from "react-native";
 import Button from "./../../../../components/Button";
 import styles from "./../../../../components/styles";
@@ -37,7 +38,7 @@ export default function ProvServicesScreen({ navigation }) {
     return (
       <View
         style={{
-          height: 0.2,
+          height: 1,
           width: "100%",
           backgroundColor: "#808080",
         }}
@@ -53,10 +54,25 @@ export default function ProvServicesScreen({ navigation }) {
           padding: 20,
         }}
       >
-        <Text>Service: {item.serviceType}</Text>
-        <Text>Location: {item.location}</Text>
-        <Text>Description: {item.description}</Text>
-        <Text>Contact: {item.contact}</Text>
+        <View style={{ flexDirection: "row" }}>
+          <View style={{ flex: 1 }}>
+            <Text style={{ fontSize: 20, fontWeight: "bold", color: "black" }}>
+              {item.serviceType}
+            </Text>
+          </View>
+          <View>
+            <Text
+              style={{ color: "blue", textDecorationLine: "underline" }}
+              onPress={() => Linking.openURL(`tel:${item.contact}`)}
+            >
+              {item.contact}
+            </Text>
+          </View>
+        </View>
+        <Text style={{ fontSize: 12, color: "#808080" }}>{item.location}</Text>
+        <View style={{ marginTop: 10 }}>
+          <Text>{item.description}</Text>
+        </View>
       </View>
     );
   };
@@ -71,7 +87,7 @@ export default function ProvServicesScreen({ navigation }) {
       resizeMode="cover"
       style={styles.backgroundImage}
     >
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, paddingTop: 20 }}>
         <FlatList
           data={listData}
           ItemSeparatorComponent={itemSeperatorView}

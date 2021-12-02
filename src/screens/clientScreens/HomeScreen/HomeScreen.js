@@ -16,13 +16,13 @@ import Button from "./../../../../components/Button.js";
 import MapView from "react-native-maps";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { firebase } from "../../../firebase/config";
+import useUser from "../../../../useUser";
 
 export default function HomeScreen({ navigation }) {
   const onSettingsCogPress = () => {
     navigation.navigate("Settings");
   };
-  
-  const user = firebase.auth().currentUser;
+  const { user } = useUser();
 
   return (
     <ImageBackground
@@ -34,15 +34,10 @@ export default function HomeScreen({ navigation }) {
         style={styles.settingsButton}
         onPress={() => onSettingsCogPress()}
       >
-        <MaterialCommunityIcons 
-          name="cog-outline" 
-          color="#000" 
-          size={30}
-          
-        />
+        <MaterialCommunityIcons name="cog-outline" color="#000" size={30} />
       </TouchableOpacity>
       <View style={styles.layout}>
-        <Text style={styles.welcome}>Welcome Back!</Text>
+        <Text style={styles.welcome}>Welcome {user.firstName}!</Text>
         <View style={styles.mapWrapper}>
           <MapView
             style={styles.map}
