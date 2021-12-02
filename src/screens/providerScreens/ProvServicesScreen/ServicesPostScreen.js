@@ -21,18 +21,22 @@ export default function ServicesPostScreen({ navigation }) {
   const { user } = useUser();
 
   const onPostPress = () => {
+    /** Checks to see if type of service is an empty string */
     if (serviceType == "") {
       alert("Please enter a type of service.");
       return;
     }
+    /** Checks to see if location field is an empty string */
     if (location == "") {
       alert("Please enter a valid location.");
       return;
     }
-    if (contact == "") {
+    /**Checks to see if phone number is a valid entry */
+    if (!validPhoneCheck(contact)) {
       alert("Please enter a valid phone number.");
       return;
     }
+    /**Checks to see if the description field is empty */
     if (description == "") {
       alert("Please enter a description detailing your service.");
       return;
@@ -100,7 +104,7 @@ export default function ServicesPostScreen({ navigation }) {
         ></TextInput>
         <TextInput
           style={styles.input}
-          placeholder="Contact Phone Number"
+          placeholder="Phone Number eg. xxx-xxx-xxxx"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setContact(text)}
           value={contact}
@@ -116,4 +120,19 @@ export default function ServicesPostScreen({ navigation }) {
       </KeyboardAwareScrollView>
     </ImageBackground>
   );
+}
+
+/** Function to see if a string is in phone number syntax*/
+function validPhoneCheck(phoneNumber) {
+  
+  if(/^(1?\s?\(?[0-9]{3}\)?\s?[0-9]{3}\s?[0-9]{4})$/.test(phoneNumber)){
+    return true;
+  }else if(/^(1?\s?\({1}[0-9]{3}\){1}\s?[0-9]{3}\-?\s?[0-9]{4})$/.test(phoneNumber)){
+    return true;
+  }else if(/^(1?\s?[0-9]{3}\-?\s?[0-9]{3}\-?\s?[0-9]{4})$/.test(phoneNumber)){
+    return true;
+  }
+  else {
+    return false;
+  }
 }
