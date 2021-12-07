@@ -95,7 +95,7 @@ export default function RegistrationScreen({ navigation }) {
           .set(data)
           .then(() => {
             if (typeOfUser == "client") {
-              navigation.navigate("Home", { user: data });
+              navigation.navigate("Client Home", { user: data });
             } else {
               navigation.navigate("Prov Home", { user: data });
             }

@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import {
   LoginScreen,
   HomeScreen,
+  ServicesScreen,
   RegistrationScreen,
   SettingsScreen,
   ChangePasswordScreen,
@@ -45,13 +46,13 @@ export default function App() {
           />
           <Stack.Screen name="Registration" component={RegistrationScreen} />
           <Stack.Screen
-            name="Prov Home"
-            component={PTabNavigator}
+            name="Client Home"
+            component={TabNavigation}
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="Home"
-            component={TabNavigation}
+            name="Prov Home"
+            component={PTabNavigator}
             options={{ headerShown: false }}
           />
           <Stack.Screen name="Settings" component={SettingsScreen} />

@@ -38,10 +38,10 @@ export default function LoginScreen({ navigation }) {
             const user = firestoreDocument.data();
             setUser(user);
             let type = user.typeOfUser;
-            if (type == "client") {
-              navigation.navigate("Home", { user });
-            } else {
+            if (type.toLowerCase() == "provider") {
               navigation.navigate("Prov Home", { user });
+            } else {
+              navigation.navigate("Client Home", { user }); 
             }
           })
           .catch((error) => {
