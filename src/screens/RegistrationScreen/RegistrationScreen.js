@@ -6,10 +6,13 @@ import {
   TouchableOpacity,
   View,
   ImageBackground,
+  TouchableHighlight,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Menu, MenuProvider, MenuOptions, MenuOption, MenuTrigger, renderers} from "react-native-popup-menu";
 import styles from "./../../../components/styles";
 import { firebase } from "./../../firebase/config";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function RegistrationScreen({ navigation }) {
   const [firstName, setFirstName] = useState("");
@@ -17,11 +20,11 @@ export default function RegistrationScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [dob, setDOB] = useState("");
   const [password, setPassword] = useState("");
-  const [typeOfUser, setTypeOfUser] = useState("");
+  const [typeOfUser, setTypeOfUser] = useState("               ");
   const [confirmPassword, setConfirmPassword] = useState("");
   var provider = "PROVIDER";
   var client = "CLIENT";
-
+  
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
   };
@@ -152,22 +155,31 @@ export default function RegistrationScreen({ navigation }) {
         />
         <TextInput
           style={styles.input}
-          placeholder="Date of Birth (mm/dd/yyy)"
+          placeholder="Date of Birth (mm/dd/yyyy)"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setDOB(text)}
           value={dob}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Type of User (provider or client)"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setTypeOfUser(text)}
-          value={typeOfUser}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
+        <View style={styles.containerSide}>
+        <MenuProvider style={{ flexDirection: "column", padding: 30 }}>
+          <Menu>
+            <MenuTrigger>
+              <Text style={styles.dropDown}>Set Account Type</Text>
+            </MenuTrigger  >
+            <MenuOptions>
+              <MenuOption onSelect={() => setTypeOfUser("Provider")} value={typeOfUser}>
+                <Text style={styles.menuContent}>Provider</Text>
+              </MenuOption>
+              <MenuOption onSelect={() => setTypeOfUser("Client")} value={typeOfUser}>
+                <Text style={styles.menuContent}>Client</Text>
+              </MenuOption>
+          </MenuOptions>
+          </Menu>
+        </MenuProvider>
+        <Text style = {styles.selectedOption}>  {typeOfUser}  </Text>
+        </View>
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
