@@ -8,6 +8,10 @@ export { default as SettingsScreen } from "./clientScreens/SettingsScreen/Settin
 
 export { default as ServicesScreen } from "./clientScreens/ServicesScreen/ServicesScreen";
 
+export { default as ServiceDetailsScreen } from "./clientScreens/ServicesScreen/ServiceDetailsScreen";
+
+export { default as ServiceBookingScreen } from "./clientScreens/ServicesScreen/ServiceBookingScreen";
+
 export { default as ProfileScreen } from "./clientScreens/ProfileScreen/ProfileScreen";
 
 export { default as AppointmentsScreen } from "./clientScreens/AppointmentsScreen/AppointmentsScreen";

@@ -6,10 +6,12 @@ import {
   FlatList,
   TouchableOpacity,
   Linking,
+  Alert,
 } from "react-native";
 import Button from "./../../../../components/Button";
 import styles from "./../../../../components/styles";
 import { firebase } from "../../../firebase/config";
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function ServicesScreen({ navigation }) {
   const [listData, setListData] = useState([]);
@@ -44,7 +46,11 @@ export default function ServicesScreen({ navigation }) {
   };
 
   let itemView = ({ item }) => {
+    const detailsPage = () => {
+      navigation.navigate('Service Details', {item})
+    }
     return (
+      <TouchableOpacity onPress={() => detailsPage()}>
       <View
         style={{
           backgroundColor: "white",
@@ -59,7 +65,7 @@ export default function ServicesScreen({ navigation }) {
           </View>
           <View>
             <Text
-              style={{ color: "blue", textDecorationLine: "underline" }}
+              style={styles.phoneNumber}
               onPress={() => Linking.openURL(`tel:${item.contact}`)}
             >
               {item.contact}
@@ -71,6 +77,7 @@ export default function ServicesScreen({ navigation }) {
           <Text>{item.description}</Text>
         </View>
       </View>
+      </TouchableOpacity>
     );
   };
 

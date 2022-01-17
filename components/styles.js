@@ -94,7 +94,7 @@ export default StyleSheet.create({
     backgroundColor: "white",
     marginRight: 30,
   },
-  
+
   containerSide: {
     flexDirection: "row",
     alignItems: "baseline",
@@ -187,4 +187,55 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   //
+  //Service Details
+  bookButton:{
+    backgroundColor: "#FFAC1C",
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 20,
+    marginBottom: 10,
+    height: 48,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    fontFamily: "sans-serif",
+    fontWeight: "bold",
+    fontSize: 35,
+    width: "100%",
+    textAlign: "center",
+    marginBottom: 12,
+    color: "black",
+  },
+  description: {
+    fontFamily: "sans-serif",
+    fontSize: 20,
+    width: "100%",
+    textAlign: "center",
+    marginBottom: 12,
+    color: "black",
+  },
+  location: {
+    fontFamily: "sans-serif",
+    fontSize: 15,
+    padding:7,
+    textAlign: "center",
+    marginLeft: 25,
+  },
+  phoneNumber:{ 
+    fontFamily: "sans-serif",
+    fontSize: 15,
+    color: "blue", 
+    textDecorationLine: "underline",
+    padding: 7,
+    textAlign: "center",
+    marginRight: 25,
+  },
+  locationNumberContainer: {
+    flexDirection: "row",
+    alignItems: "stretch",
+    flex: 1,
+    justifyContent: "space-between"
+  }
 });

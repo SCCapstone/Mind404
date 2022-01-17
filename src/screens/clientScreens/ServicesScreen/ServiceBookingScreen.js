@@ -4,7 +4,7 @@ import styles from "./../../../../components/styles";
 
 
 
-export default function AppointmentsScreen() {
+export default function ServiceBookingScreen() {
   
   return (
     <ImageBackground
@@ -13,7 +13,7 @@ export default function AppointmentsScreen() {
       style={styles.backgroundImage}
     >
       <View style={styles.footerView}>
-        <Text style ={styles.welcome}>Appointments</Text>
+        <Text style ={styles.welcome}>Book</Text>
       </View>
     </ImageBackground>
   );

@@ -11,6 +11,8 @@ import {
   ChangePasswordScreen,
   ChangeEmailScreen,
   ServicesPostScreen,
+  ServiceBookingScreen,
+  ServiceDetailsScreen,
   ProvHomeScreen,
   ProvServicesScreen,
   PSettingsScreen,
@@ -61,6 +63,8 @@ export default function App() {
             component={ChangePasswordScreen}
           />
           <Stack.Screen name="Change Email" component={ChangeEmailScreen} />
+          <Stack.Screen name="Service Booking" component={ServiceBookingScreen} />
+          <Stack.Screen name="Service Details" component={ServiceDetailsScreen} />
           <Stack.Screen name="Prov Services" component={ProvServicesScreen} />
           <Stack.Screen
             name="Post Your Service"
