@@ -14,7 +14,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
       [
         {
           text: "Book",
-          onPress: () => navigation.navigate('Service Booking')
+          onPress: () => navigation.navigate('Service Booking', {item})
         },
         {
           text: "Cancel",
