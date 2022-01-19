@@ -211,6 +211,12 @@ export default StyleSheet.create({
     marginEnd: 20,
     marginStart: 20,
   },
+  explanation: {
+    fontSize: 16,
+    color: "black",
+    padding: 6,
+    marginStart: 20,
+  },
   //
   //Service Details
   bookButton:{

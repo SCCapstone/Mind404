@@ -21,8 +21,8 @@ export default function ServicesPostScreen({ navigation }) {
   const [contact, setContact] = useState("");
   const [description, setDecription] = useState("");
   const { user } = useUser();
-  const [isEnabled,setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const [bookOnApp,setbookOnApp] = useState(false);
+  const toggleSwitch = () => setbookOnApp(previousState => !previousState);
 
   const onPostPress = () => {
     /** Checks to see if type of service is an empty string */
@@ -46,6 +46,7 @@ export default function ServicesPostScreen({ navigation }) {
       return;
     }
     const data = {
+      bookOnApp,
       contact,
       description,
       location,
@@ -63,7 +64,7 @@ export default function ServicesPostScreen({ navigation }) {
   };
 
   const displayCalendar = () => {
-    return <Text>hello</Text>
+    
   }
 
   return (
@@ -119,16 +120,18 @@ export default function ServicesPostScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
+        <Text style={styles.explanation}>
+          If you wish for clients to book strictly by contacting you via phone number, disselect the option below.
+        </Text>
         <View style={styles.switchContainer}>
           <Text style={styles.switchText}>Book through app:</Text>
           <Switch
             trackColor={{false: "#767577", true: "#81b0ff"}}
-            thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+            thumbColor={bookOnApp ? "#f5dd4b" : "#f4f3f4"}
             onValueChange={toggleSwitch}
-            value={isEnabled}
-            onChange={displayCalendar}/>
+            value={bookOnApp}/>
         </View>
-        {}
+
         <TouchableOpacity
           style={styles.servicesPostButton}
           onPress={onPostPress}
