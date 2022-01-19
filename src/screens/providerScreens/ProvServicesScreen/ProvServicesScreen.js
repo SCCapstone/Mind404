@@ -95,9 +95,11 @@ export default function ProvServicesScreen({ navigation }) {
           renderItem={itemView}
         />
       </View>
-      <Button style={styles.servicesPostButton} onPress={onPostPress}>
-        Post a New Service
-      </Button>
+      <View style={styles.postButton}>
+       <Button style={styles.servicesPostButton} onPress={onPostPress}>
+          Post a New Service
+        </Button>
+      </View>
     </ImageBackground>
   );
 }

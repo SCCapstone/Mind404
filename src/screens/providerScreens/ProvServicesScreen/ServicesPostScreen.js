@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
+  Switch,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Button from "../../../../components/Button";
@@ -13,12 +14,15 @@ import styles from "./../../../../components/styles";
 import { firebase } from "./../../../firebase/config";
 import useUser from "../../../../useUser";
 
+
 export default function ServicesPostScreen({ navigation }) {
   const [serviceType, setServiceType] = useState("");
   const [location, setLocation] = useState("");
   const [contact, setContact] = useState("");
   const [description, setDecription] = useState("");
   const { user } = useUser();
+  const [isEnabled,setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   const onPostPress = () => {
     /** Checks to see if type of service is an empty string */
@@ -57,6 +61,10 @@ export default function ServicesPostScreen({ navigation }) {
         navigation.navigate("Prov Home");
       });
   };
+
+  const displayCalendar = () => {
+    return <Text>hello</Text>
+  }
 
   return (
     <ImageBackground
@@ -111,6 +119,16 @@ export default function ServicesPostScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
+        <View style={styles.switchContainer}>
+          <Text style={styles.switchText}>Book through app:</Text>
+          <Switch
+            trackColor={{false: "#767577", true: "#81b0ff"}}
+            thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+            onChange={displayCalendar}/>
+        </View>
+        {}
         <TouchableOpacity
           style={styles.servicesPostButton}
           onPress={onPostPress}

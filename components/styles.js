@@ -154,7 +154,9 @@ export default StyleSheet.create({
   //
 
   //ServicesScreen
-  postButton: {},
+  postButton: {
+    padding: 10,
+  },
   //
 
   //ServicesPostScreen
@@ -185,6 +187,29 @@ export default StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
+  },
+  switchText: {
+    fontFamily: "sans-serif",
+    fontSize: 18,
+    textAlign: "center",
+    color: "black",
+    borderRadius: 3,
+    borderTopColor: "#d3d3d3",
+    borderBottomColor: "#d3d3d3",
+    borderRightColor: "transparent",
+    borderLeftColor: "transparent",
+    borderWidth: 1,
+    padding: 7,
+    backgroundColor: "white",
+    marginRight: 30,
+  },
+  switchContainer: {
+    flexDirection: "row",
+    alignItems: "stretch",
+    flex: 1,
+    padding: 8,
+    marginEnd: 20,
+    marginStart: 20,
   },
   //
   //Service Details
