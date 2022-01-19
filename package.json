@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@testing-library/react": "^12.1.2",
     "detox": "^19.4.2",
     "jest": "^27.4.7",
     "jest-circus": "^27.4.6",
