@@ -7,6 +7,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "test": "jest",
     "eject": "expo eject"
   },
   "dependencies": {
@@ -35,7 +36,14 @@
     "react-native-web": "0.17.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "detox": "^19.4.2",
+    "jest": "^27.4.7",
+    "jest-circus": "^27.4.6",
+    "jest-expo": "^44.0.1"
+  },
+  "jest": {
+    "preset": "jest-expo"
   },
   "private": true
 }
