@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Text, View, ImageBackground } from "react-native";
-import styles from "./../../../../components/styles";
+import styles from "../../../../components/styles";
 
-export default function ProvAppointmentScreen() {
+export default function ProvChatScreen() {
   return (
     <ImageBackground
       source={require("../../../../assets/GrubberBackground.png")}
@@ -10,7 +10,7 @@ export default function ProvAppointmentScreen() {
       style={styles.backgroundImage}
     >
       <View>
-        <Text>Appointments</Text>
+        <Text>Chat</Text>
       </View>
     </ImageBackground>
   );

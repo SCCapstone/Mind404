@@ -4,7 +4,7 @@ import {
   HomeScreen,
   ServicesScreen,
   ProfileScreen,
-  AppointmentsScreen,
+  ChatScreen,
 } from "./src/screens";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -44,11 +44,11 @@ export default function BottomTabs() {
         }}
       />
       <Tab.Screen
-        name="Appointments"
-        component={AppointmentsScreen}
+        name="Messages"
+        component={ChatScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="calendar" color={color} size={size} />
+            <MaterialCommunityIcons name="chat" color={color} size={size} />
           ),
           headerShown: false,
         }}
