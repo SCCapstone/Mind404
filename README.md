@@ -53,9 +53,9 @@ emulator or in a physical phone.
 In 492 you will write automated tests. When you do you will need to add a 
 section that explains how to run them.
 
-The unit tests are in `/test/unit`.
+The unit tests are in `/__tests__/`.
 
-The behavioral tests are in `/test/casper/`.
+The behavioral tests are in N/A as of rn
 
 ## Testing Technology
 
