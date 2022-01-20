@@ -8,16 +8,6 @@ it(`renders correctly`, () => {
   expect(tree).toMatchSnapshot();
 });
 
-//testing flatlist component
-it('renders the flatlist component', () =>{
-  const tree = renderer.create(
-    <Flatlist
-    data = {['item1', 'item2', 'item3']}
-    keyExtractor = {item => item}
-    renderItem = {(item)=> <text>{item}</text>}
-    />
-  ).toJSON();
-  expect(tree).toMatchSnapshot();
-} )
+//testing user inputs email and password and then it logs in
 
 
