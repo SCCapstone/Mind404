@@ -50,21 +50,14 @@ emulator or in a physical phone.
 
 # Testing
 
-In 492 you will write automated tests. When you do you will need to add a 
-section that explains how to run them.
-
-The unit tests are in `/__tests__/`.
-
-The behavioral tests are in N/A as of rn
+The unit tests and behavorial are in `/__tests__/`.
 
 ## Testing Technology
 
-In some cases you need to install test runners, etc. Explain how.
+install: yarn add --dev jest
 
 ## Running Tests
-
-Explain how to run the automated tests.
-
+run : yarn test
 # Authors
 
 <p>Adam Farley adamfarley4@gmail.com</p>
