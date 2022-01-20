@@ -1,5 +1,7 @@
-it('renders correctly across screens', () => {
-    const tree = renderer.create(<Button />).toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-  
+import * as React from "react";
+import Button from "../components/Button";
+import renderer from "react-test-renderer";
+it(`renders correctly`, () => {
+  const tree = renderer.create(<Button>Login</Button>);
+  expect(tree).toMatchSnapshot();
+});
