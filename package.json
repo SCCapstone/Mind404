@@ -37,14 +37,16 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@testing-library/jest-native": "^4.0.4",
     "@testing-library/react": "^12.1.2",
+    "@testing-library/react-native": "^9.0.0",
     "detox": "^19.4.2",
     "jest": "^27.4.7",
     "jest-circus": "^27.4.6",
     "jest-expo": "^44.0.1"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "react-native"
   },
   "private": true
 }
