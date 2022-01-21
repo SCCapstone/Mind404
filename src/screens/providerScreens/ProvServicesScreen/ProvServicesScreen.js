@@ -56,9 +56,7 @@ export default function ProvServicesScreen({ navigation }) {
       >
         <View style={{ flexDirection: "row" }}>
           <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: 20, fontWeight: "bold", color: "black" }}>
-              {item.serviceType}
-            </Text>
+            <Text style={styles.titleText}>{item.serviceType}</Text>
           </View>
           <View>
             <Text
@@ -70,7 +68,7 @@ export default function ProvServicesScreen({ navigation }) {
           </View>
         </View>
         <Text style={{ fontSize: 12, color: "#808080" }}>{item.location}</Text>
-        <View style={{ marginTop: 10 }}>
+        <View style={styles.marginTop10}>
           <Text>{item.description}</Text>
         </View>
       </View>
