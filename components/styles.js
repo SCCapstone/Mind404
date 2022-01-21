@@ -88,6 +88,7 @@ export default StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     height: "100%",
+    alignItems: "center",
   },
   mapWrapper: {
     backgroundColor: "grey",
@@ -152,5 +153,30 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  //
+  // Profile Screen
+  profilePhoto: {
+    height: 150,
+    width: 150,
+    borderRadius: 150 / 2,
+    resizeMode: "cover",
+    backgroundColor: "#f0f0f0",
+    borderColor: "black",
+    borderWidth: 1,
+    overflow: "hidden",
+  },
+  profileDescriptionWrapper: {
+    backgroundColor: "white",
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 20,
+    width: "100%",
+  },
+  titleText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "black",
+  },
+  marginTop10: {
+    marginTop: 10,
+  },
 });
