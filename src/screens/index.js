@@ -36,4 +36,6 @@ export { default as ServicesPostScreen } from "./providerScreens/ProvServicesScr
 
 export { default as ProvProfileScreen } from "./providerScreens/ProvProfileScreen/ProvProfileScreen";
 
+export { default as ProvProfileEditScreen } from "./providerScreens/ProvProfileScreen/ProvProfileEditScreen";
+
 export { default as ProvChatScreen } from "./providerScreens/ProvChatScreen/ProvChatScreen";

@@ -18,6 +18,7 @@ import {
   PSettingsScreen,
   PChangeEmailScreen,
   PChangePasswordScreen,
+  ProvProfileEditScreen,
 } from "./src/screens";
 
 import { decode, encode } from "base-64";
@@ -63,8 +64,14 @@ export default function App() {
             component={ChangePasswordScreen}
           />
           <Stack.Screen name="Change Email" component={ChangeEmailScreen} />
-          <Stack.Screen name="Service Booking" component={ServiceBookingScreen} />
-          <Stack.Screen name="Service Details" component={ServiceDetailsScreen} />
+          <Stack.Screen
+            name="Service Booking"
+            component={ServiceBookingScreen}
+          />
+          <Stack.Screen
+            name="Service Details"
+            component={ServiceDetailsScreen}
+          />
           <Stack.Screen name="Prov Services" component={ProvServicesScreen} />
           <Stack.Screen
             name="Post Your Service"
@@ -78,6 +85,10 @@ export default function App() {
           <Stack.Screen
             name="Prov Change Email"
             component={PChangeEmailScreen}
+          />
+          <Stack.Screen
+            name="Prov Edit Profile"
+            component={ProvProfileEditScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>

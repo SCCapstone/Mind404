@@ -220,7 +220,7 @@ export default StyleSheet.create({
   },
   //
   //Service Details
-  bookButton:{
+  bookButton: {
     backgroundColor: "#FFAC1C",
     marginLeft: 30,
     marginRight: 30,
@@ -251,14 +251,14 @@ export default StyleSheet.create({
   location: {
     fontFamily: "sans-serif",
     fontSize: 15,
-    padding:7,
+    padding: 7,
     textAlign: "center",
     marginLeft: 25,
   },
-  phoneNumber:{ 
+  phoneNumber: {
     fontFamily: "sans-serif",
     fontSize: 15,
-    color: "blue", 
+    color: "blue",
     textDecorationLine: "underline",
     padding: 7,
     textAlign: "center",
@@ -268,8 +268,8 @@ export default StyleSheet.create({
     flexDirection: "row",
     alignItems: "stretch",
     flex: 1,
-    justifyContent: "space-between"
-  }
+    justifyContent: "space-between",
+  },
   // Profile Screen
   profilePhoto: {
     height: 150,

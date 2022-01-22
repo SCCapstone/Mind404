@@ -1,10 +1,21 @@
 import * as React from "react";
-import { Text, View, ImageBackground, Image } from "react-native";
+import {
+  Text,
+  View,
+  ImageBackground,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import styles from "./../../../../components/styles";
 import useUser from "../../../../useUser";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-export default function ProvProfileScreen() {
+export default function ProvProfileScreen({ navigation }) {
   const { user } = useUser();
+
+  const onPencilPress = () => {
+    navigation.navigate("Prov Edit Profile");
+  };
 
   return (
     <ImageBackground
@@ -12,6 +23,12 @@ export default function ProvProfileScreen() {
       resizeMode="cover"
       style={styles.backgroundImage}
     >
+      <TouchableOpacity
+        style={styles.settingsButton}
+        onPress={() => onPencilPress()}
+      >
+        <FontAwesome name="pencil" color="#000" size={30} />
+      </TouchableOpacity>
       <View style={styles.layout}>
         <Text style={styles.welcome}>
           {user.firstName} {user.lastName}
