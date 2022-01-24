@@ -92,7 +92,7 @@ export default function LoginScreen({ navigation }) {
             style={styles.button}
             onPress={() => onLoginPress()}
           >
-            <Text style={styles.buttonTitle}>Log in</Text>
+          <Text testID = "Login.testButton" style={styles.buttonTitle}>Log in</Text>
           </TouchableOpacity>
           <View style={styles.footerView}>
             <Text style={styles.footerText}>

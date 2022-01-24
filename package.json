@@ -36,6 +36,7 @@
     "react-native-screens": "~3.8.0",
     "react-native-vector-icons": "^9.0.0",
     "react-native-web": "0.17.1",
+    "react-test-renderer": "^17.0.2",
     "save": "^2.4.0"
   },
   "devDependencies": {
@@ -49,7 +50,10 @@
     "jest-expo": "^44.0.1"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect"
+    ]
   },
   "private": true
 }
