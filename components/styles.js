@@ -296,4 +296,27 @@ export default StyleSheet.create({
   marginTop10: {
     marginTop: 10,
   },
+
+  //Chat
+  //
+  img: {width:60,height:60,borderRadius:30,backgroundColor:"green"},
+  text: {
+       fontSize:18,
+       marginLeft:15,
+   },
+   mycard:{
+       flexDirection:"row",
+       margin:3,
+       padding:4,
+       backgroundColor:"white",
+       borderBottomWidth:1,
+       borderBottomColor:'grey'
+   },
+   fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    backgroundColor:"white"
+  },
 });

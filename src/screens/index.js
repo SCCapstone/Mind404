@@ -20,6 +20,8 @@ export { default as ChangePasswordScreen } from "./clientScreens/SettingsScreen/
 
 export { default as ChangeEmailScreen } from "./clientScreens/SettingsScreen/ChangeEmailScreen";
 
+export { default as Chat } from "./clientScreens/ChatScreen/Chat";
+
 //provider screens
 
 export { default as ProvHomeScreen } from "./providerScreens/ProvHomeScreen/ProvHomeScreen";

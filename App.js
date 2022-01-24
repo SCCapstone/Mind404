@@ -19,6 +19,7 @@ import {
   PChangeEmailScreen,
   PChangePasswordScreen,
   ProvProfileEditScreen,
+  Chat
 } from "./src/screens";
 
 import { decode, encode } from "base-64";
@@ -35,9 +36,10 @@ if (!global.atob) {
 
 const Stack = createStackNavigator();
 
+
 export default function App() {
   const [loading, setLoading] = useState(true);
-
+  
   return (
     <UserProvider>
       <NavigationContainer>
@@ -90,6 +92,9 @@ export default function App() {
             name="Prov Edit Profile"
             component={ProvProfileEditScreen}
           />
+          <Stack.Screen name="chat" options={({ route }) => ({ title:<View><Text>{route.params.name}</Text><Text>{route.params.status}</Text></View> })}>
+          {props => <ChatScreen {...props} user={user} /> }
+          </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>
