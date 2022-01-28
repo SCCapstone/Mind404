@@ -8,19 +8,29 @@ import {
   TextInput,
 } from "react-native";
 import styles from "./../../../../components/styles";
+import Button from "./../../../../components/Button";
 import useUser from "../../../../useUser";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { firebase } from "./../../../firebase/config";
 
 export default function ProvProfileScreen({ navigation }) {
-  const { user } = useUser();
-  const [description, setDecription] = useState("");
-  // const onPostPress = () => {
-  //   /** Checks to see if type of service is an empty string */
-  //   if (serviceType == "") {
-  //     alert("Please enter a type of service.");
-  //     return;
-  //   }
-  // }
+  const { user, setUser } = useUser();
+  const [description, setDecription] = useState(user.description);
+  const onPostPress = () => {
+    /** Checks to see if type of service is an empty string */
+    if (description == "") {
+      alert("Please enter services offered.");
+      return;
+    }
+    const usersRef = firebase.firestore().collection("users");
+    const data = { description };
+    usersRef.doc(user.id).update(data);
+    setUser({
+      ...user,
+      ...data,
+    });
+    navigation.navigate("Prov Home");
+  };
 
   return (
     <ImageBackground
@@ -37,19 +47,16 @@ export default function ProvProfileScreen({ navigation }) {
             style={styles.multilineInput}
             placeholder="Description of services"
             placeholderTextColor="#aaaaaa"
-            onChangeText={(text) => setDecription(text)}
+            onChangeText={setDecription}
             value={description}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
             multiline
           ></TextInput>
         </View>
-        <TouchableOpacity
-          style={styles.servicesPostButton}
-          // onPress={navigation.navigate("Prov Home")}
-        >
+        <Button style={styles.servicesPostButton} onPress={onPostPress}>
           <Text style={styles.buttonTitle}>Post Service</Text>
-        </TouchableOpacity>
+        </Button>
       </View>
     </ImageBackground>
   );

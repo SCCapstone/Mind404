@@ -42,7 +42,7 @@ export default function ProvProfileScreen({ navigation }) {
             <Text style={styles.titleText}>Service Provided</Text>
           </View>
           <View style={styles.marginTop10}>
-            <Text>Description goes here.</Text>
+            <Text>{user.description}</Text>
           </View>
         </View>
         <View style={styles.profileDescriptionWrapper}>
