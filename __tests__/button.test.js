@@ -8,6 +8,8 @@ it(`renders correctly`, () => {
   expect(tree).toMatchSnapshot();
 });
 
+
+
 //testing user inputs email and password and then it logs in
 
 
