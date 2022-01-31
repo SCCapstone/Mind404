@@ -1,9 +1,14 @@
 import * as React from "react";
-import HomeScreen from "../src/screens/clientScreens/HomeScreen/HomeScreen";
-import {render} from "@testing-library/react-native"
+import SettingsScreen from "../src/screens/clientScreens/SettingsScreen/SettingsScreen";
+import {render} from "@testing-library/react-native";
+import{fireEvent} from "@testing-library/react-native";
 
+//behavior test 
 it("renders",() => {
-    render(<HomeScreen/>);
+    const{getByTestId} = render(<SettingsScreen/>);
+    const button = getByTestId("dostuff.Button");
+    fireEvent.press(button);
+    expect(console.log("button pressed"))
 });
 /*
 describe('renders default elements', () => {

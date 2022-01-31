@@ -27,6 +27,8 @@ export default function SettingsScreen({navigation}) {
       resizeMode="cover"
       style={styles.backgroundImage}>
       
+      <Button testID = "dostuff.Button" text = "do stuff" onPress ={console.log("button pressed")}/>
+
       <TouchableOpacity
         style={styles.changePasswordButton}
         onPress={() => onChangePasswordPress()}>
