@@ -23,11 +23,6 @@ After downloading the external requirements, clone the repo and enter the follow
 
 * `npm install -g expo -cli`
 * `npm install`
-* `yarn add firebase`
-* `npm uninstall firebase`
-* `npm cache clear --force`
-* `npm i firebase@8.10.0`
-
 
 ## Running
 
@@ -53,11 +48,11 @@ emulator or in a physical phone.
 The unit tests and behavorial are in `/__tests__/`.
 
 ## Testing Technology
-
-install: yarn add --dev jest
+Jest is used to carry out testing, which has already been installed through the initial `npm install` command. There are no further test runners required.
 
 ## Running Tests
-run : yarn test
+Enter command `npm test`.
+
 # Authors
 
 <p>Adam Farley adamfarley4@gmail.com</p>
