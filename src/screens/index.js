@@ -14,13 +14,11 @@ export { default as ServiceBookingScreen } from "./clientScreens/ServicesScreen/
 
 export { default as ProfileScreen } from "./clientScreens/ProfileScreen/ProfileScreen";
 
-export { default as ChatScreen } from "./clientScreens/ChatScreen/ChatScreen";
+export { default as FavServicesScreen } from "./clientScreens/FavServicesScreen/FavServicesScreen";
 
 export { default as ChangePasswordScreen } from "./clientScreens/SettingsScreen/ChangePasswordScreen";
 
 export { default as ChangeEmailScreen } from "./clientScreens/SettingsScreen/ChangeEmailScreen";
-
-export { default as Chat } from "./clientScreens/ChatScreen/Chat";
 
 //provider screens
 
@@ -40,4 +38,4 @@ export { default as ProvProfileScreen } from "./providerScreens/ProvProfileScree
 
 export { default as ProvProfileEditScreen } from "./providerScreens/ProvProfileScreen/ProvProfileEditScreen";
 
-export { default as ProvChatScreen } from "./providerScreens/ProvChatScreen/ProvChatScreen";
+export { default as ProvCalendarScreen } from "./providerScreens/ProvCalendarScreen/ProvCalendarScreen";

@@ -4,7 +4,7 @@ import {
   ProvHomeScreen,
   ProvServicesScreen,
   ProvProfileScreen,
-  ProvChatScreen,
+  ProvCalendarScreen,
 } from "./src/screens";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -44,11 +44,11 @@ export default function BottomTabs() {
         }}
       />
       <Tab.Screen
-        name="Messages"
-        component={ProvChatScreen}
+        name="Calendar"
+        component={ProvCalendarScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="chat" color={color} size={size} />
+            <MaterialCommunityIcons name="calendar" color={color} size={size} />
           ),
           headerShown: false,
         }}
