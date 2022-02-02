@@ -13,16 +13,42 @@ import Button from "../../../../components/Button";
 import styles from "./../../../../components/styles";
 import { firebase } from "./../../../firebase/config";
 import useUser from "../../../../useUser";
-
+import DateTimePicker from "@react-native-community/datetimepicker"
 
 export default function ServicesPostScreen({ navigation }) {
   const [serviceType, setServiceType] = useState("");
   const [location, setLocation] = useState("");
   const [contact, setContact] = useState("");
+  const [email, setEmail] = useState("");
   const [description, setDecription] = useState("");
   const { user } = useUser();
-  const [bookOnApp,setbookOnApp] = useState(false);
-  const toggleSwitch = () => setbookOnApp(previousState => !previousState);
+
+  const [fromDate, setFromDate] = useState(new Date());
+  const [toDate, setToDate] = useState(new Date());
+  const [mode, setMode] = useState('time');
+  const [show, setShow] = useState(false);
+
+  const fromThis = (event, selectedFromDate) => {
+    const currentFromDate = selectedFromDate || fromDate;
+    setShow(Platform.OS === 'ios');
+    setFromDate(currentFromDate);
+    console.log(toDate);
+  };
+
+  const toThis = (event, selectedToDate) => {
+    const currentToDate = selectedToDate || toDate;
+    setShow(Platform.OS === 'ios');
+    setToDate(currentToDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showTimepicker = () => {
+    showMode('time');
+  };
 
   const onPostPress = () => {
     /** Checks to see if type of service is an empty string */
@@ -40,13 +66,16 @@ export default function ServicesPostScreen({ navigation }) {
       alert("Please enter a valid phone number.");
       return;
     }
+    if(!validEmail(email)){
+      alert("Please enter a valid email address.");
+      return;
+    }
     /**Checks to see if the description field is empty */
     if (description == "") {
       alert("Please enter a description detailing your service.");
       return;
     }
     const data = {
-      bookOnApp,
       contact,
       description,
       location,
@@ -62,10 +91,6 @@ export default function ServicesPostScreen({ navigation }) {
         navigation.navigate("Prov Home");
       });
   };
-
-  const displayCalendar = () => {
-    
-  }
 
   return (
     <ImageBackground
@@ -120,16 +145,53 @@ export default function ServicesPostScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setEmail(text)}
+          value={email}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+        />
         <Text style={styles.explanation}>
-          If you wish for clients to book strictly by contacting you via phone number, disselect the option below.
+           Please set timeframe for contact via phone number:
         </Text>
-        <View style={styles.switchContainer}>
-          <Text style={styles.switchText}>Book through app:</Text>
-          <Switch
-            trackColor={{false: "#767577", true: "#81b0ff"}}
-            thumbColor={bookOnApp ? "#f5dd4b" : "#f4f3f4"}
-            onValueChange={toggleSwitch}
-            value={bookOnApp}/>
+        <View style={styles.containerSide}>
+        <Text style={styles.explanation}>From:</Text>
+        <View>
+          <Button style={styles.timeButton} onPress={showTimepicker}>
+            <Text>{fromDate.getHours()}:{fromDate.getMinutes()}</Text>
+          </Button>
+        </View>
+        {show && (
+          <DateTimePicker
+          testID="dateTimePickerFrom"
+          value={fromDate}
+          mode={mode}
+          is24Hour={false}
+          minuteInterval={5}
+          display="default"
+          onChange={fromThis}
+          />
+        )}
+        <Text style={styles.explanation}>To:</Text>
+        <View>
+          <Button style={styles.timeButton} onPress={showTimepicker}>
+            <Text>{toDate.getHours()}:{toDate.getMinutes()}</Text>
+          </Button>
+        </View>
+        {show && (
+          <DateTimePicker
+          testID="dateTimePickerTo"
+          value={toDate}
+          mode={mode}
+          is24Hour={false}
+          display="default"
+          onChange={toThis}
+          minuteInterval={5}
+          />
+        )}
         </View>
 
         <TouchableOpacity
@@ -156,4 +218,12 @@ function validPhoneCheck(phoneNumber) {
   else {
     return false;
   }
+}
+
+function validEmail(email){
+    if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/.test(email)){
+      return true;
+    } else {
+      return false;
+    }
 }

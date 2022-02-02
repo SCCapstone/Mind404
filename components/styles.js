@@ -218,6 +218,26 @@ export default StyleSheet.create({
     padding: 6,
     marginStart: 20,
   },
+  timeSelection: {
+    fontFamily: "sans-serif",
+    fontSize: 15,
+    textAlign: "center",
+    color: "black",
+    borderRadius: 8,
+    padding: 10,
+    borderColor: "#d3d3d3",
+    borderWidth: 1,
+    backgroundColor: "white",
+  },
+  timeButton: {
+    backgroundColor: "#788eec",
+    borderRadius: 5,
+    padding: 10,
+    marginStart: 30,
+    marginEnd: 30,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   //
   //Service Details
   bookButton: {
@@ -297,26 +317,4 @@ export default StyleSheet.create({
     marginTop: 10,
   },
 
-  //Chat
-  //
-  img: {width:60,height:60,borderRadius:30,backgroundColor:"green"},
-  text: {
-       fontSize:18,
-       marginLeft:15,
-   },
-   mycard:{
-       flexDirection:"row",
-       margin:3,
-       padding:4,
-       backgroundColor:"white",
-       borderBottomWidth:1,
-       borderBottomColor:'grey'
-   },
-   fab: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 0,
-    backgroundColor:"white"
-  },
 });
