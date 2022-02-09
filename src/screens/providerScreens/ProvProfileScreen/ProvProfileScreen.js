@@ -35,7 +35,11 @@ export default function ProvProfileScreen({ navigation }) {
         </Text>
         <Image
           style={styles.profilePhoto}
-          source={require("../../../../assets/unknown-user-image.png")}
+          source={
+            user.imageURL
+              ? { uri: user.imageURL }
+              : require("../../../../assets/unknown-user-image.png")
+          }
         />
         <View style={styles.profileDescriptionWrapper}>
           <View>

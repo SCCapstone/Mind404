@@ -316,5 +316,17 @@ export default StyleSheet.create({
   marginTop10: {
     marginTop: 10,
   },
-
+  // Profile Edit Screen
+  imageContainer: {
+    marginTop: 30,
+    marginBottom: 50,
+    alignItems: "center",
+  },
+  progressBarContainer: {
+    marginTop: 20,
+  },
+  imageBox: {
+    width: 300,
+    height: 300,
+  },
 });
