@@ -238,6 +238,14 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  serviceTypeButton: {
+    backgroundColor: "#788eec",
+    marginStart: 30,
+    height: 30,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   //
   //Service Details
   bookButton: {
