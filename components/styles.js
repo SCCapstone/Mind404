@@ -279,9 +279,14 @@ export default StyleSheet.create({
   location: {
     fontFamily: "sans-serif",
     fontSize: 15,
-    padding: 7,
     textAlign: "center",
     marginLeft: 25,
+  },
+  email:{
+    fontFamily: "sans-serif",
+    fontSize: 15,
+    textAlign: "center",
+    marginEnd: 25,
   },
   phoneNumber: {
     fontFamily: "sans-serif",
@@ -298,6 +303,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
   },
+
   // Profile Screen
   profilePhoto: {
     height: 150,

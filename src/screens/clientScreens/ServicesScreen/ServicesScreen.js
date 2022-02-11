@@ -68,14 +68,18 @@ export default function ServicesScreen({ navigation }) {
               style={styles.phoneNumber}
               onPress={() => Linking.openURL(`tel:${item.contact}`)}
             >
-              {item.contact}
+              {`${checkAvailable(item.fromTime, item.toTime, item.contact)}`}
             </Text>
           </View>
         </View>
         <Text style={{ fontSize: 12, color: "#808080" }}>{item.location}</Text>
+        <Text style={{ fontSize: 12, color: "#808080" }}>{item.email}</Text>
         <View style={{ marginTop: 10 }}>
           <Text>{item.description}</Text>
         </View>
+        <Text style={{ fontSize: 12, color: "#808080" }}>
+          Telephone Availability: {`${convertTo12Hour(item.fromTime)}`} - {`${convertTo12Hour(item.toTime)}`}
+        </Text>
       </View>
       </TouchableOpacity>
     );
@@ -97,4 +101,32 @@ export default function ServicesScreen({ navigation }) {
       </View>
     </ImageBackground>
   );
+}
+
+function convertTo12Hour (time){
+  if (time < 13 && time > 0){
+    return (time).toString() + " A.M.";
+  } else if (time > 12) {
+    return (time-12).toString() + " P.M."
+  } else {
+    return "1 A.M."
+  }
+}
+
+function checkAvailable (fromTime, toTime, tel) {
+  let currentHour = new Date().getHours();;
+
+  if(toTime < fromTime){
+    toTime = toTime+24;
+  }
+  if(currentHour < fromTime) {
+    currentHour = currentHour+24;
+  }
+  if (toTime == fromTime){
+    return tel;
+  } else if (currentHour > fromTime && currentHour < toTime) {
+    return tel;
+  } else {
+    return "";
+  }
 }

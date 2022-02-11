@@ -14,8 +14,8 @@ import Button from "../../../../components/Button";
 import styles from "./../../../../components/styles";
 import { firebase } from "./../../../firebase/config";
 import useUser from "../../../../useUser";
-import DateTimePicker from "@react-native-community/datetimepicker"
 import { acc } from "react-native-reanimated";
+import NumericInput from 'react-native-numeric-input';
 
 export default function ServicesPostScreen({ navigation }) {
   const [serviceType, setServiceT] = useState("");
@@ -25,33 +25,8 @@ export default function ServicesPostScreen({ navigation }) {
   const [description, setDecription] = useState("");
   const { user } = useUser();
 
-  const [fromDate, setFromDate] = useState(new Date());
-  const [toDate, setToDate] = useState(new Date());
-  const [mode, setMode] = useState('time');
-  const [show, setShow] = useState(false);
-
-
-  const fromThis = (event, selectedFromDate) => {
-    const currentFromDate = selectedFromDate || fromDate;
-    setShow(Platform.OS === 'ios');
-    setFromDate(currentFromDate);
-    console.log(toDate);
-  };
-
-  const toThis = (event, selectedToDate) => {
-    const currentToDate = selectedToDate || toDate;
-    setShow(Platform.OS === 'ios');
-    setToDate(currentToDate);
-  };
-
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
-  const showTimepicker = () => {
-    showMode('time');
-  };
+  const [fromTime, setFromTime] = useState(9);
+  const [toTime, setToTime] = useState(17);
 
   const onPostPress = () => {
     /** Checks to see if type of service is an empty string */
@@ -84,6 +59,8 @@ export default function ServicesPostScreen({ navigation }) {
       description,
       location,
       serviceType,
+      fromTime,
+      toTime,
       providerId: user.id,
     };
     firebase
@@ -199,43 +176,13 @@ export default function ServicesPostScreen({ navigation }) {
           autoCapitalize="none"
         />
         <Text style={styles.explanation}>
-           Please set timeframe for contact via phone number:
+           Please set timeframe (24-hour Format) to the nearest hour for contact via phone number:
         </Text>
         <View style={styles.containerSide}>
-        <Text style={styles.explanation}>From:</Text>
-        <View>
-          <Button style={styles.timeButton} onPress={showTimepicker}>
-            <Text>{fromDate.getHours()}:{fromDate.getMinutes()}</Text>
-          </Button>
-        </View>
-        {show && (
-          <DateTimePicker
-          testID="dateTimePickerFrom"
-          value={fromDate}
-          mode={mode}
-          is24Hour={false}
-          minuteInterval={5}
-          display="default"
-          onChange={fromThis}
-          />
-        )}
-        <Text style={styles.explanation}>To:</Text>
-        <View>
-          <Button style={styles.timeButton} onPress={showTimepicker}>
-            <Text>{toDate.getHours()}:{toDate.getMinutes()}</Text>
-          </Button>
-        </View>
-        {show && (
-          <DateTimePicker
-          testID="dateTimePickerTo"
-          value={toDate}
-          mode={mode}
-          is24Hour={false}
-          display="default"
-          onChange={toThis}
-          minuteInterval={5}
-          />
-        )}
+          <Text style={styles.explanation}>From:</Text>
+          <NumericInput type='up-down' minValue={0} maxValue={23} onChange={value => setFromTime(value)}/>
+          <Text style={styles.explanation}>To:</Text>
+          <NumericInput type='up-down' minValue={0} maxValue={23} onChange={value => setToTime(value)}/>
         </View>
 
         <TouchableOpacity

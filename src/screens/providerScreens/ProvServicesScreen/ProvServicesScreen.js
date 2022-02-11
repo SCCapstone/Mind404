@@ -63,14 +63,18 @@ export default function ProvServicesScreen({ navigation }) {
               style={{ color: "blue", textDecorationLine: "underline" }}
               onPress={() => Linking.openURL(`tel:${item.contact}`)}
             >
-              {item.contact}
+              Contact #: {item.contact}
             </Text>
           </View>
         </View>
         <Text style={{ fontSize: 12, color: "#808080" }}>{item.location}</Text>
+        <Text style={{ fontSize: 12, color: "#808080" }}>Contact Email: {item.email}</Text>
         <View style={styles.marginTop10}>
           <Text>{item.description}</Text>
         </View>
+        <Text style={{ fontSize: 12, color: "#808080" }}>
+          Telephone Availability: {`${convertTo12Hour(item.fromTime)}`} - {`${convertTo12Hour(item.toTime)}`}
+        </Text>
       </View>
     );
   };
@@ -100,4 +104,14 @@ export default function ProvServicesScreen({ navigation }) {
       </View>
     </ImageBackground>
   );
+}
+
+function convertTo12Hour (time){
+  if (time < 13 && time > 0){
+    return (time).toString() + " A.M.";
+  } else if (time > 12) {
+    return (time-12).toString() + " P.M."
+  } else {
+    return "1 A.M."
+  }
 }

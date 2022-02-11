@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Alert,
   Image,
+  Linking,
   ScrollView,
 } from "react-native";
 import styles from "./../../../../components/styles";
@@ -26,23 +27,14 @@ export default function ServiceDetailsScreen({ route, navigation }) {
         setProviderData(querySnapshot.data());
       });
   }, []);
-  console.log(providerData);
-  const bookingPrompt = () => {
-    Alert.alert(
-      "Would you like to schedule an appointment for this service?",
-      "Select book to proceed to booking details and availability.",
-      [
-        {
-          text: "Book",
-          onPress: () => navigation.navigate("Service Booking", { item }),
-        },
-        {
-          text: "Cancel",
-          color: "red",
-        },
-      ]
-    );
-  };
+
+  const contactTel = () => {
+    if(checkAvailable(item.fromTime, item.toTime, item.contact) != ""){
+      Linking.openURL(`tel:${item.contact}`);
+    } else {
+      return;
+    }
+  }
 
   return (
     <ImageBackground
@@ -54,22 +46,25 @@ export default function ServiceDetailsScreen({ route, navigation }) {
         <View style={styles.container}>
           <Text style={styles.title}>{item.serviceType}</Text>
           <Text style={styles.description}>{item.description}</Text>
+          <Text style={{ fontSize: 15, color: "#808080", marginBottom: 20}}>
+            Telephone Availability: {`${convertTo12Hour(item.fromTime)}`} - {`${convertTo12Hour(item.toTime)}`}  
+          </Text>
         </View>
         <View style={styles.locationNumberContainer}>
           <Text style={styles.location}>{item.location}</Text>
+          <Text style={styles.email}>{item.email}</Text> 
+        </View>
+        <View>
           <Text
             style={styles.phoneNumber}
-            onPress={() => Linking.openURL(`tel:${item.contact}`)}
+            onPress={() => contactTel()}
           >
-            {item.contact}
+            {`${checkAvailable(item.fromTime, item.toTime, item.contact)}`}
+          </Text>
+          <Text style={{fontSize: 15, color: "#808080", marginStart: 20, marginBottom: 20, justifyContent: 'center'}}>
+            {`${promptOutOfHours(item.fromTime, item.toTime, item.contact)}`}
           </Text>
         </View>
-        <TouchableOpacity
-          style={styles.bookButton}
-          onPress={() => bookingPrompt()}
-        >
-          <Text style={styles.buttonTitle}>Book</Text>
-        </TouchableOpacity>
         <View style={{ alignItems: "center" }}>
           <Text style={{ color: "black", fontSize: 20 }}>
             Provider Profile:
@@ -105,4 +100,40 @@ export default function ServiceDetailsScreen({ route, navigation }) {
       </ScrollView>
     </ImageBackground>
   );
+}
+
+function promptOutOfHours(fromTime, toTime, contact){
+  if(checkAvailable(fromTime, toTime, contact) == ""){
+    return "It is currently outside of phone contact hours, refer to provider's email instead.  If you still wish to contact via phone, please wait until the specified hours above when the number will be listed here."
+  } else {
+    return "";
+  }
+}
+
+function convertTo12Hour (time){
+  if (time < 13 && time > 0){
+    return (time).toString() + " A.M.";
+  } else if (time > 12) {
+    return (time-12).toString() + " P.M."
+  } else {
+    return "1 A.M."
+  }
+}
+
+function checkAvailable (fromTime, toTime, tel) {
+  let currentHour = new Date().getHours();;
+
+  if(toTime < fromTime){
+    toTime = toTime+24;
+  }
+  if(currentHour < fromTime) {
+    currentHour = currentHour+24;
+  }
+  if (toTime == fromTime){
+    return tel;
+  } else if (currentHour > fromTime && currentHour < toTime) {
+    return tel;
+  } else {
+    return "";
+  }
 }
