@@ -24,6 +24,16 @@ After downloading the external requirements, clone the repo and enter the follow
 * `npm install -g expo -cli`
 * `npm install`
 
+Next you will need to navigate into the babel.config.js found within the cloned repo file and add the following directly below 
+`presets: ['babel-preset-expo'],`
+
+* `plugins: ['react-native-reanimated/plugin'],`
+
+Your final babel.config.js should look like the following:
+
+<img width="552" alt="Screen Shot 2022-02-10 at 10 31 36 PM" src="https://user-images.githubusercontent.com/70233387/153533906-bda999c8-2506-47b8-b249-c2768bf31164.png">
+
+
 ## Running
 
 In order to run the application:
