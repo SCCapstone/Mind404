@@ -3926,13 +3926,25 @@
   dependencies:
     "fontfaceobserver" "^2.1.0"
 
+<<<<<<< HEAD
 "expo-image-picker@~12.0.1":
+=======
+"expo-image-picker@^12.0.2":
+>>>>>>> 219b4b30375975fc6ebbc85b3f8fa8f7bc96a1d2
   "integrity" "sha512-rAoNGtofV5cg3UN+cdIGDVfbMvbutBX6uNV7jCIEw/WZxZlbW+R7HC8l5lGDFtoLVqcpkHE/6JpAXvESxVSAOA=="
   "resolved" "https://registry.npmjs.org/expo-image-picker/-/expo-image-picker-12.0.2.tgz"
   "version" "12.0.2"
   dependencies:
     "@expo/config-plugins" "^4.0.2"
     "uuid" "7.0.2"
+<<<<<<< HEAD
+=======
+
+"expo-keep-awake@~10.0.0":
+  "integrity" "sha512-x5zRTjIvSry/EISKvjWpnLERGZj5maCwEouOfiDk0JPa0UTg/zFkT7pmiadAfHT95XUgjjb2DOku+wj6J7el7Q=="
+  "resolved" "https://registry.npmjs.org/expo-keep-awake/-/expo-keep-awake-10.0.0.tgz"
+  "version" "10.0.0"
+>>>>>>> 219b4b30375975fc6ebbc85b3f8fa8f7bc96a1d2
 
 "expo-keep-awake@~10.0.2":
   "integrity" "sha512-Ro1lgyKldbFs4mxhWM+goX9sg0S2SRR8FiJJeOvaRzf8xNhrZfWA00Zpr+/3ocCoWQ3eEL+X9UF4PXXHf0KoOg=="
@@ -3963,10 +3975,17 @@
   "resolved" "https://registry.npmjs.org/expo-status-bar/-/expo-status-bar-1.2.0.tgz"
   "version" "1.2.0"
 
+<<<<<<< HEAD
 "expo@*", "expo@^44.0.0":
   "integrity" "sha512-iHnra6uD5kXZgdSUrvxZ3sLjg1FtgtA4p4uaSKVQ39IaMHJBngo8RKqFUJ+BF2kPDpBLJ251eLlhgYUlnAyuag=="
   "resolved" "https://registry.npmjs.org/expo/-/expo-44.0.6.tgz"
   "version" "44.0.6"
+=======
+"expo@*", "expo@~43.0.2":
+  "integrity" "sha512-X4lLvoUuUbjj1n3DOjZ+w9TfNbEvNMRWvbOzYNYwS4FMB04Gt2RvQYYP8mXWbBZz0+b/s/Q+u67jj0+LMdxyfg=="
+  "resolved" "https://registry.npmjs.org/expo/-/expo-43.0.3.tgz"
+  "version" "43.0.3"
+>>>>>>> 219b4b30375975fc6ebbc85b3f8fa8f7bc96a1d2
   dependencies:
     "@babel/runtime" "^7.14.0"
     "@expo/metro-config" "~0.2.6"
@@ -7340,10 +7359,17 @@
   dependencies:
     "prop-types" "^15.7.2"
 
+<<<<<<< HEAD
 "react-native-reanimated@~2.3.1":
   "integrity" "sha512-iJwnxroNhECGIB+XRLjQhLKJp3iVxuUtnRTGh6WYvPMZHRft0Mf/HvsKiqz2fEFuZgQgGBB9N26Og85cb1HjTA=="
   "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-2.3.2.tgz"
   "version" "2.3.2"
+=======
+"react-native-reanimated@~2.2.0":
+  "integrity" "sha512-Nn648MfEEnTCEiWsl1YmfkojiLyV0NMY0EiRdDRbZNfJVfxBuyqhCxI/4Jd7aBi162qpgf8XK2mByYgvF4zLrQ=="
+  "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-2.2.4.tgz"
+  "version" "2.2.4"
+>>>>>>> 219b4b30375975fc6ebbc85b3f8fa8f7bc96a1d2
   dependencies:
     "@babel/plugin-transform-object-assign" "^7.10.4"
     "@types/invariant" "^2.2.35"
@@ -7406,7 +7432,11 @@
     "normalize-css-color" "^1.0.2"
     "prop-types" "^15.6.0"
 
+<<<<<<< HEAD
 "react-native@*", "react-native@>= 0.30.0", "react-native@>= 0.51", "react-native@>=0.42.0", "react-native@>=0.48.4", "react-native@>=0.50.0", "react-native@>=0.57", "react-native@>=0.59", "react-native@>=0.64.0-rc.0 || 0.0.0-*", "react-native@0.64.3":
+=======
+"react-native@*", "react-native@^0.64.3", "react-native@>= 0.30.0", "react-native@>= 0.51", "react-native@>=0.42.0", "react-native@>=0.48.4", "react-native@>=0.50.0", "react-native@>=0.57", "react-native@>=0.59", "react-native@>=0.64.0-rc.0 || 0.0.0-*":
+>>>>>>> 219b4b30375975fc6ebbc85b3f8fa8f7bc96a1d2
   "integrity" "sha512-2OEU74U0Ek1/WeBzPbg6XDsCfjF/9fhrNX/5TFgEiBKd5mNc9LOZ/OlMmkb7iues/ZZ/oc51SbEfLRQdcW0fVw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.64.3.tgz"
   "version" "0.64.3"

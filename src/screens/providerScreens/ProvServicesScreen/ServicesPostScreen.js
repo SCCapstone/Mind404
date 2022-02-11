@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Alert,
   Switch,
+  ScrollView
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Button from "../../../../components/Button";
@@ -14,9 +15,10 @@ import styles from "./../../../../components/styles";
 import { firebase } from "./../../../firebase/config";
 import useUser from "../../../../useUser";
 import DateTimePicker from "@react-native-community/datetimepicker"
+import { acc } from "react-native-reanimated";
 
 export default function ServicesPostScreen({ navigation }) {
-  const [serviceType, setServiceType] = useState("");
+  const [serviceType, setServiceT] = useState("");
   const [location, setLocation] = useState("");
   const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
@@ -27,6 +29,7 @@ export default function ServicesPostScreen({ navigation }) {
   const [toDate, setToDate] = useState(new Date());
   const [mode, setMode] = useState('time');
   const [show, setShow] = useState(false);
+
 
   const fromThis = (event, selectedFromDate) => {
     const currentFromDate = selectedFromDate || fromDate;
@@ -53,7 +56,7 @@ export default function ServicesPostScreen({ navigation }) {
   const onPostPress = () => {
     /** Checks to see if type of service is an empty string */
     if (serviceType == "") {
-      alert("Please enter a type of service.");
+      alert("Please select a type of service.");
       return;
     }
     /** Checks to see if location field is an empty string */
@@ -77,6 +80,7 @@ export default function ServicesPostScreen({ navigation }) {
     }
     const data = {
       contact,
+      email,
       description,
       location,
       serviceType,
@@ -91,6 +95,15 @@ export default function ServicesPostScreen({ navigation }) {
         navigation.navigate("Prov Home");
       });
   };
+
+  let landscaping = "Landscaping";
+  let carDetailing = "Car Detailing";
+  let housekeeping = "Housekeeping";
+  let accounting = "Accounting";
+  let techSupport = "Tech Support";
+  let tutoring = "Tutoring";
+  let contracting = "Contracting";
+  let consulting = "Consulting";
 
   return (
     <ImageBackground
@@ -108,15 +121,46 @@ export default function ServicesPostScreen({ navigation }) {
             Please Enter the following information:
           </Text>
         </View>
-        <TextInput
-          style={styles.input}
-          placeholder="Type of Service"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setServiceType(text)}
-          value={serviceType}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
+        <Text style={styles.explanation}>Select your type of service (Scroll):</Text>
+        <ScrollView style={{padding:10}} persistentScrollbar={true} horizontal={true}>
+          <TouchableOpacity style={styles.serviceTypeButton}
+          onPress={() => setServiceT(landscaping)}>
+            <Text style={styles.buttonTitle}> {landscaping} </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.serviceTypeButton}
+          onPress={() => setServiceT(carDetailing)}>
+            <Text style={styles.buttonTitle}> {carDetailing} </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.serviceTypeButton}
+          onPress={() => setServiceT(housekeeping)}>
+            <Text style={styles.buttonTitle}> {housekeeping} </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.serviceTypeButton}
+          onPress={() => setServiceT(accounting)}>
+            <Text style={styles.buttonTitle}> {accounting} </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.serviceTypeButton}
+          onPress={() => setServiceT(techSupport)}>
+            <Text style={styles.buttonTitle}> {techSupport} </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.serviceTypeButton}
+          onPress={() => setServiceT(tutoring)}>
+            <Text style={styles.buttonTitle}> {tutoring} </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.serviceTypeButton}
+          onPress={() => setServiceT(contracting)}>
+            <Text style={styles.buttonTitle}> {contracting} </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.serviceTypeButton}
+          onPress={() => setServiceT(consulting)}>
+            <Text style={styles.buttonTitle}> {consulting} </Text>
+          </TouchableOpacity>
+        </ScrollView>
+        <View style={{padding:4}}></View>
+        <View style={styles.containerSide}>
+          <Text style={styles.explanation}>Selected service type: </Text>
+          <Text style={styles.selectedOption}>{serviceType}</Text>
+        </View>
         <TextInput
           style={styles.input}
           placeholder="Location (City, State)"

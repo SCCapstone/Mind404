@@ -20,28 +20,22 @@ export default function RegistrationScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [dob, setDOB] = useState("");
   const [password, setPassword] = useState("");
-  const [typeOfUser, setTypeOfUser] = useState("               ");
+  const [typeOfUser, setTypeOfUser] = useState("Not Selected");
   const [confirmPassword, setConfirmPassword] = useState("");
-  var provider = "PROVIDER";
-  var client = "CLIENT";
   
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
   };
 
   const onRegisterPress = () => {
+    if (typeOfUser == "Not Selected"){
+      alert("User type not selected.");
+      return;
+    }
     /** checks to see if passwords match */
     if (password !== confirmPassword) {
       alert("Passwords don't match.");
       return;
-    }
-
-    /**checks to see if valid type of user is entered */
-    if (typeOfUser.toUpperCase() !== provider) {
-      if (typeOfUser.toUpperCase() !== client) {
-        alert("Invalid Type of User entry");
-        return;
-      }
     }
 
     /** checks to see if a first name is entered into the field */
@@ -97,7 +91,7 @@ export default function RegistrationScreen({ navigation }) {
           .doc(uid)
           .set(data)
           .then(() => {
-            if (typeOfUser == "client") {
+            if (typeOfUser == "Client") {
               navigation.navigate("Client Home", { user: data });
             } else {
               navigation.navigate("Prov Home", { user: data });
