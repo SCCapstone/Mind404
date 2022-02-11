@@ -104,7 +104,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
 
 function promptOutOfHours(fromTime, toTime, contact){
   if(checkAvailable(fromTime, toTime, contact) == ""){
-    return "It is currently outside of phone contact hours, refer to provider's email instead.  If you still wish to contact via phone, please wait until the specified hours above when the number will be listed here."
+    return "Check back later during the allotted availability times for the provider's phone number!"
   } else {
     return "";
   }
