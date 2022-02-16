@@ -389,4 +389,10 @@ export default StyleSheet.create({
     padding: 7,
     backgroundColor: "white",
   },
+  noEvent: {
+    fontSize: 14,
+    marginTop: 13,
+    color: 'gray',
+    textAlign: 'center'
+  }
 });

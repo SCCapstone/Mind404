@@ -58,8 +58,8 @@ export default function AddEvent({ navigation }) {
             .collection("users/"+user.id+"/events")
             .add(data)
             .then(() => {
-                alert("Your event has been successfully added.");
-                //navigation.navigate("Prov Home");
+                alert("Your event has been successfully added. Please click on date to refresh events.");
+                navigation.navigate("Prov Home");
             });
     }
 

@@ -19,10 +19,10 @@ import { firebase } from "../../../firebase/config";
 import useUser from "../../../../useUser";
 
 export default function HomeScreen({ navigation }) {
+  const { user } = useUser();
   const onSettingsCogPress = () => {
     navigation.navigate("Settings");
-  };
-  const { user } = useUser();
+  }
 
   return (
     <ImageBackground

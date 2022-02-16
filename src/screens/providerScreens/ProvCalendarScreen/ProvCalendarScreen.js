@@ -12,12 +12,13 @@ export default function ProvCalendarScreen({ navigation }) {
   const [selectedDay, setSelectedDay] = useState('No Date Selected');
   const [dayData, setDayData] = useState([]);
   
+  var docRef = firebase.firestore().collection("users/"+user.id+"/events");
+
   React.useEffect(() => {
     firebase
       .firestore()
       .collection("users/"+user.id+"/events")
-      .get()
-      .then((querySnapshot) => {
+      .onSnapshot((querySnapshot) => {
         let temp = [];
         querySnapshot.forEach((documentSnapshot) => {
           let eventDetails = {};
@@ -41,26 +42,12 @@ export default function ProvCalendarScreen({ navigation }) {
     );
   };
 
-  let itemView = ({ item }) => {
-    return (
-      <View
-        style={{
-          backgroundColor: "white",
-          padding: 20,
-        }}
-      >
-        <Text style={styles.subject}>{item.subject}</Text>
-        <Text style={styles.descriptionEvent}>{item.description}</Text>
-      </View>
-    );
-  };
-
   const daySelected = (dateString) => {
     let temp = listData;
     temp = temp.filter(function(item){
       return item.date == dateString;
-    }).map(function({description, subject}){
-      return {description, subject}
+    }).map(function({description, subject, id}){
+      return {description, subject, id}
     });
     setSelectedDay(getDisplayDate(dateString))
     setDayData(temp);
@@ -71,6 +58,14 @@ export default function ProvCalendarScreen({ navigation }) {
   // }
   const onAddPress = () => {
     navigation.navigate("Add Event");
+  }
+
+  const deleteEvent = (id) => {
+    console.log(id);
+    docRef.doc(id).delete();
+    setDayData( dayData => {
+      return dayData.filter(item => item.id != id);
+    });
   }
 
   return (
@@ -102,8 +97,25 @@ export default function ProvCalendarScreen({ navigation }) {
           data={dayData}
           ItemSeparatorComponent={itemSeperatorView}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={itemView}
           ListHeaderComponent={()=><Text style={styles.dateTitle}>{selectedDay}</Text>}
+          renderItem={({item}) => (
+              <View style={styles.containerSide}>
+                <View
+                  style={{
+                    backgroundColor: "white",
+                    padding: 20,
+                    width: '90%',
+                  }}
+                >
+                  <Text style={styles.subject}>{item.subject}</Text>
+                  <Text style={styles.descriptionEvent}>{item.description}</Text>
+                </View>
+                <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => deleteEvent(item.id)}>
+                  <MaterialCommunityIcons name="close" style={{fontSize: 25,color: 'red', fontWeight: 'bold'}}/>
+                </TouchableOpacity>
+              </View>
+          )}
+          ListEmptyComponent={()=> <Text style={styles.noEvent}>Woo hoo! No events today.</Text>}
       />
     </ImageBackground>
   );
