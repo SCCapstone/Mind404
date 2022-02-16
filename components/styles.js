@@ -343,4 +343,38 @@ export default StyleSheet.create({
     width: 300,
     height: 300,
   },
+
+  //Calendar Screen
+  subject: {
+    marginTop: -10,
+    fontWeight: "bold",
+    fontSize: 22,
+  },
+
+  descriptionEvent: {
+    fontSize: 18,
+    width: "100%",
+    textAlign: "left",
+    marginBottom: 12,
+    color: "black",
+  },
+
+  dateTitle:{
+    fontSize: 20,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#788eec',
+    paddingBottom: 2
+  },
+  TOContainer: {
+    flexDirection: "row",
+    borderRadius: 5,
+    justifyContent: 'space-around',
+    backgroundColor: '#FFAC1C',
+    marginTop: 10,
+    marginBottom: 2,
+    width: 120,
+    textAlign: 'right',
+    marginStart: 280
+  },
 });
