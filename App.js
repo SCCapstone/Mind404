@@ -18,6 +18,7 @@ import {
   PChangeEmailScreen,
   PChangePasswordScreen,
   ProvProfileEditScreen,
+  AddEvent,
 } from "./src/screens";
 
 import { decode, encode } from "base-64";
@@ -85,6 +86,10 @@ export default function App() {
           <Stack.Screen
             name="Prov Edit Profile"
             component={ProvProfileEditScreen}
+          />
+          <Stack.Screen
+            name="Add Event"
+            component={AddEvent}
           />
         </Stack.Navigator>
       </NavigationContainer>

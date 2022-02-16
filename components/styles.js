@@ -377,4 +377,16 @@ export default StyleSheet.create({
     textAlign: 'right',
     marginStart: 280
   },
+  selectedDateOption: {
+    fontFamily: "sans-serif",
+    fontSize: 15,
+    justifyContent: 'space-evenly',
+    textAlign: "center",
+    color: "black",
+    borderRadius: 8,
+    borderColor: "#d3d3d3",
+    borderWidth: 1,
+    padding: 7,
+    backgroundColor: "white",
+  },
 });

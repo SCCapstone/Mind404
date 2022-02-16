@@ -6,13 +6,11 @@ import { firebase } from "./../../../firebase/config";
 import useUser from "../../../../useUser";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-
-export default function ProvCalendarScreen() {
+export default function ProvCalendarScreen({ navigation }) {
   const [listData, setListData] = React.useState([]);
   const { user } = useUser();
   const [selectedDay, setSelectedDay] = useState('No Date Selected');
   const [dayData, setDayData] = useState([]);
-
   
   React.useEffect(() => {
     firebase
@@ -29,9 +27,7 @@ export default function ProvCalendarScreen() {
           setListData(temp);
         });
       });
-  
-  }, []);
-
+  }, [navigation]);
 
   const itemSeperatorView = () => {
     return (
@@ -73,6 +69,9 @@ export default function ProvCalendarScreen() {
   // const markedDate = {
   //   selectedDay: {selected: true, marked: true, selectedColor: 'blue'}
   // }
+  const onAddPress = () => {
+    navigation.navigate("Add Event");
+  }
 
   return (
     <ImageBackground
@@ -95,7 +94,7 @@ export default function ProvCalendarScreen() {
           >
         </Calendar>
       </View>
-      <TouchableOpacity style={styles.TOContainer}>
+      <TouchableOpacity style={styles.TOContainer} onPress={onAddPress}>
         <MaterialCommunityIcons name="plus" style={{fontSize: 25,color: 'white', fontWeight: 'bold'}}/>
         <Text style={{fontSize: 20, color: 'white', fontWeight: 'bold'}}>Add Event </Text>
       </TouchableOpacity>

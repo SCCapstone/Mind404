@@ -37,3 +37,5 @@ export { default as ProvProfileScreen } from "./providerScreens/ProvProfileScree
 export { default as ProvProfileEditScreen } from "./providerScreens/ProvProfileScreen/ProvProfileEditScreen";
 
 export { default as ProvCalendarScreen } from "./providerScreens/ProvCalendarScreen/ProvCalendarScreen";
+
+export { default as AddEvent } from "./providerScreens/ProvCalendarScreen/AddEvent";
