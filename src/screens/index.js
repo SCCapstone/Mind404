@@ -14,6 +14,8 @@ export { default as ProfileScreen } from "./clientScreens/ProfileScreen/ProfileS
 
 export { default as FavServicesScreen } from "./clientScreens/FavServicesScreen/FavServicesScreen";
 
+export { default as AddFavServices } from "./clientScreens/FavServicesScreen/AddFavServices";
+
 export { default as ChangePasswordScreen } from "./clientScreens/SettingsScreen/ChangePasswordScreen";
 
 export { default as ChangeEmailScreen } from "./clientScreens/SettingsScreen/ChangeEmailScreen";

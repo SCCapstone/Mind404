@@ -19,6 +19,8 @@ import {
   PChangePasswordScreen,
   ProvProfileEditScreen,
   AddEvent,
+  FavServicesScreen,
+  AddFavServices
 } from "./src/screens";
 
 import { decode, encode } from "base-64";
@@ -91,6 +93,15 @@ export default function App() {
             name="Add Event"
             component={AddEvent}
           />
+          <Stack.Screen
+            name="Add Fav Services"
+            component={AddFavServices}
+          />
+          <Stack.Screen
+            name="Client Favorite Services"
+            component={FavServicesScreen}
+          />
+
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>
