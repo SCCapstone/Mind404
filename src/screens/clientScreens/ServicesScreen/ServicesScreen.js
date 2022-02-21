@@ -13,9 +13,11 @@ import styles from "./../../../../components/styles";
 import { firebase } from "../../../firebase/config";
 import { NavigationContainer } from "@react-navigation/native";
 import ServiceListing from "../../../../components/ServiceListing";
+import { TextInput } from "react-native-gesture-handler";
 
 export default function ServicesScreen({ navigation }) {
   const [listData, setListData] = useState([]);
+  const [search, setSearch] = useState(''); 
 
   useEffect(() => {
     firebase
@@ -30,9 +32,28 @@ export default function ServicesScreen({ navigation }) {
           serviceDetails["id"] = documentSnapshot.id;
           temp.push(serviceDetails);
           setListData(temp);
+          setSearch(temp);
         });
       });
   }, []);
+  
+  const searchFilter = (text) => {
+    if (text) {
+      const newData = listData.filter((item) => {
+        const itemData = item.title ?
+        item.title.toUpperCase()
+        : ''.toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setSearch(newData);
+      setSearch(text);
+    }
+    else {
+      setFilteredData(listData);
+      setSearch(text);
+    }
+  }
 
   const itemSeperatorView = () => {
     return (
@@ -52,7 +73,19 @@ export default function ServicesScreen({ navigation }) {
       resizeMode="cover"
       style={styles.backgroundImage}
     >
+            <TextInput
+            style={styles.searchInput}
+            placeholder="Search Listings"
+            value={search}
+            placeholderTextColor="#aaaaaa"
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            onChangeText={(text) => searchFilter(text)}
+
+          />
+
       <View style={{ flex: 1, paddingTop: 20 }}>
+
         <FlatList
           data={listData}
           ItemSeparatorComponent={itemSeperatorView}
