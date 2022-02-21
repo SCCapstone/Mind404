@@ -56,8 +56,8 @@ export default function ClientFavoritesScreen({ route, navigation }) {
     let temp = listData;
     temp = temp.filter(function(item){
       return item.subject == subjectString;
-    }).map(function({description, subject, id}){
-      return {description, subject, id}
+    }).map(function({subject, description, id}){
+      return {subject, description, id}
     });
     setFavData(temp);
   }
