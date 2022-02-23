@@ -59,6 +59,9 @@ export default function ServiceDetailsScreen({ route, navigation }) {
     docRef.doc(item.id).get().then((docSnapshot) => {
       if (docSnapshot.exists) {
         docRef.doc(item.id).delete();
+        /* setlistData( listData => {
+          return listData.filter(Aservice => Aservice.id != item.id);
+        }); */
         Alert.alert('Service has been unfavorited.')
         navigation.navigate("Client Home");
       } else {
