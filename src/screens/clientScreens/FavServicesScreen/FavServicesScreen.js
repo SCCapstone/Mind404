@@ -26,8 +26,7 @@ export default function ServicesScreen({ navigation }) {
     firebase
       .firestore()
       .collection("users/"+user.id+"/ClientFavorites")
-      .get()
-      .then((querySnapshot) => {
+      .onSnapshot((querySnapshot) => {
         let temp = [];
         querySnapshot.forEach((documentSnapshot) => {
           let serviceDetails = {};

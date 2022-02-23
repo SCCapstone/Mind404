@@ -12,11 +12,15 @@ import {
 } from "react-native";
 import styles from "./../../../../components/styles";
 import { firebase } from "../../../firebase/config";
+import useUser from "../../../../useUser";
 
 export default function ServiceDetailsScreen({ route, navigation }) {
   const [providerData, setProviderData] = useState(Object);
   const { item } = route.params;
 
+  const { user } = useUser(); 
+  var docRef = firebase.firestore().collection("users/"+user.id+"/ClientFavorites");
+  
   useEffect(() => {
     firebase
       .firestore()
@@ -36,14 +40,22 @@ export default function ServiceDetailsScreen({ route, navigation }) {
     }
   }
   const onAddPress = () => {
-    firebase
+    if (!docRef.doc(item.id)) {
+
+      firebase
             .firestore()
             .collection("users/"+user.id+"/ClientFavorites")
-            .add(querySnapshot.data())
+            .add(item)
             .then(() => {
                 navigation.navigate("Client Favorite Services");
             });
     }
+    }
+    const onUnfavoritePress = () => {
+        if(item.id)
+        docRef.doc(item.id).delete();
+        navigation.navigate("Client Favorite Services");   
+      }
 
   return (
     <ImageBackground
@@ -113,7 +125,13 @@ export default function ServiceDetailsScreen({ route, navigation }) {
                     style={styles.servicesPostButton}
                     onPress={onAddPress}
                 >
-              <Text style={styles.buttonTitle}>Make a Favorite Service</Text>
+              <Text style={styles.buttonTitle}>Favorite</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                    style={styles.servicesPostButton}
+                    onPress={onUnfavoritePress}
+                >
+              <Text style={styles.buttonTitle}>Unfavorite</Text>
             </TouchableOpacity>
           </View>
         </View>
