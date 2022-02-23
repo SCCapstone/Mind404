@@ -6,11 +6,13 @@ import {
   TouchableOpacity,
   FlatList,
   Linking,
+  Alert,
 } from "react-native";
 import Button from "./../../../../components/Button";
 import styles from "./../../../../components/styles";
 import { firebase } from "./../../../firebase/config";
 import useUser from "../../../../useUser";
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function ProvServicesScreen({ navigation }) {
   const [listData, setListData] = React.useState([]);
@@ -21,8 +23,7 @@ export default function ProvServicesScreen({ navigation }) {
       .firestore()
       .collection("services")
       .where("providerId", "==", user.id)
-      .get()
-      .then((querySnapshot) => {
+      .onSnapshot((querySnapshot) => {
         let temp = [];
         querySnapshot.forEach((documentSnapshot) => {
           let serviceDetails = {};
@@ -75,9 +76,33 @@ export default function ProvServicesScreen({ navigation }) {
         <Text style={{ fontSize: 12, color: "#808080" }}>
           Telephone Availability: {`${convertTo12Hour(item.fromTime)}`} - {`${convertTo12Hour(item.toTime)}`}
         </Text>
+        <TouchableOpacity style={{width:139}} onPress={() => serviceDeleteAlert(item.id)}>
+          <Text style={{padding: 7, fontSize: 15, color: 'red',marginEnd: 0}}>Delete this Service</Text>
+        </TouchableOpacity>
       </View>
     );
   };
+
+  const serviceDeleteAlert = (id) => {
+    Alert.alert(
+      'Are you sure you want to delete this service?',
+      'Once the service has been deleted, it cannot be undone',
+      [
+        {text: 'Delete', onPress: () => deleteService(id)},
+        {text: 'Cancel', onPress: () => console.log('Delete cancelled.'), style: 'cancel'},
+      ],
+      { 
+        cancelable: true 
+      }
+    );
+  }
+
+  const deleteService = (id) => {
+    firebase.firestore().collection("services").doc(id).delete();
+    setListData( listData => {
+      return listData.filter(item => item.id != id);
+    });
+  }
 
   const onPostPress = () => {
     navigation.navigate("Post Your Service");
