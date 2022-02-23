@@ -1,45 +1,62 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useContext, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import React, { useState, useEffect } from "react";
 import {
-  StyleSheet,
   Text,
   View,
   ImageBackground,
-  TextInput,
-  Button,
   FlatList,
-  TouchableOpacity
+  TouchableOpacity,
+  Linking,
+  Alert,
 } from "react-native";
+import Button from "./../../../../components/Button";
 import styles from "./../../../../components/styles";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { firebase } from "../../../firebase/config";
+import { NavigationContainer } from "@react-navigation/native";
+import ServiceListing from "../../../../components/ServiceListing";
+import { TextInput } from "react-native-gesture-handler";
 import useUser from "../../../../useUser";
-import DateTimePicker from '@react-native-community/datetimepicker'
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-export default function ClientFavoritesScreen({ route, navigation }) {
-  const [listData, setListData] = React.useState([]);
-  const { user } = useUser();
-  const [FavData, setFavData] = useState([]);
+export default function ServicesScreen({ navigation }) {
+  const [listData, setListData] = useState([]);
+  const [search, setSearch] = useState(''); 
 
-  var docRef = firebase.firestore().collection("users/"+user.id+"/FavoriteServices");
+  const { user } = useUser(); 
 
-  React.useEffect(() => {
+  useEffect(() => {
     firebase
       .firestore()
-      .collection("users/"+user.id+"/FavoriteServices")
-      .onSnapshot((querySnapshot) => {
+      .collection("users/"+user.id+"/ClientFavorites")
+      .get()
+      .then((querySnapshot) => {
         let temp = [];
         querySnapshot.forEach((documentSnapshot) => {
-          let FavoriteServicesDetails = {};
-          FavoriteServicesDetails = documentSnapshot.data();
-          FavoriteServicesDetails["id"] = documentSnapshot.id;
-          temp.push(FavoriteServicesDetails);
+          let serviceDetails = {};
+          serviceDetails = documentSnapshot.data();
+          serviceDetails["id"] = documentSnapshot.id;
+          temp.push(serviceDetails);
           setListData(temp);
+          setSearch(temp);
         });
       });
-  }, [navigation]);
+  }, []);
+  
+  const searchFilter = (text) => {
+    if (text) {
+      const newData = listData.filter((item) => {
+        const itemData = item.title ?
+        item.title.toUpperCase()
+        : ''.toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setSearch(newData);
+      setSearch(text);
+    }
+    else {
+      setFilteredData(listData);
+      setSearch(text);
+    }
+  }
 
   const itemSeperatorView = () => {
     return (
@@ -52,63 +69,33 @@ export default function ClientFavoritesScreen({ route, navigation }) {
       />
     );
   };
-  const FavSelected = (subjectString) => {
-    let temp = listData;
-    temp = temp.filter(function(item){
-      return item.subject == subjectString;
-    }).map(function({subject, description, id}){
-      return {subject, description, id}
-    });
-    setFavData(temp);
-  }
-  const onAddPress = () => {
-    navigation.navigate("Add Fav Services");
-  }
 
-   const deleteFavorites = (id) => {
-    console.log(id);
-    docRef.doc(id).delete();
-    setFavData( FavData => {
-      return FavData.filter(item => item.id != id);
-    });
-  } 
   return (
     <ImageBackground
       source={require("../../../../assets/GrubberBackground.png")}
       resizeMode="cover"
       style={styles.backgroundImage}
     >
-      <View style={styles.container}>
-        <Text>ClientFavoritesScreen</Text>
-      </View>
-      <TouchableOpacity style={styles.TOContainer} onPress={onAddPress}>
-        <MaterialCommunityIcons name="plus" style={{fontSize: 25,color: 'white', fontWeight: 'bold'}}/>
-        <Text style={{fontSize: 20, color: 'white', fontWeight: 'bold'}}>Add Favorited Service </Text>
-      </TouchableOpacity>
-      <FlatList
-          data={FavData}
+            <TextInput
+            style={styles.searchInput}
+            placeholder="Search Listings"
+            value={search}
+            placeholderTextColor="#aaaaaa"
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            onChangeText={(text) => searchFilter(text)}
+
+          />
+
+      <View style={{ flex: 1, paddingTop: 20 }}>
+
+        <FlatList
+          data={listData}
           ItemSeparatorComponent={itemSeperatorView}
           keyExtractor={(item, index) => index.toString()}
-          ListHeaderComponent={()=><Text>FavoriteServices</Text>}
-          renderItem={({item}) => (
-              <View style={styles.containerSide}>
-                <View
-                  style={{
-                    backgroundColor: "white",
-                    padding: 20,
-                    width: '90%',
-                  }}
-                >
-                  <Text style={styles.subject}>{item.subject}</Text>
-                  <Text style={styles.descriptionEvent}>{item.description}</Text>
-                </View>
-                <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => deleteFavorites(item.id)}>
-                  <MaterialCommunityIcons name="close" style={{fontSize: 25,color: 'red', fontWeight: 'bold'}}/>
-                </TouchableOpacity>
-              </View>
-          )}
-          
-      />
+          renderItem={({ item }) => <ServiceListing item={item} />}
+        />
+      </View>
     </ImageBackground>
   );
 }

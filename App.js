@@ -94,10 +94,6 @@ export default function App() {
             component={AddEvent}
           />
           <Stack.Screen
-            name="Add Fav Services"
-            component={AddFavServices}
-          />
-          <Stack.Screen
             name="Client Favorite Services"
             component={FavServicesScreen}
           />

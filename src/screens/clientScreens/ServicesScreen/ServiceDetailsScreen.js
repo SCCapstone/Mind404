@@ -35,6 +35,15 @@ export default function ServiceDetailsScreen({ route, navigation }) {
       return;
     }
   }
+  const onAddPress = () => {
+    firebase
+            .firestore()
+            .collection("users/"+user.id+"/ClientFavorites")
+            .add(querySnapshot.data())
+            .then(() => {
+                navigation.navigate("Client Favorite Services");
+            });
+    }
 
   return (
     <ImageBackground
@@ -95,6 +104,17 @@ export default function ServiceDetailsScreen({ route, navigation }) {
             <View style={styles.marginTop10}>
               <Text>This Service Provider has no reviews yet.</Text>
             </View>
+          </View>
+          <View style={styles.profileDescriptionWrapper}>
+            <View>
+              <Text style={styles.titleText}>Make this a Favorited Service</Text>
+            </View>
+            <TouchableOpacity
+                    style={styles.servicesPostButton}
+                    onPress={onAddPress}
+                >
+              <Text style={styles.buttonTitle}>Make a Favorite Service</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
