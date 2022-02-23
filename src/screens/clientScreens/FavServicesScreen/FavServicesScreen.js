@@ -38,24 +38,6 @@ export default function ServicesScreen({ navigation }) {
         });
       });
   }, []);
-  
-  const searchFilter = (text) => {
-    if (text) {
-      const newData = listData.filter((item) => {
-        const itemData = item.title ?
-        item.title.toUpperCase()
-        : ''.toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-      setSearch(newData);
-      setSearch(text);
-    }
-    else {
-      setFilteredData(listData);
-      setSearch(text);
-    }
-  }
 
   const itemSeperatorView = () => {
     return (
@@ -75,19 +57,19 @@ export default function ServicesScreen({ navigation }) {
       resizeMode="cover"
       style={styles.backgroundImage}
     >
-            <TextInput
-            style={styles.searchInput}
-            placeholder="Search Listings"
-            value={search}
-            placeholderTextColor="#aaaaaa"
-            underlineColorAndroid="transparent"
-            autoCapitalize="none"
-            onChangeText={(text) => searchFilter(text)}
-
-          />
-
-      <View style={{ flex: 1, paddingTop: 20 }}>
-
+      <Text style={{
+        color: "#FFAC1C", 
+        paddingTop: 30, 
+        fontWeight: 'bold', 
+        textAlign: 'center', 
+        fontSize: 30,
+        textShadowColor: "black",
+        textShadowRadius: 1,
+      }}
+      >
+        Favorited Services
+      </Text>
+      <View style={{ flex: 1, paddingTop: 10 }}>
         <FlatList
           data={listData}
           ItemSeparatorComponent={itemSeperatorView}

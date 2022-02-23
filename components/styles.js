@@ -407,5 +407,12 @@ export default StyleSheet.create({
     marginTop: 13,
     color: 'gray',
     textAlign: 'center'
-  }
+  },
+  explanation2: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: "black",
+    padding: 6,
+    marginStart: 20,
+  },
 });

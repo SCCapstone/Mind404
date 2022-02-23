@@ -33,16 +33,7 @@ export default function BottomTabs() {
           headerShown: false,
         }}
       />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" color={color} size={size} />
-          ),
-          headerShown: false,
-        }}
-      />
+      
       <Tab.Screen
         name="Favorites"
         component={FavServicesScreen}
@@ -56,3 +47,16 @@ export default function BottomTabs() {
     </Tab.Navigator>
   );
 }
+
+/*
+<Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="account" color={color} size={size} />
+          ),
+          headerShown: false,
+        }}
+      />
+*/
