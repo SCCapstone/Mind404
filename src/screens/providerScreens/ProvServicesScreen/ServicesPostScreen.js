@@ -39,6 +39,10 @@ export default function ServicesPostScreen({ navigation }) {
       alert("Please enter a valid location.");
       return;
     }
+    if(!validCityState(location)){
+      alert("Please enter a proper formatted location (i.e. Columbia, SC)")
+      return;
+    }
     /**Checks to see if phone number is a valid entry */
     if (!validPhoneCheck(contact)) {
       alert("Please enter a valid phone number.");
@@ -140,7 +144,7 @@ export default function ServicesPostScreen({ navigation }) {
         </View>
         <TextInput
           style={styles.input}
-          placeholder="Location (City, State)"
+          placeholder="Location (City, State Abbreviation)"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setLocation(text)}
           value={location}
@@ -217,4 +221,16 @@ function validEmail(email){
     } else {
       return false;
     }
+}
+
+function validCityState(location){
+  var fields = location.split(',');
+  var fieldsWspace = location.split(", ");
+  var allStates = ['AK', 'AL', 'AR', 'AS', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'GU', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MP', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UM', 'UT', 'VA', 'VI', 'VT', 'WA', 'WI', 'WV', 'WY']
+  for(let i = 0; i < 50; i++){
+    if(fields[1] == allStates[i] || fieldsWspace[1] == allStates[i]){
+      return true;
+    }
+  }
+  return false;
 }
