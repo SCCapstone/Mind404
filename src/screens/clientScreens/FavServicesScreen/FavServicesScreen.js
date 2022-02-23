@@ -22,7 +22,7 @@ export default function ServicesScreen({ navigation }) {
 
   const { user } = useUser(); 
 
-  useEffect(() => {
+  React.useEffect(() => {
     firebase
       .firestore()
       .collection("users/"+user.id+"/ClientFavorites")
@@ -93,6 +93,7 @@ export default function ServicesScreen({ navigation }) {
           ItemSeparatorComponent={itemSeperatorView}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => <ServiceListing item={item} />}
+          ListEmptyComponent={()=> <Text style={styles.noEvent}>No services currently favorited.</Text>}
         />
       </View>
     </ImageBackground>
