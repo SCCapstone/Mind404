@@ -40,22 +40,32 @@ export default function ServiceDetailsScreen({ route, navigation }) {
     }
   }
   const onAddPress = () => {
-    if (!docRef.doc(item.id)) {
-
-      firebase
-            .firestore()
-            .collection("users/"+user.id+"/ClientFavorites")
-            .add(item)
-            .then(() => {
-                navigation.navigate("Client Favorite Services");
-            });
-    }
-    }
-    const onUnfavoritePress = () => {
-        if(item.id)
-        docRef.doc(item.id).delete();
-        navigation.navigate("Client Favorite Services");   
+    docRef.doc(item.id).get().then((docSnapshot) => {
+      if (!docSnapshot.exists) {
+            firebase
+              .firestore()
+              .collection("users/"+user.id+"/ClientFavorites")
+              .add(item)
+              .then(() => {
+                Alert.alert('Service has been favorited!')
+                navigation.navigate("Client Home");
+              });
+      } else {
+        Alert.alert('Service is already favorited.')
       }
+    });
+  }
+  const onUnfavoritePress = () => {
+    docRef.doc(item.id).get().then((docSnapshot) => {
+      if (docSnapshot.exists) {
+        docRef.doc(item.id).delete();
+        Alert.alert('Service has been unfavorited.')
+        navigation.navigate("Client Home");
+      } else {
+        Alert.alert('Service was not previously favorited.')
+      }
+    }); 
+  }
 
   return (
     <ImageBackground
