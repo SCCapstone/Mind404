@@ -99,6 +99,22 @@ export default function ProvServicesScreen({ navigation }) {
 
   const deleteService = (id) => {
     firebase.firestore().collection("services").doc(id).delete();
+    firebase
+      .firestore()
+      .collection("users")
+      .get()
+      .then((users) =>
+        users.forEach((user) =>
+          user.ref.collection("ClientFavorites")
+          .onSnapshot((querySnapshot) => {
+            querySnapshot.forEach((documentSnapshot) => {
+              if (documentSnapshot.id == id){
+                documentSnapshot.ref.delete()
+              }
+            });
+          })
+        )
+      )
     setListData( listData => {
       return listData.filter(item => item.id != id);
     });
