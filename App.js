@@ -71,7 +71,6 @@ export default function App() {
             name="Service Details"
             component={ServiceDetailsScreen}
           />
-          <Stack.Screen name="Prov Services" component={ProvServicesScreen} />
           <Stack.Screen
             name="Post Your Service"
             component={ServicesPostScreen}
@@ -93,11 +92,6 @@ export default function App() {
             name="Add Event"
             component={AddEvent}
           />
-          <Stack.Screen
-            name="Client Favorite Services"
-            component={FavServicesScreen}
-          />
-
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>

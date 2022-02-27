@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useContext, useState,FlatList } from "react";
+import React, { useContext, useState} from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   StyleSheet,
@@ -10,6 +10,7 @@ import {
   TextInput,
   ImageBackground,
   TouchableOpacity,
+  FlatList
 } from "react-native";
 import styles from "./../../../../components/styles";
 import Button from "./../../../../components/Button.js";
@@ -20,25 +21,24 @@ import useUser from "../../../../useUser";
 
 export default function ProvHomeScreen({ navigation }) {
   const [currentDate, setCurrentDate] = useState('');
+  const [eventDate, setEventDate] = useState(getDateString());
   const [listData, setListData] = React.useState([]);
   const { user } = useUser();
-  const [selectedDay, setSelectedDay] = useState('No Date Selected');
   const [dayData, setDayData] = useState([]);
 
   React.useEffect(() => {
     var day = new Date().getDate(); //Current Date
     var month = new Date().getMonth() + 1; //Current Month
     var year = new Date().getFullYear(); //Current Year
-    setCurrentDate(
-      year + '-' + month + '-' + day
-    );
+    setCurrentDate(displayDate(month,day,year));
+    setEventDate(getDateString());
   }, []);
   
   const onSettingsCogPress = () => {
     navigation.navigate("Prov Settings");
   };
   const onAddPress = () => {
-    navigation.navigate("Prov Services")
+    navigation.navigate("Services")
   }
   React.useEffect(() => {
     firebase
@@ -54,6 +54,7 @@ export default function ProvHomeScreen({ navigation }) {
           setListData(temp);
         });
       });
+      eventsToday(eventDate);
   }, [navigation]);
 
   const itemSeperatorView = () => {
@@ -67,22 +68,15 @@ export default function ProvHomeScreen({ navigation }) {
       />
     );
   };
-  const daySelected = (dateString) => {
+
+  const eventsToday = (dateString) => {
     let temp = listData;
     temp = temp.filter(function(item){
-      return item.date == currentDate;
+      return item.date == eventDate;
     }).map(function({description, subject, id}){
       return {description, subject, id}
     });
-    setSelectedDay(getDisplayDate(dateString))
     setDayData(temp);
-  }
-  const deleteEvent = (id) => {
-    console.log(id);
-    docRef.doc(id).delete();
-    setDayData( dayData => {
-      return dayData.filter(item => item.id != id);
-    });
   }
 
   return (
@@ -97,20 +91,28 @@ export default function ProvHomeScreen({ navigation }) {
       >
         <MaterialCommunityIcons name="cog-outline" color="#000" size={30} />
       </TouchableOpacity>
-      <View style={styles.layout}>
-        <Text style={styles.welcome}>Welcome {user.firstName}!</Text>
-        <Text style = {styles.welcome}>{currentDate}</Text>
+      <Text style = {styles.headerDate}>{currentDate}</Text>
+      <Text style={styles.headerWelcome}>Welcome {user.firstName}!</Text>
       <TouchableOpacity
-        style={styles.servicesPostButton}
+        style={{paddingStart: 20}}
         onPress={() => onAddPress()}
       >
-        <Text style={styles.buttonTitle}>Let's Add a Service!</Text>
+        <Text style={{padding: 7, fontSize: 15, color: '#788eec',marginEnd: 0}}>+ Add a Service</Text>
       </TouchableOpacity>
-      {/* <FlatList
+      <TouchableOpacity
+        style={styles.refresh}
+        onPress={() => eventsToday(eventDate)}
+      >
+        <MaterialCommunityIcons name="refresh" style={{fontSize: 20,color: '#788eec', fontWeight: 'bold'}}/>
+        <Text style={{fontSize: 15, color: '#788eec'}}> Refresh Events</Text>
+      </TouchableOpacity>
+      
+      <View style={styles.layout}>
+      <FlatList
           data={dayData}
           ItemSeparatorComponent={itemSeperatorView}
           keyExtractor={(item, index) => index.toString()}
-          ListHeaderComponent={()=><Text style={styles.dateTitle}>{selectedDay}</Text>}
+          ListHeaderComponent={()=><Text style={styles.listTitle}>Today's Events</Text>}
           renderItem={({item}) => (
               <View style={styles.containerSide}>
                 <View
@@ -123,14 +125,65 @@ export default function ProvHomeScreen({ navigation }) {
                   <Text style={styles.subject}>{item.subject}</Text>
                   <Text style={styles.descriptionEvent}>{item.description}</Text>
                 </View>
-                <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => deleteEvent(item.id)}>
-                  <MaterialCommunityIcons name="close" style={{fontSize: 25,color: 'red', fontWeight: 'bold'}}/>
-                </TouchableOpacity>
+
               </View>
           )}
           ListEmptyComponent={()=> <Text style={styles.noEvent}>Woo hoo! No events today.</Text>}
-      /> */}
+      />
       </View>
     </ImageBackground>
   );
+}
+
+function getDateString(){
+  var temp = new Date();
+  var monthNum = temp.getMonth()+1;
+  if (monthNum < 10){
+    return temp.getFullYear() + '-' + '0'+ monthNum + '-' + temp.getDate();
+  } else {
+    return temp.getFullYear() + '-' + monthNum + '-' + temp.getDate();
+  }
+}
+
+function displayDate(month, day, year){
+  let monthName = "";
+  switch(month){
+    case 1:
+      monthName="January";
+      break;
+    case 2:
+      monthName="February";
+      break;
+    case 3:
+      monthName="March";
+      break;
+    case 4:
+      monthName="April";
+      break;
+    case 5:
+      monthName="May";
+      break;
+    case 6:
+      monthName="June";
+      break;
+    case 7:
+      monthName="July";
+      break;
+    case 8:
+      monthName="August";
+      break;
+    case 9:
+      monthName="September";
+      break;
+    case 10:
+      monthName="October";
+      break;
+    case 11:
+      monthName="November";
+      break;
+    case 12:
+      monthName="December";
+      break;
+  }
+  return monthName + ' ' + day + ', ' + year;
 }

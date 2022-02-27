@@ -145,6 +145,12 @@ export default StyleSheet.create({
     width: "100%",
     height: "90%",
   },
+  headerDate: {
+    fontSize: 32, fontWeight: 'bold', textAlign: 'right', paddingEnd: 20, paddingTop: 20
+  },
+  headerWelcome: {
+    fontSize: 32, color: '#FFAC1C',fontWeight: 'bold', textAlign: 'left', paddingStart: 20, paddingTop: 20
+  },
   //
   // SettingsScreen
   settingsButton: {
@@ -414,5 +420,18 @@ export default StyleSheet.create({
     color: "black",
     padding: 6,
     marginStart: 20,
+  },
+  refresh: {
+    flexDirection: "row",
+    marginTop: 10,
+    marginBottom: 2,
+    textAlign: 'right',
+    marginStart: 260,
+  },
+  listTitle:{
+    fontSize: 20,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    paddingBottom: 2,
   },
 });
