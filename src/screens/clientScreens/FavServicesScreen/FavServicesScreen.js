@@ -15,12 +15,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import ServiceListing from "../../../../components/ServiceListing";
 import { TextInput } from "react-native-gesture-handler";
 import useUser from "../../../../useUser";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function ServicesScreen({ navigation }) {
   const [listData, setListData] = useState([]);
-  const [search, setSearch] = useState(''); 
-
   const { user } = useUser(); 
+
+  var docRef = firebase.firestore().collection("users/"+user.id+"/ClientFavorites");
 
   React.useEffect(() => {
     firebase
@@ -34,10 +35,9 @@ export default function ServicesScreen({ navigation }) {
           serviceDetails["id"] = documentSnapshot.id;
           temp.push(serviceDetails);
           setListData(temp);
-          setSearch(temp);
         });
       });
-  }, []);
+  }, [navigation]);
 
   const itemSeperatorView = () => {
     return (
@@ -50,6 +50,16 @@ export default function ServicesScreen({ navigation }) {
       />
     );
   };
+
+  const onRefresh = () => {
+    if(listData[0]){
+      docRef.doc(listData[0].id).get().then((docSnapshot) => {
+        if (!docSnapshot.exists) {
+          setListData([])
+        }
+      }); 
+    }
+  }
 
   return (
     <ImageBackground
@@ -69,6 +79,13 @@ export default function ServicesScreen({ navigation }) {
       >
         Favorited Services
       </Text>
+      <TouchableOpacity
+        style={styles.refresh2}
+        onPress={() => onRefresh()}
+      >
+        <MaterialCommunityIcons name="refresh" style={{fontSize: 20,color: '#788eec', fontWeight: 'bold'}}/>
+        <Text style={{fontSize: 15, color: '#788eec'}}> Refresh List</Text>
+      </TouchableOpacity>
       <View style={{ flex: 1, paddingTop: 10 }}>
         <FlatList
           data={listData}

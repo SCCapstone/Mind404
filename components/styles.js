@@ -428,6 +428,13 @@ export default StyleSheet.create({
     textAlign: 'right',
     marginStart: 260,
   },
+  refresh2: {
+    flexDirection: "row",
+    marginTop: 10,
+    marginBottom: 2,
+    alignContent: 'center',
+    justifyContent: 'center'
+  },
   listTitle:{
     fontSize: 20,
     textAlign: 'center',

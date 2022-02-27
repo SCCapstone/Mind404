@@ -45,7 +45,8 @@ export default function ServiceDetailsScreen({ route, navigation }) {
             firebase
               .firestore()
               .collection("users/"+user.id+"/ClientFavorites")
-              .add(item)
+              .doc(item.id)
+              .set(item)
               .then(() => {
                 Alert.alert('Service has been favorited!')
                 navigation.navigate("Client Home");
