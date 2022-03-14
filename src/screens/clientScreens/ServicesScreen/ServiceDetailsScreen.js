@@ -132,21 +132,18 @@ export default function ServiceDetailsScreen({ route, navigation }) {
             </View>
           </View>
           <View style={styles.profileDescriptionWrapper}>
-            <View>
-              <Text style={styles.titleText}>Make this a Favorited Service</Text>
+            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+              <TouchableOpacity
+                      style={{backgroundColor: "#FFAC1C", marginEnd: 20, width: 90, height: 30, alignItems: 'center',justifyContent: 'center'}}
+                      onPress={onAddPress}>
+                <Text style={styles.buttonTitle}>Favorite</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                      style={{backgroundColor: "#FFAC1C", width: 90, height: 30, alignItems: 'center', justifyContent: 'center'}}
+                      onPress={onUnfavoritePress}>
+                <Text style={styles.buttonTitle}>Unfavorite</Text>
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity
-                    style={styles.servicesPostButton}
-                    onPress={onAddPress}
-                >
-              <Text style={styles.buttonTitle}>Favorite</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                    style={styles.servicesPostButton}
-                    onPress={onUnfavoritePress}
-                >
-              <Text style={styles.buttonTitle}>Unfavorite</Text>
-            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>

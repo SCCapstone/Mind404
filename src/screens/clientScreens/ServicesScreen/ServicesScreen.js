@@ -15,23 +15,14 @@ import styles from "./../../../../components/styles";
 import { firebase } from "../../../firebase/config";
 import { NavigationContainer } from "@react-navigation/native";
 import ServiceListing from "../../../../components/ServiceListing";
-import { TextInput } from "react-native-gesture-handler";
+import SelectDropdown from "react-native-select-dropdown";
 
 export default function ServicesScreen({ navigation }) {
   const [listData, setListData] = useState([]);
-  const [search, setSearch] = useState(''); 
-  const [serviceFilter, setServiceFilter] = useState('');
+  const [serviceFilter, setServiceFilter] = useState('None');
   const [completeList, setCompleteList] = useState('');
 
-
-  let landscaping = "Landscaping";
-  let carDetailing = "Car Detailing";
-  let housekeeping = "Housekeeping";
-  let accounting = "Accounting";
-  let techSupport = "Tech Support";
-  let tutoring = "Tutoring";
-  let contracting = "Contracting";
-  let consulting = "Consulting";
+  const services = ["All", "Landscaping", "Car Detailing", "Housekeeping", "Accounting", "Tech Support", "Tutoring", "Contracting","Consulting"]
 
   useEffect(() => {
     firebase
@@ -85,51 +76,34 @@ export default function ServicesScreen({ navigation }) {
       style={styles.backgroundImage}
     >
       <View style={{paddingTop: 30, paddingBottom: 10 }}>
-      <Text style={styles.explanation2}>Filter by service type:</Text>
-        <View style={{height: 60}}>
-          <ScrollView persistentScrollbar={true} horizontal={true}>
-            <TouchableOpacity style={styles.serviceTypeButton}
-            onPress={() => setFilter(landscaping)}>
-              <Text style={styles.buttonTitle}> {landscaping} </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.serviceTypeButton}
-            onPress={() => setFilter(carDetailing)}>
-              <Text style={styles.buttonTitle}> {carDetailing} </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.serviceTypeButton}
-            onPress={() => setFilter(housekeeping)}>
-              <Text style={styles.buttonTitle}> {housekeeping} </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.serviceTypeButton}
-            onPress={() => setFilter(accounting)}>
-              <Text style={styles.buttonTitle}> {accounting} </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.serviceTypeButton}
-            onPress={() => setFilter(techSupport)}>
-              <Text style={styles.buttonTitle}> {techSupport} </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.serviceTypeButton}
-            onPress={() => setFilter(tutoring)}>
-              <Text style={styles.buttonTitle}> {tutoring} </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.serviceTypeButton}
-            onPress={() => setFilter(contracting)}>
-              <Text style={styles.buttonTitle}> {contracting} </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.serviceTypeButton}
-            onPress={() => setFilter(consulting)}>
-              <Text style={styles.buttonTitle}> {consulting} </Text>
-            </TouchableOpacity>
-          </ScrollView>
-          
+        <View style={{marginTop: 10, height: 50, flexDirection: 'row', height: 60, justifyContent: 'center'}}>
+          <Text style={styles.explanation2}>Service type:</Text>
+          <SelectDropdown
+            data = {services}
+            onSelect={(selectedItem, index) => {
+              if(selectedItem == 'All'){
+                resetFilter();
+              } else {
+                setFilter(selectedItem);
+              }
+            }}
+            buttonTextAfterSelection={(selectedItem, index) => {
+              return selectedItem;
+            }}
+            rowTextForSelection={(item, index) => {
+              return item
+            }}
+            buttonStyle={{backgroundColor: '#788eec', borderRadius: 2, height: 40, width: 160}}
+            buttonTextStyle={{fontWeight: 'bold'}}
+            defaultValue="All"
+          />
         </View>
-        <View style={{flexDirection: 'row', height: 38, paddingTop: 5}}>
-          <Text style={styles.explanation}>Activated filter type: </Text>
-          <Text style={styles.selectedOption}>{serviceFilter}</Text>
-        </View>
-        <TouchableOpacity onPress={() => resetFilter()}>
-            <Text style={{textAlign: 'center', color: 'red', paddingTop: 6}} >Clear Filter</Text>
-          </TouchableOpacity>
+        <View
+          style={{
+            borderBottomColor: '#949494',
+            borderBottomWidth: 2,
+          }}
+        />
         <FlatList
             data={listData}
             ItemSeparatorComponent={itemSeperatorView}
@@ -140,3 +114,7 @@ export default function ServicesScreen({ navigation }) {
     </ImageBackground>
   );
 }
+
+{/* <TouchableOpacity style={{borderRadius: 2, backgroundColor: '#FF4F4B', width: 80, height: 25}} onPress={() => resetFilter()}>
+              <Text style={{fontWeight: 'bold', textAlign: 'center', color: 'white', padding: 3}} >Clear Filter</Text>
+          </TouchableOpacity> */}

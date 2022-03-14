@@ -12,7 +12,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { Menu, MenuProvider, MenuOptions, MenuOption, MenuTrigger, renderers} from "react-native-popup-menu";
 import styles from "./../../../components/styles";
 import { firebase } from "./../../firebase/config";
-import Icon from "react-native-vector-icons/FontAwesome";
+import SelectDropdown from "react-native-select-dropdown";
 
 export default function RegistrationScreen({ navigation }) {
   const [firstName, setFirstName] = useState("");
@@ -23,13 +23,15 @@ export default function RegistrationScreen({ navigation }) {
   const [typeOfUser, setTypeOfUser] = useState("Not Selected");
   const [confirmPassword, setConfirmPassword] = useState("");
   
+  const types = ["Client", "Provider"]
+
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
   };
 
   const onRegisterPress = () => {
     if (typeOfUser == "Not Selected"){
-      alert("User type not selected.");
+      alert("Account type not selected.");
       return;
     }
     /** checks to see if passwords match */
@@ -73,6 +75,7 @@ export default function RegistrationScreen({ navigation }) {
       alert("Confirm password field cannot be empty");
       return;
     }
+
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -156,24 +159,6 @@ export default function RegistrationScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
-        <View style={styles.containerSide}>
-        <MenuProvider style={{ flexDirection: "column", padding: 30 }}>
-          <Menu>
-            <MenuTrigger>
-              <Text style={styles.dropDown}>Set Account Type</Text>
-            </MenuTrigger  >
-            <MenuOptions>
-              <MenuOption onSelect={() => setTypeOfUser("Provider")} value={typeOfUser}>
-                <Text style={styles.menuContent}>Provider</Text>
-              </MenuOption>
-              <MenuOption onSelect={() => setTypeOfUser("Client")} value={typeOfUser}>
-                <Text style={styles.menuContent}>Client</Text>
-              </MenuOption>
-          </MenuOptions>
-          </Menu>
-        </MenuProvider>
-        <Text style = {styles.selectedOption}>  {typeOfUser}  </Text>
-        </View>
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
@@ -193,6 +178,21 @@ export default function RegistrationScreen({ navigation }) {
           value={confirmPassword}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+        />
+        <SelectDropdown
+            data = {types}
+            onSelect={(selectedItem, index) => {
+              setTypeOfUser(selectedItem)
+            }}
+            buttonTextAfterSelection={(selectedItem, index) => {
+              return selectedItem;
+            }}
+            rowTextForSelection={(item, index) => {
+              return item
+            }}
+            buttonStyle={{backgroundColor: "#FFAC1C", borderRadius: 2, height: 40, marginEnd: 100, marginTop: 10, marginBottom: 20}}
+            buttonTextStyle={{fontSize: 15}}
+            defaultButtonText="Select Account Type"
         />
         <TouchableOpacity
           style={styles.button}
