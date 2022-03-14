@@ -71,12 +71,13 @@ export default function ServicesScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("../../../../assets/GrubberBackground.png")}
+      source={require("../../../../images/grey_background.png")}
       resizeMode="cover"
       style={styles.backgroundImage}
     >
       <View style={{paddingTop: 30, paddingBottom: 10 }}>
-        <View style={{marginTop: 10, height: 50, flexDirection: 'row', height: 60, justifyContent: 'center'}}>
+ 
+        <View style={{marginTop: 25, height: 50, flexDirection: 'row', height: 50, justifyContent: 'center'}}>
           <Text style={styles.explanation2}>Service type:</Text>
           <SelectDropdown
             data = {services}
@@ -93,11 +94,13 @@ export default function ServicesScreen({ navigation }) {
             rowTextForSelection={(item, index) => {
               return item
             }}
-            buttonStyle={{backgroundColor: '#788eec', borderRadius: 2, height: 40, width: 160}}
+            buttonStyle={{backgroundColor: '#89CFF0', borderRadius: 2, height: 30, width: 140}}
             buttonTextStyle={{fontWeight: 'bold'}}
             defaultValue="All"
           />
+
         </View>
+        
         <View
           style={{
             borderBottomColor: '#949494',

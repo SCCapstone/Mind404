@@ -411,7 +411,7 @@ export default StyleSheet.create({
   noEvent: {
     fontSize: 14,
     marginTop: 13,
-    color: 'gray',
+    color: '#D1F4FA',
     textAlign: 'center'
   },
   explanation2: {

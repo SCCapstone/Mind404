@@ -63,13 +63,13 @@ export default function ServicesScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("../../../../assets/GrubberBackground.png")}
+      source={require("../../../../images/grey_background.png")}
       resizeMode="cover"
       style={styles.backgroundImage}
     >
       <Text style={{
         color: "#FFAC1C", 
-        paddingTop: 30, 
+        paddingTop: 50, 
         fontWeight: 'bold', 
         textAlign: 'center', 
         fontSize: 30,

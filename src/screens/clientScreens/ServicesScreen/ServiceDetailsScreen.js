@@ -73,7 +73,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
 
   return (
     <ImageBackground
-      source={require("../../../../assets/GrubberBackground.png")}
+      source={require("../../../../images/grey_background.png")}
       resizeMode="cover"
       style={styles.backgroundImage}
     >
@@ -81,7 +81,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
         <View style={styles.container}>
           <Text style={styles.title}>{item.serviceType}</Text>
           <Text style={styles.description}>{item.description}</Text>
-          <Text style={{ fontSize: 15, color: "#808080", marginBottom: 20}}>
+          <Text style={{ fontSize: 15, color: "#FEFEFE", marginBottom: 20}}>
             Telephone Availability: {`${convertTo12Hour(item.fromTime)}`} - {`${convertTo12Hour(item.toTime)}`}  
           </Text>
         </View>
@@ -96,7 +96,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
           >
             {`${checkAvailable(item.fromTime, item.toTime, item.contact)}`}
           </Text>
-          <Text style={{fontSize: 15, color: "#808080", marginStart: 20, marginBottom: 20, justifyContent: 'center'}}>
+          <Text style={{fontSize: 15, color: "#FEFEFE", marginStart: 20, marginBottom: 20, justifyContent: 'center'}}>
             {`${promptOutOfHours(item.fromTime, item.toTime, item.contact)}`}
           </Text>
         </View>

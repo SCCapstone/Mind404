@@ -70,11 +70,11 @@ export default function ProvCalendarScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("../../../../assets/GrubberBackground.png")}
-      resizeMode="cover"
+    source={require("../../../../images/grey_background.png")}
+    resizeMode="cover"
       style={styles.backgroundImage}
     >
-      <View style={{padding: 7, marginTop: 20}}>
+      <View style={{padding: 40, marginTop: 20}}>
         <Calendar
           style={{
             borderWidth: 2,
@@ -90,8 +90,8 @@ export default function ProvCalendarScreen({ navigation }) {
         </Calendar>
       </View>
       <TouchableOpacity style={styles.TOContainer} onPress={onAddPress}>
-        <MaterialCommunityIcons name="plus" style={{fontSize: 25,color: 'white', fontWeight: 'bold'}}/>
-        <Text style={{fontSize: 20, color: 'white', fontWeight: 'bold'}}>Add Event </Text>
+        <MaterialCommunityIcons name="plus" style={{fontSize: 25,color: 'white', fontWeight: 'bold', textAlign: 'center'}}/>
+        <Text style={{fontSize: 20, color: 'white', fontWeight: 'bold', textAlign: 'center'}}>Add Event </Text>
       </TouchableOpacity>
       <FlatList
           data={dayData}
@@ -105,6 +105,7 @@ export default function ProvCalendarScreen({ navigation }) {
                     backgroundColor: "white",
                     padding: 20,
                     width: '90%',
+                    textAlign: 'center'
                   }}
                 >
                   <Text style={styles.subject}>{item.subject}</Text>

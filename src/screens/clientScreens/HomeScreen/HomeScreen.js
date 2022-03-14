@@ -68,7 +68,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("../../../../assets/GrubberBackground.png")}
+      source={require("../../../../images/grey_background.png")}
       resizeMode="cover"
       style={styles.backgroundImage}
     >
@@ -79,6 +79,7 @@ export default function HomeScreen({ navigation }) {
         <MaterialCommunityIcons name="cog-outline" color="#000" size={30} />
       </TouchableOpacity>
       <View>
+      <Text style={styles.welcome}>Grubber </Text>
         <Text style={styles.welcome}>Welcome {user.firstName}!</Text>
       </View>
       <View>

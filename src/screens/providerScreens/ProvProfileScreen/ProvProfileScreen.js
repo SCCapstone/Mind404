@@ -19,8 +19,8 @@ export default function ProvProfileScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("../../../../assets/GrubberBackground.png")}
-      resizeMode="cover"
+    source={require("../../../../images/grey_background.png")}
+    resizeMode="cover"
       style={styles.backgroundImage}
     >
       <TouchableOpacity
