@@ -58,3 +58,5 @@ Enter command `npm test`.
 <p>Adam Farley adamfarley4@gmail.com</p>
 <p>Raymond Seas rseas@email.sc.edu</p>
 <p>Petros Yiannikouros yianniko@email.sc.edu</p>
+<p>Douglas Wendel dpwendel@email.sc.edu</p>
+
