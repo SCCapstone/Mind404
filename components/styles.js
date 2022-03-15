@@ -288,7 +288,7 @@ export default StyleSheet.create({
     color: "black",
   },
   description: {
-    fontFamily: "sans-serif",
+    fontFamily: "serif",
     fontSize: 20,
     width: "100%",
     textAlign: "center",
@@ -296,19 +296,19 @@ export default StyleSheet.create({
     color: "black",
   },
   location: {
-    fontFamily: "sans-serif",
+    fontFamily: "serif",
     fontSize: 15,
     textAlign: "center",
     marginLeft: 25,
   },
   email:{
-    fontFamily: "sans-serif",
+    fontFamily: "serif",
     fontSize: 15,
     textAlign: "center",
     marginEnd: 25,
   },
   phoneNumber: {
-    fontFamily: "sans-serif",
+    fontFamily: "serif",
     fontSize: 15,
     color: "blue",
     textDecorationLine: "underline",
