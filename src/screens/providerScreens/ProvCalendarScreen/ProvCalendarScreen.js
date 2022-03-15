@@ -104,8 +104,7 @@ export default function ProvCalendarScreen({ navigation }) {
                   style={{
                     backgroundColor: "white",
                     padding: 20,
-                    width: '90%',
-                    textAlign: 'center'
+                    width: '20%',
                   }}
                 >
                   <Text style={styles.subject}>{item.subject}</Text>

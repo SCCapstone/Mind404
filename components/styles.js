@@ -390,11 +390,11 @@ export default StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'space-around',
     backgroundColor: '#FFAC1C',
-    marginTop: 10,
-    marginBottom: 2,
-    width: 120,
-    textAlign: 'right',
-    marginStart: 280
+    marginTop: 4,
+    marginBottom: 4,
+    width: 140,
+    textAlign: 'center',
+    marginStart: 125
   },
   selectedDateOption: {
     fontFamily: "sans-serif",
