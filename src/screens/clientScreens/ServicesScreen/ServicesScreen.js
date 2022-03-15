@@ -16,15 +16,35 @@ import { firebase } from "../../../firebase/config";
 import { NavigationContainer } from "@react-navigation/native";
 import ServiceListing from "../../../../components/ServiceListing";
 import SelectDropdown from "react-native-select-dropdown";
+import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
+import AntDesign from "react-native-vector-icons/AntDesign";
+import { Line } from "react-native-svg";
 
 export default function ServicesScreen({ navigation }) {
+  //displayed List in services
   const [listData, setListData] = useState([]);
-  const [serviceFilter, setServiceFilter] = useState('None');
-  const [completeList, setCompleteList] = useState('');
+  //Maintains full list at all times
+  const [completeList, setCompleteList] = useState([]);
+  //intermediate list to handle filters
+  const [tempList, setTempList] = useState([]);
+  //placeholder for service Type box (to maintain actual selection on filter close)
+  const [placeHolder, setPlaceHolder] = useState('All')
 
   const services = ["All", "Landscaping", "Car Detailing", "Housekeeping", "Accounting", "Tech Support", "Tutoring", "Contracting","Consulting"]
 
-  useEffect(() => {
+  const LineSeparator = () => {
+    return (
+      <View
+          style={{
+            borderBottomColor: '#949494',
+            borderBottomWidth: 2,
+            marginBottom: 15,
+          }}
+        />
+    );
+  };
+
+  const loadListData = () => {
     firebase
       .firestore()
       .collection("services")
@@ -36,11 +56,15 @@ export default function ServicesScreen({ navigation }) {
           serviceDetails = documentSnapshot.data();
           serviceDetails["id"] = documentSnapshot.id;
           temp.push(serviceDetails);
-          setListData(temp);
           setCompleteList(temp);
-          setServiceFilter('');
+          setListData(temp);
+          setTempList(temp);
         });
       });
+  }
+
+  useEffect(() => {
+    loadListData();
   }, []);
   
   
@@ -58,15 +82,19 @@ export default function ServicesScreen({ navigation }) {
 
   const resetFilter = () => {
     setListData(completeList);
-    setServiceFilter('');
+    setTempList(completeList);
+    setPlaceHolder('All');
   }
 
-  const setFilter = (service) => {
-    setServiceFilter(service);
+  const setServiceFilter = (service) => {
     setListData(completeList);
     setListData( listData => {
       return listData.filter(item => item.serviceType == service);
     });
+  }
+
+  const setOverallFilter = () => {
+    setServiceFilter(service)
   }
 
   return (
@@ -75,31 +103,67 @@ export default function ServicesScreen({ navigation }) {
       resizeMode="cover"
       style={styles.backgroundImage}
     >
-      <View style={{paddingTop: 30, paddingBottom: 10 }}>
- 
-        <View style={{marginTop: 25, height: 50, flexDirection: 'row', height: 50, justifyContent: 'center'}}>
-          <Text style={styles.explanation2}>Service type:</Text>
-          <SelectDropdown
-            data = {services}
-            onSelect={(selectedItem, index) => {
-              if(selectedItem == 'All'){
-                resetFilter();
-              } else {
-                setFilter(selectedItem);
-              }
-            }}
-            buttonTextAfterSelection={(selectedItem, index) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              return item
-            }}
-            buttonStyle={{backgroundColor: '#89CFF0', borderRadius: 2, height: 30, width: 140}}
-            buttonTextStyle={{fontWeight: 'bold'}}
-            defaultValue="All"
-          />
-
-        </View>
+      <Text style={{
+        color: "#FFAC1C", 
+        paddingTop: 20, 
+        fontWeight: 'bold', 
+        textAlign: 'center', 
+        fontSize: 33,
+        textShadowColor: "black",
+        textShadowRadius: 8,
+      }}
+      >
+        Services
+      </Text>
+      <View style={{paddingBottom: 10 }}>
+        <Collapse>
+          <CollapseHeader>
+              <View style={{height: 40, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                <Text style={{backgroundColorfontSize: 18, fontWeight: 'bold', fontStyle: 'italic', marginEnd: 3, color: '#1C6FFF'}}>
+                  Filter
+                </Text>
+                <AntDesign name="down" color='#1C6FFF' size={15} />
+              </View>
+          </CollapseHeader>
+          <CollapseBody>
+            <View style={{backgroundColor: '#9CC0FF'}}>
+              <LineSeparator/>
+              <View style={{marginBottom: 18, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                <Text style={{ fontSize: 18,fontWeight: 'bold', color: "black", padding: 6, marginStart: 20,}}>
+                  Service type: 
+                </Text>
+                <SelectDropdown
+                  data = {services}
+                  onSelect={(selectedItem, index) => {
+                    setPlaceHolder(selectedItem)
+                    if(selectedItem == 'All'){
+                      resetFilter();
+                    } else {
+                      setServiceFilter(selectedItem);
+                    }
+                  }}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return placeHolder;
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return item
+                  }}
+                  buttonStyle={{backgroundColor: '#FFAC1C', borderRadius: 2, height: 30, width: 160}}
+                  buttonTextStyle={{fontWeight: 'bold', color: 'white'}}
+                  defaultButtonText={placeHolder}
+                />
+              </View>
+              <View style={{marginBottom: 20, flexDirection: 'row', justifyContent: 'center'}}>
+                <TouchableOpacity style={{borderRadius: 6, backgroundColor: '#FFAC1C', width: 130, height: 22}} onPress={() => resetFilter()}>
+                    <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                      <AntDesign name="close" color='white' size={15} />
+                      <Text style={{fontWeight: 'bold', textAlign: 'center', color: 'white'}} >Clear All Filters</Text>
+                    </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </CollapseBody>
+        </Collapse>
         
         <View
           style={{
@@ -112,12 +176,9 @@ export default function ServicesScreen({ navigation }) {
             ItemSeparatorComponent={itemSeperatorView}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => <ServiceListing item={item} />}
+            ListEmptyComponent={()=> <Text style={styles.noEvent}>No services are available with the applied filters.</Text>}
           />
         </View>
     </ImageBackground>
   );
 }
-
-{/* <TouchableOpacity style={{borderRadius: 2, backgroundColor: '#FF4F4B', width: 80, height: 25}} onPress={() => resetFilter()}>
-              <Text style={{fontWeight: 'bold', textAlign: 'center', color: 'white', padding: 3}} >Clear Filter</Text>
-          </TouchableOpacity> */}
