@@ -26,9 +26,10 @@ export default function ServicesScreen({ navigation }) {
   //Maintains full list at all times
   const [completeList, setCompleteList] = useState([]);
   //intermediate list to handle filters
-  const [tempList, setTempList] = useState([]);
+  const [serviceList, setServiceList] = useState([]);
   //placeholder for service Type box (to maintain actual selection on filter close)
   const [placeHolder, setPlaceHolder] = useState('All')
+  const [availableList, setAvailableList] = useState([]);
 
   const services = ["All", "Landscaping", "Car Detailing", "Housekeeping", "Accounting", "Tech Support", "Tutoring", "Contracting","Consulting"]
 
@@ -58,13 +59,15 @@ export default function ServicesScreen({ navigation }) {
           temp.push(serviceDetails);
           setCompleteList(temp);
           setListData(temp);
-          setTempList(temp);
+          setServiceList(temp);
+          setAvailableList(temp);
         });
       });
   }
 
   useEffect(() => {
     loadListData();
+    setAvailableList(setAvail);
   }, []);
   
   
@@ -81,20 +84,34 @@ export default function ServicesScreen({ navigation }) {
   };
 
   const resetFilter = () => {
+    //call to regather services for complete list
     setListData(completeList);
-    setTempList(completeList);
+    setServiceList(completeList);
     setPlaceHolder('All');
   }
 
   const setServiceFilter = (service) => {
-    setListData(completeList);
-    setListData( listData => {
-      return listData.filter(item => item.serviceType == service);
-    });
+    setServiceList(completeList);
+    const serviceFiltered = completeList.filter(item => item.serviceType == service);
+    setServiceList(serviceFiltered);
+    setOverallFilter(serviceFiltered, 1);
   }
 
-  const setOverallFilter = () => {
-    setServiceFilter(service)
+  const setOverallFilter = (list, id) => {
+    switch (id){
+      case 0:
+        setListData(completeList);
+        break;
+      case 1:
+        overall = overall.filter(item => list.includes(item));
+        break;
+      case 2:
+        
+        break;
+      default:
+
+    }
+    setListData(overall)
   }
 
   return (
@@ -128,7 +145,7 @@ export default function ServicesScreen({ navigation }) {
           <CollapseBody>
             <View style={{backgroundColor: '#9CC0FF'}}>
               <LineSeparator/>
-              <View style={{marginBottom: 18, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+              <View style={{marginBottom: 5, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                 <Text style={{ fontSize: 18,fontWeight: 'bold', color: "black", padding: 6, marginStart: 20,}}>
                   Service type: 
                 </Text>
@@ -152,6 +169,11 @@ export default function ServicesScreen({ navigation }) {
                   buttonTextStyle={{fontWeight: 'bold', color: 'white'}}
                   defaultButtonText={placeHolder}
                 />
+              </View>
+              <View style={{marginBottom: 18, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={{ fontSize: 18,fontWeight: 'bold', color: "black", padding: 6, marginStart: 20,}}>
+                  Location (City):
+                </Text>
               </View>
               <View style={{marginBottom: 20, flexDirection: 'row', justifyContent: 'center'}}>
                 <TouchableOpacity style={{borderRadius: 6, backgroundColor: '#FFAC1C', width: 130, height: 22}} onPress={() => resetFilter()}>
@@ -181,4 +203,24 @@ export default function ServicesScreen({ navigation }) {
         </View>
     </ImageBackground>
   );
+}
+
+function setAvail(){
+  let currentHour = new Date().getHours();;
+  let toTime = item.toTime;
+  let fromTime = item.fromTime;
+  availableList.forEach( item => {
+    if(toTime < fromTime){
+      toTime = toTime+24;
+    }
+    if(currentHour < fromTime) {
+      currentHour = currentHour+24;
+    }
+    if (!(toTime == fromTime) && !(currentHour > fromTime && currentHour < toTime)){
+      const index = availableList.indexOf(item);
+      if (index > -1) {
+        availableList.splice(index, 1);
+      }
+    }
+  })
 }
