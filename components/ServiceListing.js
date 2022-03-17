@@ -60,7 +60,7 @@ function convertTo12Hour(time) {
   } else if (time > 12) {
     return (time - 12).toString() + " P.M.";
   } else {
-    return "1 A.M.";
+    return "12 A.M.";
   }
 }
 
