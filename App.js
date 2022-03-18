@@ -20,7 +20,7 @@ import {
   ProvProfileEditScreen,
   AddEvent,
   FavServicesScreen,
-  AddFavServices
+  AddFavServices,
 } from "./src/screens";
 
 import { decode, encode } from "base-64";
@@ -37,10 +37,9 @@ if (!global.atob) {
 
 const Stack = createStackNavigator();
 
-
 export default function App() {
   const [loading, setLoading] = useState(true);
-  
+
   return (
     <UserProvider>
       <NavigationContainer>
@@ -88,10 +87,7 @@ export default function App() {
             name="Prov Edit Profile"
             component={ProvProfileEditScreen}
           />
-          <Stack.Screen
-            name="Add Event"
-            component={AddEvent}
-          />
+          <Stack.Screen name="Add Event" component={AddEvent} />
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>

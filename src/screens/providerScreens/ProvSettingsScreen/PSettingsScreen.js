@@ -1,49 +1,61 @@
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { StyleSheet, Text, View, Image, Alert, SafeAreaView, TextInput, ImageBackground, TouchableOpacity} from "react-native";
-import styles from '../../../../components/styles';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Alert,
+  SafeAreaView,
+  TextInput,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
+import styles from "../../../../components/styles";
 import Button from "../../../../components/Button";
 import { firebase } from "../../../firebase/config";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function PSettingsScreen({navigation}) {
-  
+export default function PSettingsScreen({ navigation }) {
   const onChangePasswordPress = () => {
-    navigation.navigate('Prov Change Password')
-  }  
+    navigation.navigate("Prov Change Password");
+  };
   const onChangeEmailPress = () => {
-    navigation.navigate('Prov Change Email')
-  }
+    navigation.navigate("Prov Change Email");
+  };
 
-  const onLogout = () => {
+  const onLogout = async () => {
+    await AsyncStorage.removeItem("loggedInUser");
     firebase.auth().signOut();
-    Alert.alert("Successfully logged out")
-    navigation.navigate('Login')
-  }
+    Alert.alert("Successfully logged out");
+    navigation.navigate("Login");
+  };
 
   return (
     <ImageBackground
       source={require("../../../../assets/GrubberBackground.png")}
       resizeMode="cover"
-      style={styles.backgroundImage}>
-      
+      style={styles.backgroundImage}
+    >
       <TouchableOpacity
         style={styles.changePasswordButton}
-        onPress={() => onChangePasswordPress()}>
-          <Text style={styles.buttonTitle}>Change Password</Text>
+        onPress={() => onChangePasswordPress()}
+      >
+        <Text style={styles.buttonTitle}>Change Password</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.changePasswordButton}
-        onPress={() => onChangeEmailPress()}>
-          <Text style={styles.buttonTitle}>Change Email</Text>
+        onPress={() => onChangeEmailPress()}
+      >
+        <Text style={styles.buttonTitle}>Change Email</Text>
       </TouchableOpacity>
       <View style={styles.footerView}>
         <Text onPress={onLogout} style={styles.footerLink}>
           Log Out
         </Text>
       </View>
-    
     </ImageBackground>
   );
-};
+}

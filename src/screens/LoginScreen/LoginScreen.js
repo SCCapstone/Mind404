@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   Text,
@@ -11,6 +11,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import styles from "./../../../components/styles";
 import { firebase } from "../../firebase/config";
 import useUser from "../../../useUser";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -19,6 +20,23 @@ export default function LoginScreen({ navigation }) {
   const onFooterLinkPress = () => {
     navigation.navigate("Registration");
   };
+
+  useEffect(() => {
+    async function checkuser() {
+      const value = await AsyncStorage.getItem("loggedInUser");
+      console.log(value);
+      if (value) {
+        const user = JSON.parse(value);
+        let type = user.typeOfUser;
+        if (type != undefined && type.toLowerCase() == "provider") {
+          navigation.navigate("Prov Home", { user });
+        } else {
+          navigation.navigate("Client Home", { user });
+        }
+      }
+    }
+    checkuser();
+  }, []);
 
   const onLoginPress = () => {
     firebase
@@ -37,6 +55,8 @@ export default function LoginScreen({ navigation }) {
             }
             const user = firestoreDocument.data();
             setUser(user);
+            const formattedUser = JSON.stringify(user);
+            AsyncStorage.setItem("loggedInUser", formattedUser);
             let type = user.typeOfUser;
             if (type != undefined && type.toLowerCase() == "provider") {
               navigation.navigate("Prov Home", { user });
@@ -92,7 +112,9 @@ export default function LoginScreen({ navigation }) {
             style={styles.button}
             onPress={() => onLoginPress()}
           >
-          <Text testID = "Login.testButton" style={styles.buttonTitle}>Log in</Text>
+            <Text testID="Login.testButton" style={styles.buttonTitle}>
+              Log in
+            </Text>
           </TouchableOpacity>
           <View style={styles.footerView}>
             <Text style={styles.footerText}>
