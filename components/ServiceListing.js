@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -9,8 +10,24 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./styles";
+import Ratings from "./Ratings";
 
 const ServiceListing = ({ item }) => {
+  const [reviews, setReviews] = useState(Array);
+  useEffect(() => {
+    getReviews();
+  }, []);
+  const getReviews = () => {
+    // firebase.firestore
+    //   .collection("reviews")
+    //   .doc(item.providerId)
+    //   .get()
+    //   .then((querySnapshot) => {});
+    setReviews([
+      { rating: 3.5, review: "This is a review." },
+      { rating: 3.5, review: "This is a review." },
+    ]);
+  };
   const navigation = useNavigation();
   const detailsPage = () => {
     navigation.navigate("Service Details", { item });
@@ -30,6 +47,17 @@ const ServiceListing = ({ item }) => {
             </Text>
           </View>
           <View>
+            <Ratings reviews={reviews} size={20} />
+          </View>
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <View style={{ flex: 1 }}>
+            <Text style={{ fontSize: 12, color: "#808080" }}>
+              {item.location}
+            </Text>
+            <Text style={{ fontSize: 12, color: "#808080" }}>{item.email}</Text>
+          </View>
+          <View>
             <Text
               style={styles.phoneNumber}
               onPress={() => Linking.openURL(`tel:${item.contact}`)}
@@ -38,8 +66,6 @@ const ServiceListing = ({ item }) => {
             </Text>
           </View>
         </View>
-        <Text style={{ fontSize: 12, color: "#808080" }}>{item.location}</Text>
-        <Text style={{ fontSize: 12, color: "#808080" }}>{item.email}</Text>
         <View style={{ marginTop: 10 }}>
           <Text>{item.description}</Text>
         </View>
