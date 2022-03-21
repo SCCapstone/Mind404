@@ -50,18 +50,6 @@ export default function ServicesScreen({ navigation }) {
     "Consulting",
   ];
 
-  const LineSeparator = () => {
-    return (
-      <View
-        style={{
-          borderBottomColor: "#949494",
-          borderBottomWidth: 2,
-          marginBottom: 15,
-        }}
-      />
-    );
-  };
-
   const loadListData = () => {
     firebase
       .firestore()
@@ -92,7 +80,6 @@ export default function ServicesScreen({ navigation }) {
         style={{
           height: 1,
           width: "100%",
-          backgroundColor: "#808080",
         }}
       />
     );
@@ -152,24 +139,24 @@ export default function ServicesScreen({ navigation }) {
   };
   return (
     <ImageBackground
-      source={require("../../../../images/grey_background.png")}
+      source={require("../../../../assets/GrubberBackground.png")}
       resizeMode="cover"
       style={styles.backgroundImage}
     >
       <Text
         style={{
           color: "#FFAC1C",
-          paddingTop: 20,
+          paddingTop: 30,
           fontWeight: "bold",
           textAlign: "center",
           fontSize: 33,
           textShadowColor: "black",
-          textShadowRadius: 8,
+          textShadowRadius: 2,
         }}
       >
         Services
       </Text>
-      <View style={{ paddingBottom: 10, flex: 1 }}>
+      <View style={{ flex: 1 }}>
         <Collapse>
           <CollapseHeader>
             <View
@@ -195,25 +182,9 @@ export default function ServicesScreen({ navigation }) {
             </View>
           </CollapseHeader>
           <CollapseBody>
-            <View style={{ backgroundColor: "#9CC0FF" }}>
-              <LineSeparator />
-              <View
-                style={{
-                  marginBottom: 5,
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: "bold",
-                    color: "black",
-                    padding: 6,
-                    marginStart: 20,
-                  }}
-                >
+            <View style={styles.filterMenuView}>
+              <View style={styles.filterOptionView}>
+                <Text style={styles.filterOptionText}>
                   Service type:
                 </Text>
                 <SelectDropdown
@@ -226,12 +197,8 @@ export default function ServicesScreen({ navigation }) {
                       setServiceFilter(selectedItem);
                     }
                   }}
-                  buttonTextAfterSelection={(selectedItem, index) => {
-                    return placeHolder;
-                  }}
-                  rowTextForSelection={(item, index) => {
-                    return item;
-                  }}
+                  buttonTextAfterSelection={(selectedItem, index) => { return placeHolder; }}
+                  rowTextForSelection={(item, index) => { return item; }}
                   buttonStyle={{
                     backgroundColor: "#FFAC1C",
                     borderRadius: 2,
@@ -242,23 +209,8 @@ export default function ServicesScreen({ navigation }) {
                   defaultButtonText={placeHolder}
                 />
               </View>
-              <View
-                style={{
-                  marginBottom: 18,
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: "bold",
-                    color: "black",
-                    padding: 6,
-                    marginStart: 20,
-                  }}
-                >
+              <View style={styles.filterOptionView}>
+                <Text style={styles.filterOptionText}>
                   Currently Available to Call:
                 </Text>
                 <CheckBox
@@ -276,37 +228,39 @@ export default function ServicesScreen({ navigation }) {
                   }}
                 />
               </View>
-              <View
-                style={{
-                  marginBottom: 20,
-                  flexDirection: "row",
-                  justifyContent: "center",
-                }}
-              >
+
+              <View style={styles.filterOptionView}>
+                <Text style={styles.filterOptionText}>
+                  Company:
+                </Text>
+              </View>
+
+              <View style={styles.filterOptionView}>
+                <Text style={styles.filterOptionText}>
+                  Location:
+                </Text>
+              </View>
+              
+              <View style={styles.filterOptionView}>
+                <Text style={styles.filterOptionText}>
+                  Rating:
+                </Text>
+              </View>
+
+              <View style={{marginTop: 20, marginBottom: 20, flexDirection: "row",justifyContent: "center"}}>
                 <TouchableOpacity
                   style={{
                     borderRadius: 6,
                     backgroundColor: "#FFAC1C",
                     width: 130,
-                    height: 22,
+                    height: 30,
+                    justifyContent: 'center'
                   }}
                   onPress={() => setOverallFilter([], 0)}
                 >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
+                  <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
                     <AntDesign name="close" color="white" size={15} />
-                    <Text
-                      style={{
-                        fontWeight: "bold",
-                        textAlign: "center",
-                        color: "white",
-                      }}
-                    >
+                    <Text style={{fontWeight: "bold", textAlign: "center", color: "white"}}>
                       Clear All Filters
                     </Text>
                   </View>
@@ -319,8 +273,8 @@ export default function ServicesScreen({ navigation }) {
         <View
           style={{
             borderBottomColor: "#949494",
-            borderBottomWidth: 2,
             flex: 1,
+            marginBottom: 3,
           }}
         />
         <FlatList

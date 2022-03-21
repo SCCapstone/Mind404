@@ -93,7 +93,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
         }
       });
   };
-  console.log(reviews);
+
   return (
     <ImageBackground
       source={require("../../../../images/grey_background.png")}

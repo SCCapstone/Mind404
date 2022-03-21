@@ -45,7 +45,6 @@ export default function ServicesScreen({ navigation }) {
         style={{
           height: 1,
           width: "100%",
-          backgroundColor: "#808080",
         }}
       />
     );
@@ -63,13 +62,13 @@ export default function ServicesScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("../../../../images/grey_background.png")}
+      source={require("../../../../assets/GrubberBackground.png")}
       resizeMode="cover"
       style={styles.backgroundImage}
     >
       <Text style={{
         color: "#FFAC1C", 
-        paddingTop: 50, 
+        paddingTop: 30, 
         fontWeight: 'bold', 
         textAlign: 'center', 
         fontSize: 30,

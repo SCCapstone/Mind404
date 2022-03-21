@@ -18,7 +18,7 @@ export default StyleSheet.create({
   logo: {
     flex: 1,
     height: 120,
-    width: 380,
+    width: 500,
     alignSelf: "center",
     margin: 30,
   },
@@ -127,8 +127,7 @@ export default StyleSheet.create({
     textAlign: "center",
     marginBottom: 12,
     color: "#FFAC1C",
-    textShadowColor: "black",
-    textShadowRadius: 4,
+    elevation: 20,
   },
   layout: {
     display: "flex",
@@ -440,5 +439,28 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     paddingBottom: 2,
+  },
+  filterOptionView: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 5,
+  },
+  filterOptionText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "black",
+    padding: 6,
+    marginStart: 20,
+  },
+  filterMenuView: {
+    backgroundColor: "#9CC0FF",
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "grey",
+    marginBottom: 3,
+    marginTop: 3,
+    marginStart: 6,
+    marginEnd: 6,
   },
 });

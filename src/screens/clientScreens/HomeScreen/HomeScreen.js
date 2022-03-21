@@ -13,7 +13,6 @@ import {
 } from "react-native";
 import styles from "./../../../../components/styles";
 import Button from "./../../../../components/Button.js";
-import MapView from "react-native-maps";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { firebase } from "../../../firebase/config";
 import useUser from "../../../../useUser";
@@ -68,7 +67,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("../../../../images/grey_background.png")}
+      source={require("../../../../assets/GrubberBackground.png")}
       resizeMode="cover"
       style={styles.backgroundImage}
     >
@@ -79,8 +78,15 @@ export default function HomeScreen({ navigation }) {
         <MaterialCommunityIcons name="cog-outline" color="#000" size={30} />
       </TouchableOpacity>
       <View>
-      <Text style={styles.welcome}>Grubber </Text>
-        <Text style={styles.welcome}>Welcome {user.firstName}!</Text>
+        <Text style={{
+          color: "#FFAC1C",
+          fontWeight: "bold",
+          textAlign: "center",
+          fontSize: 33,
+          textShadowColor: "black",
+          textShadowRadius: 2,
+          paddingBottom: 15
+        }}>Welcome {user.firstName}!</Text>
       </View>
       <View>
         <Text
@@ -89,6 +95,7 @@ export default function HomeScreen({ navigation }) {
             fontSize: 20,
             color: "black",
             fontWeight: "bold",
+            paddingBottom: 5,
           }}
         >
           Recommended Service:

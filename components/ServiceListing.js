@@ -36,8 +36,14 @@ const ServiceListing = ({ item }) => {
     <TouchableOpacity onPress={() => detailsPage()}>
       <View
         style={{
-          backgroundColor: "white",
+          backgroundColor: "#e9e9e9",
           padding: 20,
+          borderRadius: 12,
+          marginBottom: 3,
+          marginTop: 3,
+          marginStart: 6,
+          marginEnd: 6,
+          elevation: 4,
         }}
       >
         <View style={{ flexDirection: "row" }}>
