@@ -87,10 +87,12 @@ const ServiceListing = ({ item }) => {
 export default ServiceListing;
 
 function convertTo12Hour(time) {
-  if (time < 13 && time > 0) {
+  if (time < 12 && time > 0) {
     return time.toString() + " A.M.";
   } else if (time > 12) {
     return (time - 12).toString() + " P.M.";
+  } else if (time == 12){
+    return "12 P.M.";
   } else {
     return "12 A.M.";
   }

@@ -96,7 +96,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
 
   return (
     <ImageBackground
-      source={require("../../../../images/grey_background.png")}
+      source={require("../../../../assets/GrubberBackground.png")}
       resizeMode="cover"
       style={styles.backgroundImage}
     >
@@ -104,7 +104,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
         <View style={styles.container}>
           <Text style={styles.title}>{item.serviceType}</Text>
           <Text style={styles.description}>{item.description}</Text>
-          <Text style={{ fontSize: 15, color: "#FEFEFE", marginBottom: 20 }}>
+          <Text style={{ fontSize: 15, color: "grey", marginBottom: 20 }}>
             Telephone Availability: {`${convertTo12Hour(item.fromTime)}`} -{" "}
             {`${convertTo12Hour(item.toTime)}`}
           </Text>
@@ -120,7 +120,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
           <Text
             style={{
               fontSize: 15,
-              color: "#FEFEFE",
+              color: "grey",
               marginStart: 20,
               marginBottom: 20,
               justifyContent: "center",
@@ -227,12 +227,14 @@ function promptOutOfHours(fromTime, toTime, contact) {
 }
 
 function convertTo12Hour(time) {
-  if (time < 13 && time > 0) {
+  if (time < 12 && time > 0) {
     return time.toString() + " A.M.";
   } else if (time > 12) {
     return (time - 12).toString() + " P.M.";
+  } else if (time == 12){
+    return "12 P.M.";
   } else {
-    return "1 A.M.";
+    return "12 A.M.";
   }
 }
 

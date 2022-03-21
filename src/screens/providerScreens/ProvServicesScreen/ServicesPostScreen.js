@@ -5,17 +5,15 @@ import {
   ImageBackground,
   TextInput,
   TouchableOpacity,
-  Alert,
-  Switch,
   ScrollView
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import Button from "../../../../components/Button";
 import styles from "./../../../../components/styles";
 import { firebase } from "./../../../firebase/config";
 import useUser from "../../../../useUser";
 import { acc } from "react-native-reanimated";
 import NumericInput from 'react-native-numeric-input';
+import SelectDropdown from "react-native-select-dropdown";
 
 export default function ServicesPostScreen({ navigation }) {
   const [serviceType, setServiceT] = useState("");
@@ -24,11 +22,38 @@ export default function ServicesPostScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [description, setDecription] = useState("");
   const { user } = useUser();
-
-  const [fromTime, setFromTime] = useState(9);
-  const [toTime, setToTime] = useState(17);
+  
+  const [fromAMPM, setFromAMPM] = useState('A.M.');
+  const [toAMPM, setToAMPM] = useState('P.M.');
+  const [fTime, setFTime] = useState(9);
+  const [tTime, setTTime] = useState(5);
 
   const onPostPress = () => {
+    let fromTime = fTime;
+    let toTime = tTime;
+
+    if(fromAMPM == 'P.M.'){
+      if(fTime != 12){
+        fromTime = fTime + 12
+        setFTime(fromTime)
+      }
+    }
+    if(toAMPM == 'P.M.'){
+      if(tTime != 12){
+        toTime = tTime + 12
+        setTTime(toTime)
+      }
+    }
+    if(fTime == 12 && fromAMPM == 'A.M.'){
+      fromTime = 0;
+      setFTime(fromTime);
+    }
+    if(tTime == 12 && tTime == 'A.M.'){
+      toTime = 0;
+      setTTime(toTime);
+    }
+    console.log(fromTime);
+    console.log(toTime);
     /** Checks to see if type of service is an empty string */
     if (serviceType == "") {
       alert("Please select a type of service.");
@@ -77,14 +102,36 @@ export default function ServicesPostScreen({ navigation }) {
       });
   };
 
-  let landscaping = "Landscaping";
-  let carDetailing = "Car Detailing";
-  let housekeeping = "Housekeeping";
-  let accounting = "Accounting";
-  let techSupport = "Tech Support";
-  let tutoring = "Tutoring";
-  let contracting = "Contracting";
-  let consulting = "Consulting";
+  const services = [
+    "Landscaping",
+    "Car Detailing",
+    "Housekeeping",
+    "Accounting",
+    "Tech Support",
+    "Tutoring",
+    "Contracting",
+    "Consulting",
+  ];
+
+  const ampm = [
+    "A.M.",
+    "P.M."
+  ]
+
+  const numbers = [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+  ]
 
   return (
     <ImageBackground
@@ -102,45 +149,26 @@ export default function ServicesPostScreen({ navigation }) {
             Please Enter the following information:
           </Text>
         </View>
-        <Text style={styles.explanation}>Select your type of service (Scroll):</Text>
-        <ScrollView style={{padding:10}} persistentScrollbar={true} horizontal={true}>
-          <TouchableOpacity style={styles.serviceTypeButton}
-          onPress={() => setServiceT(landscaping)}>
-            <Text style={styles.buttonTitle}> {landscaping} </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.serviceTypeButton}
-          onPress={() => setServiceT(carDetailing)}>
-            <Text style={styles.buttonTitle}> {carDetailing} </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.serviceTypeButton}
-          onPress={() => setServiceT(housekeeping)}>
-            <Text style={styles.buttonTitle}> {housekeeping} </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.serviceTypeButton}
-          onPress={() => setServiceT(accounting)}>
-            <Text style={styles.buttonTitle}> {accounting} </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.serviceTypeButton}
-          onPress={() => setServiceT(techSupport)}>
-            <Text style={styles.buttonTitle}> {techSupport} </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.serviceTypeButton}
-          onPress={() => setServiceT(tutoring)}>
-            <Text style={styles.buttonTitle}> {tutoring} </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.serviceTypeButton}
-          onPress={() => setServiceT(contracting)}>
-            <Text style={styles.buttonTitle}> {contracting} </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.serviceTypeButton}
-          onPress={() => setServiceT(consulting)}>
-            <Text style={styles.buttonTitle}> {consulting} </Text>
-          </TouchableOpacity>
-        </ScrollView>
-        <View style={{padding:4}}></View>
-        <View style={styles.containerSide}>
-          <Text style={styles.explanation}>Selected service type: </Text>
-          <Text style={styles.selectedOption}>{serviceType}</Text>
+        <Text style={styles.explanation}>Select your type of service:</Text>
+        <View style={{flex: 1, alignItems: 'center'}}>
+          <SelectDropdown
+            data={services}
+            onSelect={(selectedItem, index) => {
+              setServiceT(selectedItem)
+            }}
+            buttonTextAfterSelection={(selectedItem, index) => { return selectedItem; }}
+            rowTextForSelection={(item, index) => { return item; }}
+            buttonStyle={{
+              backgroundColor: "#FFAC1C",
+              borderRadius: 2,
+              height: 30,
+              width: 160,
+              alignContent: 'center',
+              justifyContent: 'center'
+            }}
+            buttonTextStyle={{ fontWeight: "bold", color: "white" }}
+            defaultButtonText={"None"}
+          />
         </View>
         <TextInput
           style={styles.input}
@@ -180,17 +208,92 @@ export default function ServicesPostScreen({ navigation }) {
           autoCapitalize="none"
         />
         <Text style={styles.explanation}>
-           Please set timeframe (24-hour Format) to the nearest hour for contact via phone number:
+           Please set timeframe, to the nearest hour, of telephone availability:
         </Text>
-        <View style={styles.containerSide}>
-          <Text style={styles.explanation}>From:</Text>
-          <NumericInput type='up-down' minValue={0} maxValue={23} onChange={value => setFromTime(value)}/>
-          <Text style={styles.explanation}>To:</Text>
-          <NumericInput type='up-down' minValue={0} maxValue={23} onChange={value => setToTime(value)}/>
+        <View style={{
+          flexDirection: "row",
+          alignItems: "center",
+          flex: 1,
+        }}>
+          <Text style={styles.timeExplanation}>FROM:</Text>
+          <SelectDropdown
+            data={numbers}
+            onSelect={(selectedItem,index) => {
+              setFTime(selectedItem)
+              console.log(selectedItem)
+            }}
+            buttonTextAfterSelection={(selectedItem, index) => { return selectedItem; }}
+            rowTextForSelection={(item, index) => { return item; }}
+            buttonStyle={{
+              backgroundColor: "white",
+              borderColor: 'black',
+              borderWidth: 1,
+              borderRadius: 2,
+              height: 30,
+              width: 50,
+            }}
+            buttonTextStyle={{ fontSize: 12, color: "black" }}
+            defaultButtonText={"9"}
+          />
+          <SelectDropdown
+            data={ampm}
+            onSelect={(selectedItem, index) => {
+              setFromAMPM(selectedItem)
+            }}
+            buttonTextAfterSelection={(selectedItem, index) => { return selectedItem; }}
+            rowTextForSelection={(item, index) => { return item; }}
+            buttonStyle={{
+              backgroundColor: "white",
+              borderColor: 'black',
+              borderWidth: 1,
+              borderRadius: 2,
+              height: 30,
+              width: 60,
+            }}
+            buttonTextStyle={{ fontSize: 12, color: "black" }}
+            defaultButtonText={"A.M."}
+          />
+          <Text style={styles.timeExplanation}>TO:</Text>
+          <SelectDropdown
+            data={numbers}
+            onSelect={(selectedItem,index) => {
+              setTTime(selectedItem)
+            }}
+            buttonTextAfterSelection={(selectedItem, index) => { return selectedItem; }}
+            rowTextForSelection={(item, index) => { return item; }}
+            buttonStyle={{
+              backgroundColor: "white",
+              borderColor: 'black',
+              borderWidth: 1,
+              borderRadius: 2,
+              height: 30,
+              width: 50,
+            }}
+            buttonTextStyle={{ fontSize: 12, color: "black" }}
+            defaultButtonText={"5"}
+          />
+          <SelectDropdown
+            data={ampm}
+            onSelect={(selectedItem, index) => {
+              setToAMPM(selectedItem)
+            }}
+            buttonTextAfterSelection={(selectedItem, index) => { return selectedItem; }}
+            rowTextForSelection={(item, index) => { return item; }}
+            buttonStyle={{
+              backgroundColor: "white",
+              borderColor: 'black',
+              borderWidth: 1,
+              borderRadius: 2,
+              height: 30,
+              width: 60,
+            }}
+            buttonTextStyle={{ fontSize: 12, color: "black" }}
+            defaultButtonText={"P.M."}
+          />
         </View>
 
         <TouchableOpacity
-          style={styles.servicesPostButton}
+          style={styles.postService}
           onPress={onPostPress}
         >
           <Text style={styles.buttonTitle}>Post Service</Text>
@@ -199,7 +302,6 @@ export default function ServicesPostScreen({ navigation }) {
     </ImageBackground>
   );
 }
-
 /** Function to see if a string is in phone number syntax*/
 function validPhoneCheck(phoneNumber) {
   

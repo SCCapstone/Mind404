@@ -173,9 +173,6 @@ export default StyleSheet.create({
   //
 
   //ServicesScreen
-  postButton: {
-    padding: 10,
-  },
   //
 
   //ServicesPostScreen
@@ -201,7 +198,18 @@ export default StyleSheet.create({
     backgroundColor: "#FFAC1C",
     marginLeft: 30,
     marginRight: 30,
+    marginTop: 15,
+    height: 48,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  postService: {
+    backgroundColor: "#FFAC1C",
+    marginLeft: 30,
+    marginRight: 30,
     marginTop: 20,
+    marginBottom: 20,
     height: 48,
     borderRadius: 5,
     alignItems: "center",
@@ -463,4 +471,11 @@ export default StyleSheet.create({
     marginStart: 6,
     marginEnd: 6,
   },
+  timeExplanation: {
+    fontSize: 13,
+    color: "black",
+    padding: 6,
+    marginStart: 20,
+    fontWeight: 'bold',
+  }
 });

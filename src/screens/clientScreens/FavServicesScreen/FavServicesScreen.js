@@ -5,8 +5,7 @@ import {
   ImageBackground,
   FlatList,
   TouchableOpacity,
-  Linking,
-  Alert,
+  RefreshControl
 } from "react-native";
 import Button from "./../../../../components/Button";
 import styles from "./../../../../components/styles";
@@ -20,10 +19,16 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 export default function ServicesScreen({ navigation }) {
   const [listData, setListData] = useState([]);
   const { user } = useUser(); 
+  const [refreshing, setRefreshing] = useState(true);
 
   var docRef = firebase.firestore().collection("users/"+user.id+"/ClientFavorites");
 
   React.useEffect(() => {
+    loadServices();
+    onRefresh();
+  }, [navigation]);
+
+  const loadServices = () => {
     firebase
       .firestore()
       .collection("users/"+user.id+"/ClientFavorites")
@@ -35,9 +40,10 @@ export default function ServicesScreen({ navigation }) {
           serviceDetails["id"] = documentSnapshot.id;
           temp.push(serviceDetails);
           setListData(temp);
+          setRefreshing(false);
         });
       });
-  }, [navigation]);
+  }
 
   const itemSeperatorView = () => {
     return (
@@ -51,13 +57,8 @@ export default function ServicesScreen({ navigation }) {
   };
 
   const onRefresh = () => {
-    if(listData[0]){
-      docRef.doc(listData[0].id).get().then((docSnapshot) => {
-        if (!docSnapshot.exists) {
-          setListData([])
-        }
-      }); 
-    }
+    setListData([]);
+    loadServices();
   }
 
   return (
@@ -92,6 +93,12 @@ export default function ServicesScreen({ navigation }) {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => <ServiceListing item={item} />}
           ListEmptyComponent={()=> <Text style={styles.noEvent}>No services currently favorited.</Text>}
+          refreshControl={
+            <RefreshControl 
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }
         />
       </View>
     </ImageBackground>

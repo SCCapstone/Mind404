@@ -28,6 +28,7 @@ export default function LoginScreen({ navigation }) {
       if (value) {
         const user = JSON.parse(value);
         let type = user.typeOfUser;
+        setUser(user);
         if (type != undefined && type.toLowerCase() == "provider") {
           navigation.navigate("Prov Home", { user });
         } else {

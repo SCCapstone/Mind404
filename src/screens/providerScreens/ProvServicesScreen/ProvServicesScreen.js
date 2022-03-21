@@ -39,7 +39,7 @@ export default function ProvServicesScreen({ navigation }) {
     return (
       <View
         style={{
-          height: 1,
+          height: 0,
           width: "100%",
           backgroundColor: "#808080",
         }}
@@ -51,9 +51,15 @@ export default function ProvServicesScreen({ navigation }) {
     return (
       <View
         style={{
-          backgroundColor: "white",
+          backgroundColor: "#e9e9e9",
           padding: 20,
-        }}
+          borderRadius: 12,
+          marginBottom: 3,
+          marginTop: 3,
+          marginStart: 6,
+          marginEnd: 6,
+          elevation: 10,
+      }}
       >
         <View style={{ flexDirection: "row" }}>
           <View style={{ flex: 1 }}>
@@ -137,8 +143,9 @@ export default function ProvServicesScreen({ navigation }) {
           keyExtractor={(item, index) => index.toString()}
           renderItem={itemView}
         />
+        <View style={{marginTop: 3, height: 2, backgroundColor: "grey"}}/>
       </View>
-      <View style={styles.postButton}>
+      <View style={{marginBottom: 20}}>
        <Button style={styles.servicesPostButton} onPress={onPostPress}>
           Post a New Service
         </Button>
@@ -147,12 +154,14 @@ export default function ProvServicesScreen({ navigation }) {
   );
 }
 
-function convertTo12Hour (time){
-  if (time < 13 && time > 0){
-    return (time).toString() + " A.M.";
+function convertTo12Hour(time) {
+  if (time < 12 && time > 0) {
+    return time.toString() + " A.M.";
   } else if (time > 12) {
-    return (time-12).toString() + " P.M."
+    return (time - 12).toString() + " P.M.";
+  } else if (time == 12){
+    return "12 P.M.";
   } else {
-    return "1 A.M."
+    return "12 A.M.";
   }
 }

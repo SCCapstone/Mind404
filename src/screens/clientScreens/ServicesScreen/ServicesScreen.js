@@ -5,10 +5,7 @@ import {
   ImageBackground,
   FlatList,
   TouchableOpacity,
-  Linking,
-  Alert,
-  ScrollView,
-  SafeAreaView,
+  RefreshControl
 } from "react-native";
 import Button from "./../../../../components/Button";
 import styles from "./../../../../components/styles";
@@ -37,6 +34,7 @@ export default function ServicesScreen({ navigation }) {
   const [placeHolder, setPlaceHolder] = useState("All");
   const [availableList, setAvailableList] = useState([]);
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const [refreshing, setRefreshing] = useState(true);
 
   const services = [
     "All",
@@ -66,6 +64,7 @@ export default function ServicesScreen({ navigation }) {
           setListData(temp);
           setServiceList(temp);
           setAvailableList(temp);
+          setRefreshing(false);
         });
       });
   };
@@ -73,6 +72,12 @@ export default function ServicesScreen({ navigation }) {
   useEffect(() => {
     loadListData();
   }, []);
+
+  const onRefresh = () => {
+    setCompleteList([]);
+    setOverallFilter([],0);
+    loadListData();
+  }
 
   const itemSeperatorView = () => {
     return (
@@ -287,6 +292,12 @@ export default function ServicesScreen({ navigation }) {
               No services are available with the applied filters.
             </Text>
           )}
+          refreshControl={
+            <RefreshControl 
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+          }
         />
       </View>
     </ImageBackground>
