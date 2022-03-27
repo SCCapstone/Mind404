@@ -74,6 +74,7 @@ export default function ProvServicesScreen({ navigation }) {
             </Text>
           </View>
         </View>
+        <Text style={{ fontSize: 12, color: "#808080" }}>Company Name: {item.companyName}</Text>
         <Text style={{ fontSize: 12, color: "#808080" }}>{item.location}</Text>
         <Text style={{ fontSize: 12, color: "#808080" }}>Contact Email: {item.email}</Text>
         <View style={styles.marginTop10}>
