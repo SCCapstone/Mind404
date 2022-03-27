@@ -5,6 +5,7 @@ import {
   ImageBackground,
   Button,
   TouchableOpacity,
+  Pressable,
   Alert,
   Image,
   Linking,
@@ -18,7 +19,7 @@ import Ratings from "../../../../components/Ratings";
 export default function ServiceDetailsScreen({ route, navigation }) {
   const [providerData, setProviderData] = useState(Object);
   const [reviews, setReviews] = useState(Array);
-  const { item } = route.params;
+  const { item, shouldRefresh } = route.params;
 
   const { user } = useUser();
   var docRef = firebase
@@ -34,20 +35,20 @@ export default function ServiceDetailsScreen({ route, navigation }) {
       .then((querySnapshot) => {
         setProviderData(querySnapshot.data());
       });
-    getReviews();
   }, []);
 
-  const getReviews = () => {
-    // firebase.firestore
-    //   .collection("reviews")
-    //   .doc(item.providerId)
-    //   .get()
-    //   .then((querySnapshot) => {});
-    setReviews([
-      { rating: 3.5, review: "This is a review." },
-      { rating: 3.5, review: "This is a review." },
-    ]);
-  };
+  useEffect(() => {
+    if (shouldRefresh) {
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(item.providerId)
+        .get()
+        .then((querySnapshot) => {
+          setProviderData(querySnapshot.data());
+        });
+    }
+  }, [shouldRefresh]);
 
   const contactTel = () => {
     if (checkAvailable(item.fromTime, item.toTime, item.contact) != "") {
@@ -93,7 +94,9 @@ export default function ServiceDetailsScreen({ route, navigation }) {
         }
       });
   };
-
+  if (!providerData.firstName) {
+    return null;
+  }
   return (
     <ImageBackground
       source={require("../../../../assets/GrubberBackground.png")}
@@ -157,14 +160,17 @@ export default function ServiceDetailsScreen({ route, navigation }) {
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
               <Text style={styles.titleText}>Reviews</Text>
-              <Ratings reviews={reviews} />
+              <Ratings
+                reviews={providerData.reviews ? providerData.reviews : []}
+              />
             </View>
             <View style={styles.marginTop10}>
-              {reviews.length == 0 && (
+              {providerData.reviews && providerData.reviews.length == 0 && (
                 <Text>This Service Provider has no reviews yet.</Text>
               )}
-              {reviews.length > 0 &&
-                reviews.map((item) => {
+              {providerData.reviews &&
+                providerData.reviews.length > 0 &&
+                providerData.reviews.map((item) => {
                   return (
                     <View
                       style={{
@@ -176,11 +182,30 @@ export default function ServiceDetailsScreen({ route, navigation }) {
                         marginBottom: 10,
                       }}
                     >
-                      <Text>{item.review}</Text>
+                      <Text>{`${item.firstName} ${item.lastName}`}</Text>
+                      <Text>{item.description}</Text>
                       <Text>{item.rating}/5.0</Text>
                     </View>
                   );
                 })}
+              <Pressable
+                onPress={() =>
+                  navigation.navigate("Post Your Review", {
+                    providerData,
+                    item,
+                  })
+                }
+                style={{
+                  backgroundColor: "#FFAC1C",
+                  marginEnd: 20,
+                  width: 90,
+                  height: 30,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Text style={styles.buttonTitle}>Add Review</Text>
+              </Pressable>
             </View>
           </View>
           <View style={styles.profileDescriptionWrapper}>
@@ -231,7 +256,7 @@ function convertTo12Hour(time) {
     return time.toString() + " A.M.";
   } else if (time > 12) {
     return (time - 12).toString() + " P.M.";
-  } else if (time == 12){
+  } else if (time == 12) {
     return "12 P.M.";
   } else {
     return "12 A.M.";

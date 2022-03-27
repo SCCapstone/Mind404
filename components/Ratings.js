@@ -5,13 +5,10 @@ import { View } from "react-native";
 const Ratings = ({ reviews, size = 30 }) => {
   let rating = 0;
   reviews.forEach((element) => {
-    rating += element.rating;
+    rating = Number(element.rating) + rating;
   });
-  console.log(rating);
   const average = rating / reviews.length;
-  console.log(average);
   const roundedRating = Math.round(parseFloat(average) * 2) / 2;
-  console.log(roundedRating);
   let stars = [];
   for (let i = 1; i <= 5; i++) {
     let Icon = (

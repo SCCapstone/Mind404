@@ -1,3 +1,4 @@
+import { LogBox } from "react-native";
 import "react-native-gesture-handler";
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
@@ -12,6 +13,7 @@ import {
   ChangeEmailScreen,
   ServicesPostScreen,
   ServiceDetailsScreen,
+  ProviderReview,
   ProvHomeScreen,
   ProvServicesScreen,
   PSettingsScreen,
@@ -27,6 +29,8 @@ import { decode, encode } from "base-64";
 import TabNavigation from "./TabNavigation";
 import PTabNavigator from "./PTabNavigator";
 import UserProvider from "./UserContext";
+
+LogBox.ignoreLogs(["Setting a timer"]);
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -70,6 +74,7 @@ export default function App() {
             name="Service Details"
             component={ServiceDetailsScreen}
           />
+          <Stack.Screen name="Post Your Review" component={ProviderReview} />
           <Stack.Screen
             name="Post Your Service"
             component={ServicesPostScreen}

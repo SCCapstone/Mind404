@@ -21,6 +21,7 @@ export default function ServicesPostScreen({ navigation }) {
   const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
   const [description, setDecription] = useState("");
+  const [CompanyName, setCompanyname] = useState("");
   const { user } = useUser();
   
   const [fromAMPM, setFromAMPM] = useState('A.M.');
@@ -88,6 +89,7 @@ export default function ServicesPostScreen({ navigation }) {
       description,
       location,
       serviceType,
+      CompanyName,
       fromTime,
       toTime,
       providerId: user.id,
@@ -180,6 +182,15 @@ export default function ServicesPostScreen({ navigation }) {
           autoCapitalize="none"
         />
         <TextInput
+          style={styles.input}
+          placeholder="Company Name (if applicable, otherwise blank)"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setCompanyname(text)}
+          value={CompanyName}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+        />
+        <TextInput
           style={styles.multilineInput}
           placeholder="Description of services"
           placeholderTextColor="#aaaaaa"
@@ -188,7 +199,7 @@ export default function ServicesPostScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
           multiline
-        ></TextInput>
+        />
         <TextInput
           style={styles.input}
           placeholder="Phone Number eg. xxx-xxx-xxxx"

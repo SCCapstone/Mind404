@@ -10,6 +10,8 @@ export { default as ServicesScreen } from "./clientScreens/ServicesScreen/Servic
 
 export { default as ServiceDetailsScreen } from "./clientScreens/ServicesScreen/ServiceDetailsScreen";
 
+export { default as ProviderReview } from "./clientScreens/ServicesScreen/ProviderReview";
+
 export { default as ProfileScreen } from "./clientScreens/ProfileScreen/ProfileScreen";
 
 export { default as FavServicesScreen } from "./clientScreens/FavServicesScreen/FavServicesScreen";

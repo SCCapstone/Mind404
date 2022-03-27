@@ -31,11 +31,20 @@ export const firestoreAutoId = (): string => {
 };
 
 export default function HomeScreen({ navigation }) {
+  const [currentDate, setCurrentDate] = useState('');
   const [randomService, setRandomService] = useState();
   const { user } = useUser();
+  
   const onSettingsCogPress = () => {
     navigation.navigate("Settings");
   };
+
+  React.useEffect(() => {
+    var day = new Date().getDate(); //Current Date
+    var month = new Date().getMonth() + 1; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    setCurrentDate(displayDate(month,day,year));
+  }, []);
 
   useEffect(() => {
     const servicesRef = firebase.firestore().collection("services");
@@ -63,7 +72,6 @@ export default function HomeScreen({ navigation }) {
     };
     query();
   }, []);
-  console.log(randomService);
 
   return (
     <ImageBackground
@@ -78,15 +86,30 @@ export default function HomeScreen({ navigation }) {
         <MaterialCommunityIcons name="cog-outline" color="#000" size={30} />
       </TouchableOpacity>
       <View>
-        <Text style={{
-          color: "#FFAC1C",
-          fontWeight: "bold",
-          textAlign: "center",
-          fontSize: 33,
-          textShadowColor: "black",
-          textShadowRadius: 2,
-          paddingBottom: 15
-        }}>Welcome {user.firstName}!</Text>
+        <Text
+          style={{
+            color: "#FFAC1C",
+            fontWeight: "bold",
+            textAlign: "center",
+            fontSize: 33,
+            textShadowColor: "black",
+            textShadowRadius: 2,
+            paddingBottom: 15,
+          }}
+        >
+          Welcome {user.firstName}!
+        </Text>
+        <Text  style={{
+            color: "#FFAC1C",
+            fontWeight: "bold",
+            textAlign: "center",
+            fontSize: 33,
+            textShadowColor: "black",
+            textShadowRadius: 2,
+            paddingBottom: 15,
+          }}>
+            {currentDate}
+            </Text>
       </View>
       <View>
         <Text
@@ -104,4 +127,46 @@ export default function HomeScreen({ navigation }) {
       <View>{randomService && <ServiceListing item={randomService} />}</View>
     </ImageBackground>
   );
+}
+function displayDate(month, day, year){
+  let monthName = "";
+  switch(month){
+    case 1:
+      monthName="January";
+      break;
+    case 2:
+      monthName="February";
+      break;
+    case 3:
+      monthName="March";
+      break;
+    case 4:
+      monthName="April";
+      break;
+    case 5:
+      monthName="May";
+      break;
+    case 6:
+      monthName="June";
+      break;
+    case 7:
+      monthName="July";
+      break;
+    case 8:
+      monthName="August";
+      break;
+    case 9:
+      monthName="September";
+      break;
+    case 10:
+      monthName="October";
+      break;
+    case 11:
+      monthName="November";
+      break;
+    case 12:
+      monthName="December";
+      break;
+  }
+  return monthName + ' ' + day + ', ' + year;
 }
