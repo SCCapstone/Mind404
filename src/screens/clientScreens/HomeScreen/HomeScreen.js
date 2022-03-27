@@ -63,7 +63,6 @@ export default function HomeScreen({ navigation }) {
     };
     query();
   }, []);
-  console.log(randomService);
 
   return (
     <ImageBackground
@@ -78,15 +77,19 @@ export default function HomeScreen({ navigation }) {
         <MaterialCommunityIcons name="cog-outline" color="#000" size={30} />
       </TouchableOpacity>
       <View>
-        <Text style={{
-          color: "#FFAC1C",
-          fontWeight: "bold",
-          textAlign: "center",
-          fontSize: 33,
-          textShadowColor: "black",
-          textShadowRadius: 2,
-          paddingBottom: 15
-        }}>Welcome {user.firstName}!</Text>
+        <Text
+          style={{
+            color: "#FFAC1C",
+            fontWeight: "bold",
+            textAlign: "center",
+            fontSize: 33,
+            textShadowColor: "black",
+            textShadowRadius: 2,
+            paddingBottom: 15,
+          }}
+        >
+          Welcome {user.firstName}!
+        </Text>
       </View>
       <View>
         <Text
