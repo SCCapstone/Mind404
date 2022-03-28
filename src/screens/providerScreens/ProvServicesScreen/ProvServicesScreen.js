@@ -47,6 +47,15 @@ export default function ProvServicesScreen({ navigation }) {
     );
   };
 
+  const checkForName = (companyName) => {
+    console.log(companyName)
+    if(companyName){
+      return "Company Name: " + companyName;
+    } else {
+      return "";
+    }
+  }
+
   let itemView = ({ item }) => {
     return (
       <View
@@ -74,9 +83,9 @@ export default function ProvServicesScreen({ navigation }) {
             </Text>
           </View>
         </View>
-        <Text style={{ fontSize: 12, color: "#808080" }}>Company Name: {item.companyName}</Text>
         <Text style={{ fontSize: 12, color: "#808080" }}>{item.location}</Text>
         <Text style={{ fontSize: 12, color: "#808080" }}>Contact Email: {item.email}</Text>
+        <Text style={{ fontSize: 12, color: "#808080" }}>{checkForName(item.CompanyName)}</Text>
         <View style={styles.marginTop10}>
           <Text>{item.description}</Text>
         </View>

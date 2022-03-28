@@ -5,9 +5,9 @@ import {
   ImageBackground,
   FlatList,
   TouchableOpacity,
-  RefreshControl
+  RefreshControl,
+  TextInput
 } from "react-native";
-import Button from "./../../../../components/Button";
 import styles from "./../../../../components/styles";
 import { firebase } from "../../../firebase/config";
 import { NavigationContainer } from "@react-navigation/native";
@@ -17,7 +17,6 @@ import {
   Collapse,
   CollapseHeader,
   CollapseBody,
-  AccordionList,
 } from "accordion-collapse-react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import CheckBox from "expo-checkbox";
@@ -31,6 +30,18 @@ export default function ServicesScreen({ navigation }) {
   //intermediate list to handle filters
   const [serviceList, setServiceList] = useState([]);
   //placeholder for service Type box (to maintain actual selection on filter close)
+  const [cityList, setCityList] = useState([]);
+  const [stateList, setStateList] = useState([]);
+ 
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('State');
+ 
+  const[companyName, setCompanyName] = useState('');
+  const[companyList, setCompanyList] = useState([]);
+
+  const[rating, setRating] = useState();
+  const[ratingList, setRatingList] = useState([]);
+
   const [placeHolder, setPlaceHolder] = useState("All");
   const [availableList, setAvailableList] = useState([]);
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
@@ -47,7 +58,8 @@ export default function ServicesScreen({ navigation }) {
     "Contracting",
     "Consulting",
   ];
-
+  const allStates = ['State','AK', 'AL', 'AR', 'AS', 'AZ', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MP', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UM', 'UT', 'VA', 'VI', 'VT', 'WA', 'WI', 'WV', 'WY']
+  
   const loadListData = () => {
     firebase
       .firestore()
@@ -64,6 +76,10 @@ export default function ServicesScreen({ navigation }) {
           setListData(temp);
           setServiceList(temp);
           setAvailableList(temp);
+          setCityList(temp);
+          setStateList(temp);
+          setCompanyList(temp);
+          setRatingList(temp);
           setRefreshing(false);
         });
       });
@@ -75,8 +91,8 @@ export default function ServicesScreen({ navigation }) {
 
   const onRefresh = () => {
     setCompleteList([]);
-    setOverallFilter([],0);
     loadListData();
+    setOverallFilter([],0);
   }
 
   const itemSeperatorView = () => {
@@ -91,34 +107,115 @@ export default function ServicesScreen({ navigation }) {
   };
 
   const setServiceFilter = (service) => {
-    setServiceList(completeList);
-    const serviceFiltered = completeList.filter(
-      (item) => item.serviceType == service
-    );
-    setServiceList(serviceFiltered);
-    setOverallFilter(serviceFiltered, 1);
+    if(service == 'All') {
+      setServiceList(completeList);
+      setOverallFilter(completeList, 1);
+    } else {
+      const serviceFiltered = completeList.filter(
+        (item) => item.serviceType == service
+      );
+      setServiceList(serviceFiltered);
+      setOverallFilter(serviceFiltered, 1);
+    }
   };
+
+  const setCityFilter = (loca) => {
+    let locationFiltered = [];
+    if(loca.length > 1){
+      locationFiltered = completeList.filter(
+        (item) => item.location.slice(0, -4) == loca
+      );
+    } else {
+      locationFiltered = completeList;
+    }
+    setCityList(locationFiltered);
+    setOverallFilter(locationFiltered, 3)
+  };
+
+  const setStateFilter = (loca) => {
+    let locationFiltered = [];
+    if(loca == "State"){
+      locationFiltered = completeList;
+    } else {
+      locationFiltered = completeList.filter(
+        (item) => item.location.slice(-2) == loca
+      );
+    }
+    
+    setStateList(locationFiltered);
+    setOverallFilter(locationFiltered, 4)
+  };
+
+  const setCompanyFilter = (name) => {
+    if(name.length>1){
+      const companyFiltered = completeList.filter(
+        (item) => item.CompanyName == name
+      );
+      setCompanyList(companyFiltered);
+      setOverallFilter(companyFiltered, 5);
+    } else {
+      setCompanyList(completeList);
+      setOverallFilter(completeList, 5);
+    }
+  }
+
+  const setRatingFilter = (rate) => {
+
+  }
 
   const setOverallFilter = (list, id) => {
     let overall = completeList;
     switch (id) {
       case 0:
-        setListData(completeList);
-        setServiceList(completeList);
+        loadListData();
         setToggleCheckBox(false);
         setPlaceHolder("All");
+        setState('State');
+        setCity('');
+        setCompanyName('');
         break;
       case 1:
         overall = overall.filter((item) => list.includes(item));
         overall = overall.filter((item) => availableList.includes(item));
+        overall = overall.filter((item) => cityList.includes(item));
+        overall = overall.filter((item) => stateList.includes(item));
+        overall = overall.filter((item) => companyList.includes(item));
+        setListData(overall);
         break;
       case 2:
         overall = overall.filter((item) => list.includes(item));
         overall = overall.filter((item) => serviceList.includes(item));
+        overall = overall.filter((item) => cityList.includes(item));
+        overall = overall.filter((item) => stateList.includes(item));
+        overall = overall.filter((item) => companyList.includes(item));
+        setListData(overall);
+        break;
+      case 3:
+        overall = overall.filter((item) => list.includes(item));
+        overall = overall.filter((item) => serviceList.includes(item));
+        overall = overall.filter((item) => availableList.includes(item));
+        overall = overall.filter((item) => stateList.includes(item));
+        overall = overall.filter((item) => companyList.includes(item));
+        setListData(overall);
+        break;
+      case 4:
+        overall = overall.filter((item) => list.includes(item));
+        overall = overall.filter((item) => serviceList.includes(item));
+        overall = overall.filter((item) => availableList.includes(item));
+        overall = overall.filter((item) => cityList.includes(item));
+        overall = overall.filter((item) => companyList.includes(item));
+        setListData(overall);
+        break;
+      case 5:
+        overall = overall.filter((item) => list.includes(item));
+        overall = overall.filter((item) => serviceList.includes(item));
+        overall = overall.filter((item) => availableList.includes(item));
+        overall = overall.filter((item) => cityList.includes(item));
+        overall = overall.filter((item) => stateList.includes(item));
+        setListData(overall);
         break;
       default:
     }
-    setListData(overall);
   };
   const setAvail = () => {
     let currentHour = new Date().getHours();
@@ -196,11 +293,7 @@ export default function ServicesScreen({ navigation }) {
                   data={services}
                   onSelect={(selectedItem, index) => {
                     setPlaceHolder(selectedItem);
-                    if (selectedItem == "All") {
-                      setOverallFilter([], 0);
-                    } else {
-                      setServiceFilter(selectedItem);
-                    }
+                    setServiceFilter(selectedItem);
                   }}
                   buttonTextAfterSelection={(selectedItem, index) => { return placeHolder; }}
                   rowTextForSelection={(item, index) => { return item; }}
@@ -238,12 +331,55 @@ export default function ServicesScreen({ navigation }) {
                 <Text style={styles.filterOptionText}>
                   Company:
                 </Text>
+                <TextInput
+                  style={styles.cityInput}
+                  placeholder="Company Name"
+                  placeholderTextColor="#aaaaaa"
+                  onChangeText={(text) => {
+                    setCompanyName(text)
+                    setCompanyFilter(text)
+                  }}
+                  value={companyName}
+                  underlineColorAndroid="transparent"
+                  autoCapitalize="none"
+                />
               </View>
 
               <View style={styles.filterOptionView}>
                 <Text style={styles.filterOptionText}>
                   Location:
                 </Text>
+                <TextInput
+                  style={styles.cityInput}
+                  placeholder="City"
+                  placeholderTextColor="#aaaaaa"
+                  onChangeText={(text) => {
+                    setCity(text)
+                    setCityFilter(text)
+                  }}
+                  value={city}
+                  underlineColorAndroid="transparent"
+                  autoCapitalize="none"
+                />
+                <SelectDropdown
+                  data={allStates}
+                  onSelect={(selectedItem, index) => {
+                    setState(selectedItem);
+                    setStateFilter(selectedItem);
+                  }}
+                  buttonTextAfterSelection={(selectedItem, index) => { return state; }}
+                  rowTextForSelection={(item, index) => { return item; }}
+                  buttonStyle={{
+                    backgroundColor: "white",
+                    borderRadius: 4,
+                    height: 48,
+                    width: 80,
+                    borderColor: "#d3d3d3",
+                    borderWidth: 1,
+                  }}
+                  buttonTextStyle={{ fontSize: 14, color: "#aaaaaa" }}
+                  defaultButtonText={state}
+                />
               </View>
               
               <View style={styles.filterOptionView}>

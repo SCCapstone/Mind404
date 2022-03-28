@@ -306,13 +306,16 @@ export default StyleSheet.create({
     fontFamily: "serif",
     fontSize: 15,
     textAlign: "center",
-    marginLeft: 25,
   },
   email:{
     fontFamily: "serif",
     fontSize: 15,
     textAlign: "center",
-    marginEnd: 25,
+  },
+  company: {
+    fontFamily: "serif",
+    fontSize: 15,
+    textAlign: "center",
   },
   phoneNumber: {
     fontFamily: "serif",
@@ -325,9 +328,10 @@ export default StyleSheet.create({
   },
   locationNumberContainer: {
     flexDirection: "row",
-    alignItems: "stretch",
+    alignItems: "center",
     flex: 1,
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
+
   },
 
   // Profile Screen
@@ -477,5 +481,15 @@ export default StyleSheet.create({
     padding: 6,
     marginStart: 20,
     fontWeight: 'bold',
-  }
+  },
+  cityInput: {
+    height: 48,
+    width: 200,
+    borderRadius: 4,
+    overflow: "hidden",
+    backgroundColor: "white",
+    padding: 16,
+    borderColor: "#d3d3d3",
+    borderWidth: 1,
+  },
 });

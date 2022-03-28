@@ -57,6 +57,13 @@ export default function ServiceDetailsScreen({ route, navigation }) {
       return;
     }
   };
+  const checkForName = (companyName) => {
+    if(companyName){
+      return companyName;
+    } else {
+      return;
+    }
+  }
   const onAddPress = () => {
     docRef
       .doc(item.id)
@@ -115,6 +122,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
         <View style={styles.locationNumberContainer}>
           <Text style={styles.location}>{item.location}</Text>
           <Text style={styles.email}>{item.email}</Text>
+          <Text style={styles.company}>{checkForName(item.CompanyName)}</Text>
         </View>
         <View>
           <Text style={styles.phoneNumber} onPress={() => contactTel()}>

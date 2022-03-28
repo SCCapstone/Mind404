@@ -32,6 +32,15 @@ const ServiceListing = ({ item }) => {
   const detailsPage = () => {
     navigation.navigate("Service Details", { item });
   };
+
+  const checkForName = (companyName) => {
+    if(companyName){
+      return companyName;
+    } else {
+      return "";
+    }
+  }
+
   return (
     <TouchableOpacity onPress={() => detailsPage()}>
       <View
@@ -62,6 +71,7 @@ const ServiceListing = ({ item }) => {
               {item.location}
             </Text>
             <Text style={{ fontSize: 12, color: "#808080" }}>{item.email}</Text>
+            <Text style={{ fontSize: 12, color: "#808080" }}>{checkForName(item.CompanyName)}</Text>
           </View>
           <View>
             <Text

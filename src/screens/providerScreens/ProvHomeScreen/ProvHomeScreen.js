@@ -81,7 +81,7 @@ export default function ProvHomeScreen({ navigation }) {
 
   return (
     <ImageBackground
-    source={require("../../../../images/grey_background.png")}
+    source={require("../../../../assets/GrubberBackground.png")}
     resizeMode="cover"
       style={styles.backgroundImage}
     >

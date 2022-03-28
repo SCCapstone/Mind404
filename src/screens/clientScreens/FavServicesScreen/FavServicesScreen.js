@@ -25,7 +25,7 @@ export default function ServicesScreen({ navigation }) {
 
   React.useEffect(() => {
     loadServices();
-    onRefresh();
+    //onRefresh();
   }, [navigation]);
 
   const loadServices = () => {

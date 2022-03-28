@@ -30,31 +30,6 @@ export default function ServicesPostScreen({ navigation }) {
   const [tTime, setTTime] = useState(5);
 
   const onPostPress = () => {
-    let fromTime = fTime;
-    let toTime = tTime;
-
-    if(fromAMPM == 'P.M.'){
-      if(fTime != 12){
-        fromTime = fTime + 12
-        setFTime(fromTime)
-      }
-    }
-    if(toAMPM == 'P.M.'){
-      if(tTime != 12){
-        toTime = tTime + 12
-        setTTime(toTime)
-      }
-    }
-    if(fTime == 12 && fromAMPM == 'A.M.'){
-      fromTime = 0;
-      setFTime(fromTime);
-    }
-    if(tTime == 12 && tTime == 'A.M.'){
-      toTime = 0;
-      setTTime(toTime);
-    }
-    console.log(fromTime);
-    console.log(toTime);
     /** Checks to see if type of service is an empty string */
     if (serviceType == "") {
       alert("Please select a type of service.");
@@ -82,6 +57,24 @@ export default function ServicesPostScreen({ navigation }) {
     if (description == "") {
       alert("Please enter a description detailing your service.");
       return;
+    }
+    let fromTime = fTime;
+    let toTime = tTime;
+    if(fromAMPM == 'P.M.'){
+      if(fTime != 12){
+        fromTime = fromTime + 12
+      }
+    }
+    if(toAMPM == 'P.M.'){
+      if(tTime != 12){
+        toTime = toTime + 12
+      }
+    }
+    if(fTime == 12 && fromAMPM == 'A.M.'){
+      fromTime = 0;
+    }
+    if(tTime == 12 && tTime == 'A.M.'){
+      toTime = 0;
     }
     const data = {
       contact,
@@ -231,7 +224,6 @@ export default function ServicesPostScreen({ navigation }) {
             data={numbers}
             onSelect={(selectedItem,index) => {
               setFTime(selectedItem)
-              console.log(selectedItem)
             }}
             buttonTextAfterSelection={(selectedItem, index) => { return selectedItem; }}
             rowTextForSelection={(item, index) => { return item; }}
@@ -339,7 +331,7 @@ function validEmail(email){
 function validCityState(location){
   var fields = location.split(',');
   var fieldsWspace = location.split(", ");
-  var allStates = ['AK', 'AL', 'AR', 'AS', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'GU', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MP', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UM', 'UT', 'VA', 'VI', 'VT', 'WA', 'WI', 'WV', 'WY']
+  var allStates = ['State','AK', 'AL', 'AR', 'AS', 'AZ', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MP', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UM', 'UT', 'VA', 'VI', 'VT', 'WA', 'WI', 'WV', 'WY'];
   for(let i = 0; i < 50; i++){
     if(fields[1] == allStates[i] || fieldsWspace[1] == allStates[i]){
       return true;
