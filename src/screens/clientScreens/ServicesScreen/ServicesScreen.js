@@ -6,7 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   RefreshControl,
-  TextInput
+  TextInput,
 } from "react-native";
 import styles from "./../../../../components/styles";
 import { firebase } from "../../../firebase/config";
@@ -32,15 +32,15 @@ export default function ServicesScreen({ navigation }) {
   //placeholder for service Type box (to maintain actual selection on filter close)
   const [cityList, setCityList] = useState([]);
   const [stateList, setStateList] = useState([]);
- 
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('State');
- 
-  const[companyName, setCompanyName] = useState('');
-  const[companyList, setCompanyList] = useState([]);
 
-  const[rating, setRating] = useState();
-  const[ratingList, setRatingList] = useState([]);
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("State");
+
+  const [companyName, setCompanyName] = useState("");
+  const [companyList, setCompanyList] = useState([]);
+
+  const [rating, setRating] = useState();
+  const [ratingList, setRatingList] = useState([]);
 
   const [placeHolder, setPlaceHolder] = useState("All");
   const [availableList, setAvailableList] = useState([]);
@@ -58,8 +58,64 @@ export default function ServicesScreen({ navigation }) {
     "Contracting",
     "Consulting",
   ];
-  const allStates = ['State','AK', 'AL', 'AR', 'AS', 'AZ', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MP', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UM', 'UT', 'VA', 'VI', 'VT', 'WA', 'WI', 'WV', 'WY']
-  
+  const allStates = [
+    "State",
+    "AK",
+    "AL",
+    "AR",
+    "AS",
+    "AZ",
+    "CA",
+    "CO",
+    "CT",
+    "DE",
+    "FL",
+    "GA",
+    "HI",
+    "IA",
+    "ID",
+    "IL",
+    "IN",
+    "KS",
+    "KY",
+    "LA",
+    "MA",
+    "MD",
+    "ME",
+    "MI",
+    "MN",
+    "MO",
+    "MP",
+    "MS",
+    "MT",
+    "NC",
+    "ND",
+    "NE",
+    "NH",
+    "NJ",
+    "NM",
+    "NV",
+    "NY",
+    "OH",
+    "OK",
+    "OR",
+    "PA",
+    "RI",
+    "SC",
+    "SD",
+    "TN",
+    "TX",
+    "UM",
+    "UT",
+    "VA",
+    "VI",
+    "VT",
+    "WA",
+    "WI",
+    "WV",
+    "WY",
+  ];
+
   const loadListData = () => {
     firebase
       .firestore()
@@ -92,8 +148,8 @@ export default function ServicesScreen({ navigation }) {
   const onRefresh = () => {
     setCompleteList([]);
     loadListData();
-    setOverallFilter([],0);
-  }
+    setOverallFilter([], 0);
+  };
 
   const itemSeperatorView = () => {
     return (
@@ -107,7 +163,7 @@ export default function ServicesScreen({ navigation }) {
   };
 
   const setServiceFilter = (service) => {
-    if(service == 'All') {
+    if (service == "All") {
       setServiceList(completeList);
       setOverallFilter(completeList, 1);
     } else {
@@ -121,7 +177,7 @@ export default function ServicesScreen({ navigation }) {
 
   const setCityFilter = (loca) => {
     let locationFiltered = [];
-    if(loca.length > 1){
+    if (loca.length > 1) {
       locationFiltered = completeList.filter(
         (item) => item.location.slice(0, -4) == loca
       );
@@ -129,25 +185,25 @@ export default function ServicesScreen({ navigation }) {
       locationFiltered = completeList;
     }
     setCityList(locationFiltered);
-    setOverallFilter(locationFiltered, 3)
+    setOverallFilter(locationFiltered, 3);
   };
 
   const setStateFilter = (loca) => {
     let locationFiltered = [];
-    if(loca == "State"){
+    if (loca == "State") {
       locationFiltered = completeList;
     } else {
       locationFiltered = completeList.filter(
         (item) => item.location.slice(-2) == loca
       );
     }
-    
+
     setStateList(locationFiltered);
-    setOverallFilter(locationFiltered, 4)
+    setOverallFilter(locationFiltered, 4);
   };
 
   const setCompanyFilter = (name) => {
-    if(name.length>1){
+    if (name.length > 1) {
       const companyFiltered = completeList.filter(
         (item) => item.CompanyName == name
       );
@@ -157,11 +213,9 @@ export default function ServicesScreen({ navigation }) {
       setCompanyList(completeList);
       setOverallFilter(completeList, 5);
     }
-  }
+  };
 
-  const setRatingFilter = (rate) => {
-
-  }
+  const setRatingFilter = (rate) => {};
 
   const setOverallFilter = (list, id) => {
     let overall = completeList;
@@ -170,9 +224,9 @@ export default function ServicesScreen({ navigation }) {
         loadListData();
         setToggleCheckBox(false);
         setPlaceHolder("All");
-        setState('State');
-        setCity('');
-        setCompanyName('');
+        setState("State");
+        setCity("");
+        setCompanyName("");
         break;
       case 1:
         overall = overall.filter((item) => list.includes(item));
@@ -286,17 +340,19 @@ export default function ServicesScreen({ navigation }) {
           <CollapseBody>
             <View style={styles.filterMenuView}>
               <View style={styles.filterOptionView}>
-                <Text style={styles.filterOptionText}>
-                  Service type:
-                </Text>
+                <Text style={styles.filterOptionText}>Service type:</Text>
                 <SelectDropdown
                   data={services}
                   onSelect={(selectedItem, index) => {
                     setPlaceHolder(selectedItem);
                     setServiceFilter(selectedItem);
                   }}
-                  buttonTextAfterSelection={(selectedItem, index) => { return placeHolder; }}
-                  rowTextForSelection={(item, index) => { return item; }}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return placeHolder;
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return item;
+                  }}
                   buttonStyle={{
                     backgroundColor: "#FFAC1C",
                     borderRadius: 2,
@@ -328,16 +384,14 @@ export default function ServicesScreen({ navigation }) {
               </View>
 
               <View style={styles.filterOptionView}>
-                <Text style={styles.filterOptionText}>
-                  Company:
-                </Text>
+                <Text style={styles.filterOptionText}>Company:</Text>
                 <TextInput
                   style={styles.cityInput}
                   placeholder="Company Name"
                   placeholderTextColor="#aaaaaa"
                   onChangeText={(text) => {
-                    setCompanyName(text)
-                    setCompanyFilter(text)
+                    setCompanyName(text);
+                    setCompanyFilter(text);
                   }}
                   value={companyName}
                   underlineColorAndroid="transparent"
@@ -346,16 +400,14 @@ export default function ServicesScreen({ navigation }) {
               </View>
 
               <View style={styles.filterOptionView}>
-                <Text style={styles.filterOptionText}>
-                  Location:
-                </Text>
+                <Text style={styles.filterOptionText}>Location:</Text>
                 <TextInput
                   style={styles.cityInput}
                   placeholder="City"
                   placeholderTextColor="#aaaaaa"
                   onChangeText={(text) => {
-                    setCity(text)
-                    setCityFilter(text)
+                    setCity(text);
+                    setCityFilter(text);
                   }}
                   value={city}
                   underlineColorAndroid="transparent"
@@ -367,8 +419,12 @@ export default function ServicesScreen({ navigation }) {
                     setState(selectedItem);
                     setStateFilter(selectedItem);
                   }}
-                  buttonTextAfterSelection={(selectedItem, index) => { return state; }}
-                  rowTextForSelection={(item, index) => { return item; }}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return state;
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return item;
+                  }}
                   buttonStyle={{
                     backgroundColor: "white",
                     borderRadius: 4,
@@ -381,27 +437,44 @@ export default function ServicesScreen({ navigation }) {
                   defaultButtonText={state}
                 />
               </View>
-              
+
               <View style={styles.filterOptionView}>
-                <Text style={styles.filterOptionText}>
-                  Rating:
-                </Text>
+                <Text style={styles.filterOptionText}>Rating:</Text>
               </View>
 
-              <View style={{marginTop: 20, marginBottom: 20, flexDirection: "row",justifyContent: "center"}}>
+              <View
+                style={{
+                  marginTop: 20,
+                  marginBottom: 20,
+                  flexDirection: "row",
+                  justifyContent: "center",
+                }}
+              >
                 <TouchableOpacity
                   style={{
                     borderRadius: 6,
                     backgroundColor: "#FFAC1C",
                     width: 130,
                     height: 30,
-                    justifyContent: 'center'
+                    justifyContent: "center",
                   }}
                   onPress={() => setOverallFilter([], 0)}
                 >
-                  <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
                     <AntDesign name="close" color="white" size={15} />
-                    <Text style={{fontWeight: "bold", textAlign: "center", color: "white"}}>
+                    <Text
+                      style={{
+                        fontWeight: "bold",
+                        textAlign: "center",
+                        color: "white",
+                      }}
+                    >
                       Clear All Filters
                     </Text>
                   </View>
@@ -429,10 +502,7 @@ export default function ServicesScreen({ navigation }) {
             </Text>
           )}
           refreshControl={
-            <RefreshControl 
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-            />
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
         />
       </View>

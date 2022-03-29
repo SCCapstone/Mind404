@@ -42,7 +42,8 @@ const ProviderReview = ({ route, navigation }) => {
       item: item,
     });
   };
-
+  console.log(rating);
+  console.log(typeof rating);
   return (
     <View style={{ padding: 30 }}>
       <View style={{ borderBottomWidth: 1, borderStyle: "solid" }}>
@@ -63,6 +64,11 @@ const ProviderReview = ({ route, navigation }) => {
           placeholder={{ label: "select the rating", value: null }}
           onValueChange={setRating}
           value={rating}
+          style={{
+            inputAndroid: {
+              color: rating < 4 ? "red" : "black",
+            },
+          }}
           items={[
             { label: "1", value: 1 },
             { label: "1.5", value: 1.5 },

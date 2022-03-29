@@ -11,6 +11,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import styles from "./styles";
 import Ratings from "./Ratings";
+import { firebase } from "../src/firebase/config";
 
 const ServiceListing = ({ item }) => {
   const [reviews, setReviews] = useState(Array);
@@ -18,28 +19,28 @@ const ServiceListing = ({ item }) => {
     getReviews();
   }, []);
   const getReviews = () => {
-    // firebase.firestore
-    //   .collection("reviews")
-    //   .doc(item.providerId)
-    //   .get()
-    //   .then((querySnapshot) => {});
-    setReviews([
-      { rating: 3.5, review: "This is a review." },
-      { rating: 3.5, review: "This is a review." },
-    ]);
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(item.providerId)
+      .get()
+      .then((querySnapshot) => {
+        setReviews(querySnapshot.data().reviews);
+      });
   };
+
   const navigation = useNavigation();
   const detailsPage = () => {
     navigation.navigate("Service Details", { item });
   };
 
   const checkForName = (companyName) => {
-    if(companyName){
+    if (companyName) {
       return companyName;
     } else {
       return "";
     }
-  }
+  };
 
   return (
     <TouchableOpacity onPress={() => detailsPage()}>
@@ -71,7 +72,9 @@ const ServiceListing = ({ item }) => {
               {item.location}
             </Text>
             <Text style={{ fontSize: 12, color: "#808080" }}>{item.email}</Text>
-            <Text style={{ fontSize: 12, color: "#808080" }}>{checkForName(item.CompanyName)}</Text>
+            <Text style={{ fontSize: 12, color: "#808080" }}>
+              {checkForName(item.CompanyName)}
+            </Text>
           </View>
           <View>
             <Text
@@ -101,7 +104,7 @@ function convertTo12Hour(time) {
     return time.toString() + " A.M.";
   } else if (time > 12) {
     return (time - 12).toString() + " P.M.";
-  } else if (time == 12){
+  } else if (time == 12) {
     return "12 P.M.";
   } else {
     return "12 A.M.";
