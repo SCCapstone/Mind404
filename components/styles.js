@@ -492,4 +492,22 @@ export default StyleSheet.create({
     borderColor: "#d3d3d3",
     borderWidth: 1,
   },
+  ratingFilterButton:{
+    borderRadius: 4,
+    backgroundColor: "white",
+    borderColor: "#d3d3d3",
+    borderWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    elevation: 3,
+    padding: 5,
+    margin: 2
+  },
+  ratingsContainer: {
+    flexDirection: "row",
+    marginTop: 5,
+    alignContent: 'center',
+    justifyContent: 'center'
+  },
 });

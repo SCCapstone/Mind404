@@ -42,8 +42,7 @@ const ProviderReview = ({ route, navigation }) => {
       item: item,
     });
   };
-  console.log(rating);
-  console.log(typeof rating);
+  
   return (
     <View style={{ padding: 30 }}>
       <View style={{ borderBottomWidth: 1, borderStyle: "solid" }}>

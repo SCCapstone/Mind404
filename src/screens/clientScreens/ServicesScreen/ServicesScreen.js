@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   RefreshControl,
   TextInput,
+  TouchableHighlight
 } from "react-native";
 import styles from "./../../../../components/styles";
 import { firebase } from "../../../firebase/config";
@@ -21,6 +22,8 @@ import {
 import AntDesign from "react-native-vector-icons/AntDesign";
 import CheckBox from "expo-checkbox";
 import { set } from "react-native-reanimated";
+import NumericInput from "react-native-numeric-input";
+import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons"
 
 export default function ServicesScreen({ navigation }) {
   //displayed List in services
@@ -39,8 +42,9 @@ export default function ServicesScreen({ navigation }) {
   const [companyName, setCompanyName] = useState("");
   const [companyList, setCompanyList] = useState([]);
 
-  const [rating, setRating] = useState();
+  const [rating, setRating] = useState(0);
   const [ratingList, setRatingList] = useState([]);
+  const [reviewsTemp, setReviews] = useState([]);
 
   const [placeHolder, setPlaceHolder] = useState("All");
   const [availableList, setAvailableList] = useState([]);
@@ -120,8 +124,7 @@ export default function ServicesScreen({ navigation }) {
     firebase
       .firestore()
       .collection("services")
-      .get()
-      .then((querySnapshot) => {
+      .onSnapshot((querySnapshot) => {
         let temp = [];
         querySnapshot.forEach((documentSnapshot) => {
           let serviceDetails = {};
@@ -215,7 +218,9 @@ export default function ServicesScreen({ navigation }) {
     }
   };
 
-  const setRatingFilter = (rate) => {};
+  const setRatingFilter = (rate) => {
+    console.log("setting filter for ", rate)
+  };
 
   const setOverallFilter = (list, id) => {
     let overall = completeList;
@@ -234,6 +239,7 @@ export default function ServicesScreen({ navigation }) {
         overall = overall.filter((item) => cityList.includes(item));
         overall = overall.filter((item) => stateList.includes(item));
         overall = overall.filter((item) => companyList.includes(item));
+        overall = overall.filter((item) => ratingList.includes(item));
         setListData(overall);
         break;
       case 2:
@@ -242,6 +248,7 @@ export default function ServicesScreen({ navigation }) {
         overall = overall.filter((item) => cityList.includes(item));
         overall = overall.filter((item) => stateList.includes(item));
         overall = overall.filter((item) => companyList.includes(item));
+        overall = overall.filter((item) => ratingList.includes(item));
         setListData(overall);
         break;
       case 3:
@@ -250,6 +257,7 @@ export default function ServicesScreen({ navigation }) {
         overall = overall.filter((item) => availableList.includes(item));
         overall = overall.filter((item) => stateList.includes(item));
         overall = overall.filter((item) => companyList.includes(item));
+        overall = overall.filter((item) => ratingList.includes(item));
         setListData(overall);
         break;
       case 4:
@@ -258,6 +266,7 @@ export default function ServicesScreen({ navigation }) {
         overall = overall.filter((item) => availableList.includes(item));
         overall = overall.filter((item) => cityList.includes(item));
         overall = overall.filter((item) => companyList.includes(item));
+        overall = overall.filter((item) => ratingList.includes(item));
         setListData(overall);
         break;
       case 5:
@@ -266,8 +275,17 @@ export default function ServicesScreen({ navigation }) {
         overall = overall.filter((item) => availableList.includes(item));
         overall = overall.filter((item) => cityList.includes(item));
         overall = overall.filter((item) => stateList.includes(item));
+        overall = overall.filter((item) => ratingList.includes(item));
         setListData(overall);
         break;
+      case 6:
+        overall = overall.filter((item) => list.includes(item));
+        overall = overall.filter((item) => serviceList.includes(item));
+        overall = overall.filter((item) => availableList.includes(item));
+        overall = overall.filter((item) => cityList.includes(item));
+        overall = overall.filter((item) => stateList.includes(item));
+        overall = overall.filter((item) => companyList.includes(item));
+        setListData(overall);
       default:
     }
   };
@@ -325,7 +343,7 @@ export default function ServicesScreen({ navigation }) {
             >
               <Text
                 style={{
-                  backgroundColorfontSize: 18,
+                  fontSize: 18,
                   fontWeight: "bold",
                   fontStyle: "italic",
                   marginEnd: 3,
@@ -439,9 +457,56 @@ export default function ServicesScreen({ navigation }) {
               </View>
 
               <View style={styles.filterOptionView}>
-                <Text style={styles.filterOptionText}>Rating:</Text>
+                <Text style={styles.filterOptionText}>Customer Reviews:</Text>
               </View>
-
+              <View style={styles.ratingsContainer}>
+                <TouchableOpacity
+                  style={styles.ratingFilterButton}
+                  onPress={() => {
+                    setRating(4)
+                    setRatingFilter(4)
+                  }}
+                >
+                    <MaterialCommunityIcon name="star" color="#000" size={18} />
+                    <MaterialCommunityIcon name="star" color="#000" size={18} />
+                    <MaterialCommunityIcon name="star" color="#000" size={18} />
+                    <MaterialCommunityIcon name="star" color="#000" size={18} />
+                    <Text styles={{fontSize: 12, fontWeight: 'bold'}}>
+                      {' &'} Up
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.ratingFilterButton}
+                  onPress={() => setRatingFilter(3)}
+                >
+                    <MaterialCommunityIcon name="star" color="#000" size={18} />
+                    <MaterialCommunityIcon name="star" color="#000" size={18} />
+                    <MaterialCommunityIcon name="star" color="#000" size={18} />
+                    <Text styles={{fontSize: 12, fontWeight: 'bold'}}>
+                      {' &'} Up
+                    </Text>
+                </TouchableOpacity>
+              
+                <TouchableOpacity
+                  style={styles.ratingFilterButton}
+                  onPress={() => setRatingFilter(2)}
+                >
+                    <MaterialCommunityIcon name="star" color="#000" size={18} />
+                    <MaterialCommunityIcon name="star" color="#000" size={18} />
+                    <Text styles={{fontSize: 12, fontWeight: 'bold'}}>
+                      {' &'} Up
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.ratingFilterButton}
+                  onPress={() => setRatingFilter(1)}
+                >
+                    <MaterialCommunityIcon name="star" color="#000" size={18} />
+                    <Text styles={{fontSize: 12, fontWeight: 'bold'}}>
+                      {' &'} Up
+                    </Text>
+                </TouchableOpacity>
+              </View>
               <View
                 style={{
                   marginTop: 20,

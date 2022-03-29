@@ -31,8 +31,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
       .firestore()
       .collection("users")
       .doc(item.providerId)
-      .get()
-      .then((querySnapshot) => {
+      .onSnapshot((querySnapshot) => {
         setProviderData(querySnapshot.data());
       });
   }, []);
@@ -43,8 +42,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
         .firestore()
         .collection("users")
         .doc(item.providerId)
-        .get()
-        .then((querySnapshot) => {
+        .onSnapshot((querySnapshot) => {
           setProviderData(querySnapshot.data());
         });
     }
