@@ -63,7 +63,7 @@ const ServiceListing = ({ item }) => {
             </Text>
           </View>
           <View>
-            <Ratings reviews={reviews} size={20} />
+            <Ratings service={item} reviews={reviews} size={20} />
           </View>
         </View>
         <View style={{ flexDirection: "row" }}>
