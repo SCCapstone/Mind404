@@ -3,7 +3,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   HomeScreen,
   ServicesScreen,
-  ProfileScreen,
   FavServicesScreen,
 } from "./src/screens";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -47,16 +46,3 @@ export default function BottomTabs() {
     </Tab.Navigator>
   );
 }
-
-/*
-<Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" color={color} size={size} />
-          ),
-          headerShown: false,
-        }}
-      />
-*/
