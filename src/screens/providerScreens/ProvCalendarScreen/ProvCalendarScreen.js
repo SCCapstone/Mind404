@@ -34,7 +34,6 @@ export default function ProvCalendarScreen({ navigation }) {
     return (
       <View
         style={{
-          height: 1,
           width: "100%",
           backgroundColor: "#808080",
         }}
@@ -99,21 +98,32 @@ export default function ProvCalendarScreen({ navigation }) {
           keyExtractor={(item, index) => index.toString()}
           ListHeaderComponent={()=><Text style={styles.dateTitle}>{selectedDay}</Text>}
           renderItem={({item}) => (
-              <View style={styles.containerSide}>
-                <View
-                  style={{
-                    backgroundColor: "white",
-                    padding: 20,
-                    width: '20%',
-                  }}
-                >
+            <View style={{backgroundColor: "#e9e9e9",
+            padding: 20,
+            borderRadius: 12,
+            borderColor: 'grey',
+            borderWidth: 1, 
+            marginBottom: 3,
+            marginTop: 3,
+            marginStart: 6,
+            marginEnd: 6,
+            elevation: 4,}}>
+              <View
+                style={{
+                  padding: 0,
+                  width: '90%',
+                  flexDirection: "row"
+                }}
+              >
+                <TouchableOpacity style={{marginEnd: 3}} onPress={() => deleteEvent(item.id)}>
+                  <MaterialCommunityIcons name="close" style={{fontSize: 25,color: 'red', fontWeight: 'bold'}}/>
+                </TouchableOpacity>
+                <View>
                   <Text style={styles.subject}>{item.subject}</Text>
                   <Text style={styles.descriptionEvent}>{item.description}</Text>
                 </View>
-                <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => deleteEvent(item.id)}>
-                  <MaterialCommunityIcons name="close" style={{fontSize: 25,color: 'red', fontWeight: 'bold'}}/>
-                </TouchableOpacity>
               </View>
+            </View>
           )}
           ListEmptyComponent={()=> <Text style={styles.noEvent}>Woo hoo! No events today.</Text>}
       />
