@@ -422,7 +422,7 @@ export default StyleSheet.create({
   noEvent: {
     fontSize: 14,
     marginTop: 13,
-    color: '#D1F4FA',
+    color: 'black',
     textAlign: 'center'
   },
   explanation2: {
@@ -511,5 +511,29 @@ export default StyleSheet.create({
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'center'
+  },
+  profileUpdateButton: {
+    backgroundColor: "#FFAC1C",
+    height: 48,
+    width: 200,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 4,
+  },
+  imageButton: {
+    backgroundColor: '#788eec',
+    borderRadius: 4,
+    width: 110,
+    height: 50,
+    elevation: 4,
+    alignContent: 'center',
+    justifyContent: 'center'
+  },
+  profileLayout: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

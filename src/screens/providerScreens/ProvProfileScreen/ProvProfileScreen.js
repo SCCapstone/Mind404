@@ -27,9 +27,9 @@ export default function ProvProfileScreen({ navigation }) {
         style={styles.settingsButton}
         onPress={() => onPencilPress()}
       >
-        <FontAwesome name="pencil" color="#000" size={30} />
+        <FontAwesome name="pencil" color="#788eec" size={30} />
       </TouchableOpacity>
-      <View style={styles.layout}>
+      <View style={styles.profileLayout}>
         <Text style={styles.welcome}>
           {user.firstName} {user.lastName}
         </Text>

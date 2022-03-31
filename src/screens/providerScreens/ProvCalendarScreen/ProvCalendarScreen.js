@@ -14,7 +14,7 @@ export default function ProvCalendarScreen({ navigation }) {
   
   var docRef = firebase.firestore().collection("users/"+user.id+"/events");
 
-  React.useEffect(() => {
+  useEffect(() => {
     firebase
       .firestore()
       .collection("users/"+user.id+"/events")
@@ -51,10 +51,7 @@ export default function ProvCalendarScreen({ navigation }) {
     setSelectedDay(getDisplayDate(dateString))
     setDayData(temp);
   }
-  
-  // const markedDate = {
-  //   selectedDay: {selected: true, marked: true, selectedColor: 'blue'}
-  // }
+
   const onAddPress = () => {
     navigation.navigate("Add Event");
   }
@@ -112,16 +109,15 @@ export default function ProvCalendarScreen({ navigation }) {
                 style={{
                   padding: 0,
                   width: '90%',
-                  flexDirection: "row"
                 }}
               >
-                <TouchableOpacity style={{marginEnd: 3}} onPress={() => deleteEvent(item.id)}>
-                  <MaterialCommunityIcons name="close" style={{fontSize: 25,color: 'red', fontWeight: 'bold'}}/>
+                <Text style={styles.subject}>{item.subject}</Text>
+                <Text style={styles.descriptionEvent}>{item.description}</Text>
+                <TouchableOpacity style={{marginEnd: 3, width: 60}} onPress={() => deleteEvent(item.id)}>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={{fontSize: 15,color: 'red'}}>Delete</Text>
+                  </View>
                 </TouchableOpacity>
-                <View>
-                  <Text style={styles.subject}>{item.subject}</Text>
-                  <Text style={styles.descriptionEvent}>{item.description}</Text>
-                </View>
               </View>
             </View>
           )}

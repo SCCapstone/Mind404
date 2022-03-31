@@ -48,7 +48,6 @@ export default function ProvServicesScreen({ navigation }) {
   };
 
   const checkForName = (companyName) => {
-    console.log(companyName)
     if(companyName){
       return "Company Name: " + companyName;
     } else {

@@ -94,7 +94,7 @@ export default function ProvProfileScreen({ navigation }) {
       <View style={styles.layout}>
         <View style={styles.profileDescriptionWrapper}>
           <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <Button onPress={selectImage}>Select Image</Button>
+            <Button style={styles.imageButton} onPress={selectImage}>Select Image</Button>
           </View>
           <View style={styles.imageContainer}>
             {image !== null ? (
@@ -105,7 +105,7 @@ export default function ProvProfileScreen({ navigation }) {
                 <Progress.Bar progress={transferred} width={300} />
               </View>
             ) : (
-              <Button onPress={uploadImage}>Upload image</Button>
+              <Button style={styles.imageButton} onPress={uploadImage}>Upload image</Button>
             )}
           </View>
 
@@ -123,8 +123,8 @@ export default function ProvProfileScreen({ navigation }) {
             multiline
           ></TextInput>
         </View>
-        <Button style={styles.servicesPostButton} onPress={onPostPress}>
-          <Text style={styles.buttonTitle}>Post Service</Text>
+        <Button style={styles.profileUpdateButton} onPress={onPostPress}>
+          <Text style={styles.buttonTitle}>Update Profile</Text>
         </Button>
       </View>
     </ImageBackground>

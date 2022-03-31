@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useContext, useState} from "react";
+import React, { useContext, useState, useEffect} from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   StyleSheet,
@@ -27,11 +27,11 @@ export default function ProvHomeScreen({ navigation }) {
   const [dayData, setDayData] = useState([]);
 
   React.useEffect(() => {
-    var day = new Date().getDate(); //Current Date
-    var month = new Date().getMonth() + 1; //Current Month
-    var year = new Date().getFullYear(); //Current Year
+    let day = new Date().getDate(); //Current Date
+    let month = new Date().getMonth() + 1; //Current Month
+    let year = new Date().getFullYear(); //Current Year
     setCurrentDate(displayDate(month,day,year));
-    setEventDate(getDateString());
+    getEvents();
   }, []);
   
   const onSettingsCogPress = () => {
@@ -40,7 +40,8 @@ export default function ProvHomeScreen({ navigation }) {
   const onAddPress = () => {
     navigation.navigate("Services")
   }
-  React.useEffect(() => {
+
+  const getEvents = () => {
     firebase
       .firestore()
       .collection("users/"+user.id+"/events")
@@ -53,15 +54,14 @@ export default function ProvHomeScreen({ navigation }) {
           temp.push(eventDetails);
           setListData(temp);
         });
+        eventsToday(getDateString(), temp)
       });
-      eventsToday(eventDate);
-  }, [navigation]);
+  };
 
   const itemSeperatorView = () => {
     return (
       <View
         style={{
-          height: 1,
           width: "100%",
           backgroundColor: "#808080",
         }}
@@ -69,10 +69,10 @@ export default function ProvHomeScreen({ navigation }) {
     );
   };
 
-  const eventsToday = (dateString) => {
-    let temp = listData;
-    temp = temp.filter(function(item){
-      return item.date == eventDate;
+  const eventsToday = (dateString, tempp) => {
+    let temp = tempp;
+    temp = tempp.filter(function(item){
+      return item.date == dateString;
     }).map(function({description, subject, id}){
       return {description, subject, id}
     });
@@ -107,19 +107,28 @@ export default function ProvHomeScreen({ navigation }) {
         <Text style={{fontSize: 15, color: '#788eec'}}> Refresh Events</Text>
       </TouchableOpacity>
       
-      <View style={styles.layout}>
       <FlatList
           data={dayData}
           ItemSeparatorComponent={itemSeperatorView}
           keyExtractor={(item, index) => index.toString()}
           ListHeaderComponent={()=><Text style={styles.listTitle}>Today's Events</Text>}
           renderItem={({item}) => (
-              <View style={styles.containerSide}>
+            <View style={{
+              backgroundColor: "#e9e9e9",
+              padding: 10,
+              borderRadius: 5,
+              borderColor: 'grey',
+              borderWidth: 1,
+              marginBottom: 5,
+              marginTop: 3,
+              marginStart: 8,
+              marginEnd: 8,
+              elevation: 4,
+            }}>
                 <View
                   style={{
-                    backgroundColor: "white",
-                    padding: 20,
-                    width: '90%',
+                    padding: 10,
+                    width: '100%',
                   }}
                 >
                   <Text style={styles.subject}>{item.subject}</Text>
@@ -130,7 +139,6 @@ export default function ProvHomeScreen({ navigation }) {
           )}
           ListEmptyComponent={()=> <Text style={styles.noEvent}>Woo hoo! No events today.</Text>}
       />
-      </View>
     </ImageBackground>
   );
 }
