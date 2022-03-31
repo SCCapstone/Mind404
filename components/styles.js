@@ -457,6 +457,7 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 5,
+    alignContent: 'center'
   },
   filterOptionText: {
     fontSize: 18,
@@ -507,6 +508,7 @@ export default StyleSheet.create({
   ratingsContainer: {
     flexDirection: "row",
     marginTop: 5,
+    alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'center'
   },

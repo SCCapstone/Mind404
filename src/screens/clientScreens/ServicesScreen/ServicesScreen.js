@@ -44,7 +44,7 @@ export default function ServicesScreen({ navigation }) {
 
   const [rating, setRating] = useState(0);
   const [ratingList, setRatingList] = useState([]);
-  const [reviewsTemp, setReviews] = useState([]);
+  const [provRatings, setProvRatings] = useState([]);
 
   const [placeHolder, setPlaceHolder] = useState("All");
   const [availableList, setAvailableList] = useState([]);
@@ -131,26 +131,50 @@ export default function ServicesScreen({ navigation }) {
           serviceDetails = documentSnapshot.data();
           serviceDetails["id"] = documentSnapshot.id;
           temp.push(serviceDetails);
-          setCompleteList(temp);
-          setListData(temp);
-          setServiceList(temp);
-          setAvailableList(temp);
-          setCityList(temp);
-          setStateList(temp);
-          setCompanyList(temp);
-          setRatingList(temp);
-          setRefreshing(false);
         });
+        setCompleteList(temp);
+        setListData(temp);
+        setServiceList(temp);
+        setAvailableList(temp);
+        setCityList(temp);
+        setStateList(temp);
+        setCompanyList(temp);
+        setRatingList(temp);
+        setRefreshing(false);
       });
   };
 
+  const getAverageRatings = () => {
+    firebase
+      .firestore()
+      .collection('users')
+      .where('typeOfUser', '==', 'Provider')
+      .onSnapshot((querySnapshot) => {
+        let temp = [];
+        let pairPR = [];
+        querySnapshot.forEach((documentSnapshot) => {
+          temp.push(documentSnapshot.data())
+        });
+        for(let i = 0; i <temp.length; i++){
+          let providerID = temp[i].id;
+          let avgRating = temp[i].avgRating;
+          if(avgRating == null){
+            avgRating = 0;
+          }
+          pairPR.push([providerID,avgRating])
+        }
+        setProvRatings(pairPR);
+      });
+  }
+
   useEffect(() => {
     loadListData();
+    //getAverageRatings();
   }, []);
 
   const onRefresh = () => {
     setCompleteList([]);
-    loadListData();
+    setListData([]);
     setOverallFilter([], 0);
   };
 
@@ -219,7 +243,26 @@ export default function ServicesScreen({ navigation }) {
   };
 
   const setRatingFilter = (rate) => {
-    console.log("setting filter for ", rate)
+    if(rate == 0){
+      setRatingList(completeList)
+      setOverallFilter(completeList, 6)
+    } else {
+      getAverageRatings();
+      const temp = completeList;
+      const ratingFiltered = [];
+      provRatings.forEach(provider => {
+        console.log(provider[1])
+        temp.forEach(service => {
+          if(provider[0] == service.providerId){
+            if(provider[1] >= rate){
+              ratingFiltered.push(service)
+            }
+          }
+        })
+      })
+      setRatingList(ratingFiltered)
+      setOverallFilter(ratingFiltered, 6)
+    }
   };
 
   const setOverallFilter = (list, id) => {
@@ -227,6 +270,7 @@ export default function ServicesScreen({ navigation }) {
     switch (id) {
       case 0:
         loadListData();
+        getAverageRatings();
         setToggleCheckBox(false);
         setPlaceHolder("All");
         setState("State");
@@ -289,6 +333,7 @@ export default function ServicesScreen({ navigation }) {
       default:
     }
   };
+
   const setAvail = () => {
     let currentHour = new Date().getHours();
     let temp = [];
@@ -311,6 +356,7 @@ export default function ServicesScreen({ navigation }) {
     });
     return temp;
   };
+
   return (
     <ImageBackground
       source={require("../../../../assets/GrubberBackground.png")}
@@ -504,6 +550,16 @@ export default function ServicesScreen({ navigation }) {
                     <MaterialCommunityIcon name="star" color="#000" size={18} />
                     <Text styles={{fontSize: 12, fontWeight: 'bold'}}>
                       {' &'} Up
+                    </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{alignContent: 'center', justifyContent: 'center', alignItems: 'center'}}>
+                <TouchableOpacity
+                  style={styles.ratingFilterButton}
+                  onPress={() => setRatingFilter(0)}
+                >
+                    <Text styles={{fontSize: 12, fontWeight: 'bold'}}>
+                      Any Rating
                     </Text>
                 </TouchableOpacity>
               </View>

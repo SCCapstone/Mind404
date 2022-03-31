@@ -20,6 +20,18 @@ const ProviderReview = ({ route, navigation }) => {
   const [rating, setRating] = useState();
   const { providerData, item } = route.params;
   const { user } = useUser();
+
+  const getRoundedRate = (rate) =>{
+    let rating = 0;
+    providerData.reviews.forEach((element) => {
+      rating = Number(element.rating) + rating;
+    })
+    rating = rating + rate;
+    let average = rating / (providerData.reviews.length+1);
+    let roundedRating = Math.round(parseFloat(average) * 2) / 2;
+    return roundedRating;
+  }
+
   const addReview = async () => {
     try {
       const usersRef = firebase.firestore().collection("users");
@@ -34,6 +46,10 @@ const ProviderReview = ({ route, navigation }) => {
           },
         ],
       });
+      let roundedRate = getRoundedRate(rating);
+      await usersRef.doc(providerData.id).set({
+        avgRating: roundedRate
+      }, { merge: true });
     } catch (e) {
       console.log(e);
     }
