@@ -536,4 +536,22 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  addEventView: {
+    flexDirection: "row",
+    marginTop: 5,
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
+  addEventButton:{
+    borderRadius: 4,
+    backgroundColor: "#FFAC1C",
+    borderColor: "#d3d3d3",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    elevation: 3,
+    padding: 5,
+    margin: 2
+  },
 });

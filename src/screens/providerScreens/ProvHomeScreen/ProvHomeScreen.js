@@ -1,20 +1,13 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useContext, useState, useEffect} from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import {
-  StyleSheet,
   Text,
   View,
-  Image,
-  SafeAreaView,
-  TextInput,
   ImageBackground,
   TouchableOpacity,
   FlatList
 } from "react-native";
 import styles from "./../../../../components/styles";
-import Button from "./../../../../components/Button.js";
-import MapView from "react-native-maps";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { firebase } from "../../../firebase/config";
 import useUser from "../../../../useUser";
@@ -26,7 +19,18 @@ export default function ProvHomeScreen({ navigation }) {
   const { user } = useUser();
   const [dayData, setDayData] = useState([]);
 
-  React.useEffect(() => {
+  const itemSeperatorView = () => {
+    return (
+      <View
+        style={{
+          width: "100%",
+          backgroundColor: "#808080",
+        }}
+      />
+    );
+  };
+
+  useEffect(() => {
     let day = new Date().getDate(); //Current Date
     let month = new Date().getMonth() + 1; //Current Month
     let year = new Date().getFullYear(); //Current Year
@@ -58,24 +62,11 @@ export default function ProvHomeScreen({ navigation }) {
       });
   };
 
-  const itemSeperatorView = () => {
-    return (
-      <View
-        style={{
-          width: "100%",
-          backgroundColor: "#808080",
-        }}
-      />
+  const eventsToday = (dateString, list) => {
+    const tempDate = dateString
+    const temp = list.filter(
+      (item) => item.date == dateString
     );
-  };
-
-  const eventsToday = (dateString, tempp) => {
-    let temp = tempp;
-    temp = tempp.filter(function(item){
-      return item.date == dateString;
-    }).map(function({description, subject, id}){
-      return {description, subject, id}
-    });
     setDayData(temp);
   }
 
@@ -101,7 +92,7 @@ export default function ProvHomeScreen({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.refresh}
-        onPress={() => eventsToday(eventDate)}
+        onPress={() => getEvents()}
       >
         <MaterialCommunityIcons name="refresh" style={{fontSize: 20,color: '#788eec', fontWeight: 'bold'}}/>
         <Text style={{fontSize: 15, color: '#788eec'}}> Refresh Events</Text>
@@ -146,10 +137,18 @@ export default function ProvHomeScreen({ navigation }) {
 function getDateString(){
   var temp = new Date();
   var monthNum = temp.getMonth()+1;
+  var ret = "";
   if (monthNum < 10){
-    return temp.getFullYear() + '-' + '0'+ monthNum + '-' + temp.getDate();
+    ret = temp.getFullYear() + '-' + '0'+ monthNum + '-';
   } else {
-    return temp.getFullYear() + '-' + monthNum + '-' + temp.getDate();
+    ret = temp.getFullYear() + '-' + monthNum + '-';
+  }
+  if (temp.getDate() < 10){
+    ret = ret + '0' + temp.getDate()
+    return ret;
+  } else {
+    ret = ret + temp.getDate();
+    return ret;
   }
 }
 

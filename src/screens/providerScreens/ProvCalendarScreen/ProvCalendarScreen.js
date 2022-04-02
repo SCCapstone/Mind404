@@ -9,7 +9,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 export default function ProvCalendarScreen({ navigation }) {
   const [listData, setListData] = React.useState([]);
   const { user } = useUser();
-  const [selectedDay, setSelectedDay] = useState('No Date Selected');
+  const [selectedDay, setSelectedDay] = useState(getDisplayDate(getToday()));
   const [dayData, setDayData] = useState([]);
   
   var docRef = firebase.firestore().collection("users/"+user.id+"/events");
@@ -27,6 +27,9 @@ export default function ProvCalendarScreen({ navigation }) {
           temp.push(eventDetails);
           setListData(temp);
         });
+        if(selectedDay == getDisplayDate(getToday())){
+          daySelected(getToday(), temp);
+        }
       });
   }, [navigation]);
 
@@ -41,15 +44,15 @@ export default function ProvCalendarScreen({ navigation }) {
     );
   };
 
-  const daySelected = (dateString) => {
-    let temp = listData;
+  const daySelected = (dateString, list) => {
+    let temp = list;
     temp = temp.filter(function(item){
       return item.date == dateString;
     }).map(function({description, subject, id}){
       return {description, subject, id}
     });
-    setSelectedDay(getDisplayDate(dateString))
     setDayData(temp);
+    setSelectedDay(getDisplayDate(dateString))
   }
 
   const onAddPress = () => {
@@ -80,15 +83,17 @@ export default function ProvCalendarScreen({ navigation }) {
           //markedDates={markedDate}
           minDate='2022-01-01'
           onDayPress={day => {
-              daySelected(day.dateString);
+              daySelected(day.dateString, listData);
           }}
           >
         </Calendar>
       </View>
-      <TouchableOpacity style={styles.TOContainer} onPress={onAddPress}>
-        <MaterialCommunityIcons name="plus" style={{fontSize: 25,color: 'white', fontWeight: 'bold', textAlign: 'center'}}/>
-        <Text style={{fontSize: 20, color: 'white', fontWeight: 'bold', textAlign: 'center'}}>Add Event</Text>
-      </TouchableOpacity>
+      <View style={styles.addEventView}>
+        <TouchableOpacity style={styles.addEventButton} onPress={onAddPress}>
+          <MaterialCommunityIcons name="plus" style={{fontSize: 25,color: 'white', fontWeight: 'bold', textAlign: 'center'}}/>
+          <Text style={{fontSize: 20, color: 'white', fontWeight: 'bold', textAlign: 'center'}}>Add Event</Text>
+        </TouchableOpacity>
+      </View>
       <FlatList
           data={dayData}
           ItemSeparatorComponent={itemSeperatorView}
@@ -128,18 +133,21 @@ export default function ProvCalendarScreen({ navigation }) {
 }
 
 function getToday() {
-  let tts = new Date();
-  let day = tts.getDate().toString();
-  let monthNum = tts.getMonth()+1;
-  let month = monthNum.toString();
-  let year = tts.getFullYear().toString();
-  if(day.length == 1){
-    day = '0'+day;
+  var temp = new Date();
+  var monthNum = temp.getMonth()+1;
+  var ret = "";
+  if (monthNum < 10){
+    ret = temp.getFullYear() + '-' + '0'+ monthNum + '-';
+  } else {
+    ret = temp.getFullYear() + '-' + monthNum + '-';
   }
-  if(month.length == 1){
-    month = '0'+month;
+  if (temp.getDate() < 10){
+    ret = ret + '0' + temp.getDate()
+    return ret;
+  } else {
+    ret = ret + temp.getDate();
+    return ret;
   }
-  return year+'-'+month+'-'+day;
 }
 
 function getDisplayDate(dayT){
