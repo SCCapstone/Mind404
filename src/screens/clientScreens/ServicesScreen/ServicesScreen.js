@@ -251,7 +251,6 @@ export default function ServicesScreen({ navigation }) {
       const temp = completeList;
       const ratingFiltered = [];
       provRatings.forEach(provider => {
-        console.log(provider[1])
         temp.forEach(service => {
           if(provider[0] == service.providerId){
             if(provider[1] >= rate){
