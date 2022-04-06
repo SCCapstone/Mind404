@@ -56,12 +56,12 @@ export default function ServiceDetailsScreen({ route, navigation }) {
     }
   };
   const checkForName = (companyName) => {
-    if(companyName){
+    if (companyName) {
       return companyName;
     } else {
       return;
     }
-  }
+  };
   const onAddPress = () => {
     docRef
       .doc(item.id)
@@ -176,7 +176,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
               )}
               {providerData.reviews &&
                 providerData.reviews.length > 0 &&
-                providerData.reviews.map((item) => {
+                providerData.reviews.map((item, index) => {
                   return (
                     <View
                       style={{
@@ -187,6 +187,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
                         borderRadius: 5,
                         marginBottom: 10,
                       }}
+                      key={index}
                     >
                       <Text>{`${item.firstName} ${item.lastName}`}</Text>
                       <Text>{item.description}</Text>

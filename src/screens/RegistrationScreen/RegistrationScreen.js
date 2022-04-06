@@ -9,7 +9,14 @@ import {
   TouchableHighlight,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Menu, MenuProvider, MenuOptions, MenuOption, MenuTrigger, renderers} from "react-native-popup-menu";
+import {
+  Menu,
+  MenuProvider,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+  renderers,
+} from "react-native-popup-menu";
 import styles from "./../../../components/styles";
 import { firebase } from "./../../firebase/config";
 import SelectDropdown from "react-native-select-dropdown";
@@ -22,15 +29,15 @@ export default function RegistrationScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [typeOfUser, setTypeOfUser] = useState("Not Selected");
   const [confirmPassword, setConfirmPassword] = useState("");
-  
-  const types = ["Client", "Provider"]
+
+  const types = ["Client", "Provider"];
 
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
   };
 
   const onRegisterPress = () => {
-    if (typeOfUser == "Not Selected"){
+    if (typeOfUser == "Not Selected") {
       alert("Account type not selected.");
       return;
     }
@@ -88,6 +95,7 @@ export default function RegistrationScreen({ navigation }) {
           lastName,
           dob,
           typeOfUser,
+          reviews: [],
         };
         const usersRef = firebase.firestore().collection("users");
         usersRef
@@ -180,19 +188,26 @@ export default function RegistrationScreen({ navigation }) {
           autoCapitalize="none"
         />
         <SelectDropdown
-            data = {types}
-            onSelect={(selectedItem, index) => {
-              setTypeOfUser(selectedItem)
-            }}
-            buttonTextAfterSelection={(selectedItem, index) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              return item
-            }}
-            buttonStyle={{backgroundColor: "#FFAC1C", borderRadius: 2, height: 40, marginEnd: 100, marginTop: 10, marginBottom: 20}}
-            buttonTextStyle={{fontSize: 15}}
-            defaultButtonText="Select Account Type"
+          data={types}
+          onSelect={(selectedItem, index) => {
+            setTypeOfUser(selectedItem);
+          }}
+          buttonTextAfterSelection={(selectedItem, index) => {
+            return selectedItem;
+          }}
+          rowTextForSelection={(item, index) => {
+            return item;
+          }}
+          buttonStyle={{
+            backgroundColor: "#FFAC1C",
+            borderRadius: 2,
+            height: 40,
+            marginEnd: 100,
+            marginTop: 10,
+            marginBottom: 20,
+          }}
+          buttonTextStyle={{ fontSize: 15 }}
+          defaultButtonText="Select Account Type"
         />
         <TouchableOpacity
           style={styles.button}
