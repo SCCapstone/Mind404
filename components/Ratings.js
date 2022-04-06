@@ -5,12 +5,13 @@ import { firebase } from "../src/firebase/config";
 
 const Ratings = ({ reviews, size = 30 }) => {
   let rating = 0;
-  if (reviews == null || reviews.length == 0)
+  if (reviews == null || reviews.length == 0) {
     return (
       <View>
         <Text>No Reviews</Text>
       </View>
     );
+  }
   reviews.forEach((element) => {
     rating = Number(element.rating) + rating;
   });

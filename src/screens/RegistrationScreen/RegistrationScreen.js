@@ -9,14 +9,6 @@ import {
   TouchableHighlight,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import {
-  Menu,
-  MenuProvider,
-  MenuOptions,
-  MenuOption,
-  MenuTrigger,
-  renderers,
-} from "react-native-popup-menu";
 import styles from "./../../../components/styles";
 import { firebase } from "./../../firebase/config";
 import SelectDropdown from "react-native-select-dropdown";
@@ -88,29 +80,46 @@ export default function RegistrationScreen({ navigation }) {
       .createUserWithEmailAndPassword(email, password)
       .then((response) => {
         const uid = response.user.uid;
-        const data = {
-          id: uid,
-          email,
-          firstName,
-          lastName,
-          dob,
-          typeOfUser,
-          reviews: [],
-        };
-        const usersRef = firebase.firestore().collection("users");
-        usersRef
-          .doc(uid)
-          .set(data)
-          .then(() => {
-            if (typeOfUser == "Client") {
-              navigation.navigate("Client Home", { user: data });
-            } else {
+        if(typeOfUser == 'Provider'){
+          const data = {
+            id: uid,
+            email,
+            firstName,
+            lastName,
+            dob,
+            typeOfUser,
+            reviews: [],
+          };
+          const usersRef = firebase.firestore().collection("users");
+          usersRef
+            .doc(uid)
+            .set(data)
+            .then(() => {
               navigation.navigate("Prov Home", { user: data });
-            }
-          })
-          .catch((error) => {
-            alert(error);
-          });
+            })
+            .catch((error) => {
+              alert(error);
+            });
+        } else {
+          const data = {
+            id: uid,
+            email,
+            firstName,
+            lastName,
+            dob,
+            typeOfUser,
+          };
+          const usersRef = firebase.firestore().collection("users");
+          usersRef
+            .doc(uid)
+            .set(data)
+            .then(() => {
+              navigation.navigate("Client Home", { user: data });
+            })
+            .catch((error) => {
+              alert(error);
+            });
+        }
       })
       .catch((error) => {
         alert(error);
