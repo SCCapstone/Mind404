@@ -7,11 +7,9 @@ import {
   TouchableOpacity,
   RefreshControl,
   TextInput,
-  TouchableHighlight
 } from "react-native";
 import styles from "./../../../../components/styles";
 import { firebase } from "../../../firebase/config";
-import { NavigationContainer } from "@react-navigation/native";
 import ServiceListing from "../../../../components/ServiceListing";
 import SelectDropdown from "react-native-select-dropdown";
 import {
@@ -21,8 +19,6 @@ import {
 } from "accordion-collapse-react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import CheckBox from "expo-checkbox";
-import { set } from "react-native-reanimated";
-import NumericInput from "react-native-numeric-input";
 import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons"
 
 export default function ServicesScreen({ navigation }) {
@@ -459,6 +455,7 @@ export default function ServicesScreen({ navigation }) {
                   value={companyName}
                   underlineColorAndroid="transparent"
                   autoCapitalize="none"
+                  maxLength={40}
                 />
               </View>
 
@@ -475,6 +472,7 @@ export default function ServicesScreen({ navigation }) {
                   value={city}
                   underlineColorAndroid="transparent"
                   autoCapitalize="none"
+                  maxLength={40}
                 />
                 <SelectDropdown
                   data={allStates}

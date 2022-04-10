@@ -4,14 +4,12 @@ import {
   View,
   ImageBackground,
   Image,
-  TouchableOpacity,
   TextInput,
   Alert,
 } from "react-native";
 import styles from "./../../../../components/styles";
 import Button from "./../../../../components/Button";
 import useUser from "../../../../useUser";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { firebase } from "./../../../firebase/config";
 import * as ImagePicker from "expo-image-picker";
 import * as Progress from "react-native-progress";
@@ -45,8 +43,6 @@ export default function ProvProfileScreen({ navigation }) {
       aspect: [4, 3],
       quality: 1,
     });
-
-    console.log(result);
 
     if (!result.cancelled) {
       setImage(result);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -7,12 +7,9 @@ import {
   TouchableOpacity,
   RefreshControl
 } from "react-native";
-import Button from "./../../../../components/Button";
 import styles from "./../../../../components/styles";
 import { firebase } from "../../../firebase/config";
-import { NavigationContainer } from "@react-navigation/native";
 import ServiceListing from "../../../../components/ServiceListing";
-import { TextInput } from "react-native-gesture-handler";
 import useUser from "../../../../useUser";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 

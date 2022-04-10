@@ -1,19 +1,12 @@
-import { StatusBar } from "expo-status-bar";
 import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import {
-  StyleSheet,
   Text,
   View,
-  Image,
   Alert,
-  SafeAreaView,
-  TextInput,
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
 import styles from "../../../../components/styles";
-import Button from "../../../../components/Button";
 import { firebase } from "../../../firebase/config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 

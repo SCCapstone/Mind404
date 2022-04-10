@@ -1,8 +1,5 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useContext, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import {
-  StyleSheet,
   Text,
   View,
   ImageBackground,
@@ -11,7 +8,6 @@ import {
   TouchableOpacity
 } from "react-native";
 import styles from "./../../../../components/styles";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { firebase } from "../../../firebase/config";
 import useUser from "../../../../useUser";
 import DateTimePicker from '@react-native-community/datetimepicker'
@@ -81,6 +77,7 @@ export default function AddEvent({ navigation }) {
                     value={subject}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
+                    maxLength={40}
                 />
                 <TextInput
                     style={styles.multilineInput}
@@ -91,6 +88,7 @@ export default function AddEvent({ navigation }) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                     multiline
+                    maxLength={325}
                 />
                 <View style={{flex: 1, padding: 30, alignContent: 'center'}}>
                     <Text style={styles.selectedDateOption}>{getDisplayDate(getDate(dateAct))}</Text>

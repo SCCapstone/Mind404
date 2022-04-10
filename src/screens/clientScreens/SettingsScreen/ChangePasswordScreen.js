@@ -1,9 +1,6 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { StyleSheet, Text, View, Image, Alert, SafeAreaView, TextInput, ImageBackground, TouchableOpacity} from "react-native";
+import { Text, Alert, TextInput, ImageBackground, TouchableOpacity} from "react-native";
 import styles from "./../../../../components/styles";
-import Button from "../../../../components/Button.js";
 import { firebase } from "../../../firebase/config";
 
 export default function ChangePasswordScreen({navigation}) {
@@ -45,6 +42,7 @@ export default function ChangePasswordScreen({navigation}) {
           value={oldPassword}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          maxLength={20}
         />
         <TextInput
           style={styles.input}
@@ -55,6 +53,7 @@ export default function ChangePasswordScreen({navigation}) {
           value={newPassword}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          maxLength={20}
         />
         <TouchableOpacity style={styles.changePasswordButton} onPress={onChangePasswordPress}>
             <Text style={styles.buttonTitle}>Change Password</Text>

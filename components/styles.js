@@ -185,7 +185,7 @@ export default StyleSheet.create({
     marginBottom: 10,
     marginLeft: 30,
     marginRight: 30,
-    paddingLeft: 16,
+    padding: 16,
     borderColor: "#d3d3d3",
     borderWidth: 1,
   },
@@ -553,5 +553,16 @@ export default StyleSheet.create({
     elevation: 3,
     padding: 5,
     margin: 2
+  },
+  reviewDescription: {
+    height: 200,
+    borderRadius: 5,
+    overflow: "hidden",
+    backgroundColor: "white",
+    width: '100%',
+    marginBottom: 20,
+    padding: 16,
+    borderColor: "#d3d3d3",
+    borderWidth: 1,
   },
 });

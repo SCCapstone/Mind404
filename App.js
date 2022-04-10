@@ -1,12 +1,10 @@
 import { LogBox } from "react-native";
 import "react-native-gesture-handler";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
   LoginScreen,
-  HomeScreen,
-  ServicesScreen,
   RegistrationScreen,
   SettingsScreen,
   ChangePasswordScreen,
@@ -14,15 +12,11 @@ import {
   ServicesPostScreen,
   ServiceDetailsScreen,
   ProviderReview,
-  ProvHomeScreen,
-  ProvServicesScreen,
   PSettingsScreen,
   PChangeEmailScreen,
   PChangePasswordScreen,
   ProvProfileEditScreen,
   AddEvent,
-  FavServicesScreen,
-  AddFavServices,
 } from "./src/screens";
 
 import { decode, encode } from "base-64";

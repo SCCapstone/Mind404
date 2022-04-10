@@ -12,7 +12,6 @@ import Button from "./../../../../components/Button";
 import styles from "./../../../../components/styles";
 import { firebase } from "./../../../firebase/config";
 import useUser from "../../../../useUser";
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function ProvServicesScreen({ navigation }) {
   const [listData, setListData] = React.useState([]);

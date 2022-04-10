@@ -5,14 +5,11 @@ import {
   ImageBackground,
   TextInput,
   TouchableOpacity,
-  ScrollView
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./../../../../components/styles";
 import { firebase } from "./../../../firebase/config";
 import useUser from "../../../../useUser";
-import { acc } from "react-native-reanimated";
-import NumericInput from 'react-native-numeric-input';
 import SelectDropdown from "react-native-select-dropdown";
 
 export default function ServicesPostScreen({ navigation }) {
@@ -173,6 +170,7 @@ export default function ServicesPostScreen({ navigation }) {
           value={location}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          maxLength={40}
         />
         <TextInput
           style={styles.input}
@@ -182,6 +180,7 @@ export default function ServicesPostScreen({ navigation }) {
           value={CompanyName}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          maxLength={40}
         />
         <TextInput
           style={styles.multilineInput}
@@ -192,6 +191,7 @@ export default function ServicesPostScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
           multiline
+          maxLength={325}
         />
         <TextInput
           style={styles.input}
@@ -201,6 +201,7 @@ export default function ServicesPostScreen({ navigation }) {
           value={contact}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          maxLength={12}
         />
         <TextInput
           style={styles.input}
@@ -210,6 +211,7 @@ export default function ServicesPostScreen({ navigation }) {
           value={email}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          maxLength={45}
         />
         <Text style={styles.explanation}>
            Please set timeframe, to the nearest hour, of telephone availability:

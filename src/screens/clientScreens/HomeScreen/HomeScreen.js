@@ -1,18 +1,11 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useContext, useState, useEffect } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import React, { useState, useEffect } from "react";
 import {
-  StyleSheet,
   Text,
   View,
-  Image,
-  SafeAreaView,
-  TextInput,
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
 import styles from "./../../../../components/styles";
-import Button from "./../../../../components/Button.js";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { firebase } from "../../../firebase/config";
 import useUser from "../../../../useUser";

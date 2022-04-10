@@ -3,7 +3,6 @@ import {
   Text,
   View,
   ImageBackground,
-  Button,
   TouchableOpacity,
   Pressable,
   Alert,
@@ -18,7 +17,6 @@ import Ratings from "../../../../components/Ratings";
 
 export default function ServiceDetailsScreen({ route, navigation }) {
   const [providerData, setProviderData] = useState(Object);
-  const [reviews, setReviews] = useState(Array);
   const { item, shouldRefresh } = route.params;
 
   const { user } = useUser();

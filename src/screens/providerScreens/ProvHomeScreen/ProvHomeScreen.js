@@ -1,5 +1,4 @@
-import React, { useContext, useState, useEffect} from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import React, { useState, useEffect} from "react";
 import {
   Text,
   View,
@@ -14,7 +13,6 @@ import useUser from "../../../../useUser";
 
 export default function ProvHomeScreen({ navigation }) {
   const [currentDate, setCurrentDate] = useState('');
-  const [eventDate, setEventDate] = useState(getDateString());
   const [listData, setListData] = React.useState([]);
   const { user } = useUser();
   const [dayData, setDayData] = useState([]);

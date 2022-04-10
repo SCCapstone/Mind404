@@ -1,9 +1,6 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { StyleSheet, Text, View, Image, Alert, SafeAreaView, TextInput, ImageBackground, TouchableOpacity} from "react-native";
+import {Text, Alert, TextInput, ImageBackground, TouchableOpacity} from "react-native";
 import styles from "../../../../components/styles";
-import Button from "../../../../components/Button.js";
 import { firebase } from "../../../firebase/config";
 
 export default function PChangeEmailScreen({navigation}) {
@@ -45,6 +42,7 @@ export default function PChangeEmailScreen({navigation}) {
           value={newEmail}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          maxLength={45}
         />
         <TextInput
           style={styles.input}
@@ -55,6 +53,7 @@ export default function PChangeEmailScreen({navigation}) {
           value={password}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          maxLength={45}
         />
         <TouchableOpacity style={styles.changePasswordButton} onPress={onChangeEmailPress}>
             <Text style={styles.buttonTitle}>Change Email</Text>

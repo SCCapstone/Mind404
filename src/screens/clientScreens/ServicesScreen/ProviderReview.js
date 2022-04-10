@@ -1,23 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
-  Text,
   View,
   TextInput,
-  ImageBackground,
   Button,
-  Linking,
-  ScrollView,
 } from "react-native";
 import styles from "./../../../../components/styles";
 import { firebase } from "../../../firebase/config";
 import useUser from "../../../../useUser";
-import Ratings from "../../../../components/Ratings";
-import { getDatabase, ref, set } from "firebase/database";
 import RNPickerSelect from "react-native-picker-select";
 
 const ProviderReview = ({ route, navigation }) => {
-  const [description, setDescription] = useState();
-  const [rating, setRating] = useState();
+  const [description, setDescription] = useState('');
+  const [rating, setRating] = useState(0);
   const { providerData, item } = route.params;
   const { user } = useUser();
 
@@ -33,6 +27,14 @@ const ProviderReview = ({ route, navigation }) => {
   }
 
   const addReview = async () => {
+    if(rating == 0){
+      alert("Please enter a rating")
+      return;
+    }
+    if(description=='') {
+      alert("Please enter a description")
+      return;
+    }
     try {
       const usersRef = firebase.firestore().collection("users");
       await usersRef.doc(providerData.id).update({
@@ -61,13 +63,6 @@ const ProviderReview = ({ route, navigation }) => {
   
   return (
     <View style={{ padding: 30 }}>
-      <View style={{ borderBottomWidth: 1, borderStyle: "solid" }}>
-        <TextInput
-          placeholder="Description"
-          value={description}
-          onChangeText={setDescription}
-        />
-      </View>
       <View
         style={{
           marginVertical: 30,
@@ -76,12 +71,12 @@ const ProviderReview = ({ route, navigation }) => {
         }}
       >
         <RNPickerSelect
-          placeholder={{ label: "select the rating", value: null }}
+          placeholder={{ label: "Select Rating", value: null }}
           onValueChange={setRating}
           value={rating}
           style={{
             inputAndroid: {
-              color: rating < 4 ? "red" : "black",
+              color: rating < 4 ? "red" : "green",
             },
           }}
           items={[
@@ -97,7 +92,17 @@ const ProviderReview = ({ route, navigation }) => {
           ]}
         />
       </View>
-      <Button title="Post Review" onPress={addReview} />
+      <View style={{ borderBottomWidth: 1, borderStyle: "solid" }}>
+        <TextInput
+          placeholder="Description"
+          style={styles.reviewDescription}
+          value={description}
+          onChangeText={setDescription}
+          maxLength={325}
+          multiline
+        />
+      </View>
+      <Button title="Post Review" onPress={addReview}/>
     </View>
   );
 };

@@ -12,6 +12,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import styles from "./../../../components/styles";
 import { firebase } from "./../../firebase/config";
 import SelectDropdown from "react-native-select-dropdown";
+import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons"
 
 export default function RegistrationScreen({ navigation }) {
   const [firstName, setFirstName] = useState("");
@@ -148,6 +149,7 @@ export default function RegistrationScreen({ navigation }) {
           value={firstName}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
+          maxLength={20}
         />
         <TextInput
           style={styles.input}
@@ -157,44 +159,7 @@ export default function RegistrationScreen({ navigation }) {
           value={lastName}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="E-mail"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Date of Birth (mm/dd/yyyy)"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setDOB(text)}
-          value={dob}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#aaaaaa"
-          secureTextEntry
-          placeholder="Password"
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#aaaaaa"
-          secureTextEntry
-          placeholder="Confirm Password"
-          onChangeText={(text) => setConfirmPassword(text)}
-          value={confirmPassword}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
+          maxLength={20}
         />
         <SelectDropdown
           data={types}
@@ -212,11 +177,56 @@ export default function RegistrationScreen({ navigation }) {
             borderRadius: 2,
             height: 40,
             marginEnd: 100,
-            marginTop: 10,
             marginBottom: 20,
+            marginTop: 15
           }}
           buttonTextStyle={{ fontSize: 15 }}
           defaultButtonText="Select Account Type"
+          dropdownIconPosition="right"
+          renderDropdownIcon={() => ( <MaterialCommunityIcon name="chevron-down" color="#000" size={30} />)}
+          
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="E-mail"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setEmail(text)}
+          value={email}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+          maxLength={45}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Date of Birth (mm/dd/yyyy)"
+          placeholderTextColor="#aaaaaa"
+          onChangeText={(text) => setDOB(text)}
+          value={dob}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+          maxLength={10}
+        />
+        <TextInput
+          style={styles.input}
+          placeholderTextColor="#aaaaaa"
+          secureTextEntry
+          placeholder="Password"
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+          maxLength={20}
+        />
+        <TextInput
+          style={styles.input}
+          placeholderTextColor="#aaaaaa"
+          secureTextEntry
+          placeholder="Confirm Password"
+          onChangeText={(text) => setConfirmPassword(text)}
+          value={confirmPassword}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+          maxLength={20}
         />
         <TouchableOpacity
           style={styles.button}

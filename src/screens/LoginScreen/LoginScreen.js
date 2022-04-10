@@ -24,7 +24,6 @@ export default function LoginScreen({ navigation }) {
   useEffect(() => {
     async function checkuser() {
       const value = await AsyncStorage.getItem("loggedInUser");
-      console.log(value);
       if (value) {
         const user = JSON.parse(value);
         let type = user.typeOfUser;
@@ -98,6 +97,7 @@ export default function LoginScreen({ navigation }) {
             value={email}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
+            maxLength={45}
           />
           <TextInput
             style={styles.input}
@@ -108,6 +108,7 @@ export default function LoginScreen({ navigation }) {
             value={password}
             underlineColorAndroid="transparent"
             autoCapitalize="none"
+            maxLength={20}
           />
           <TouchableOpacity
             style={styles.button}

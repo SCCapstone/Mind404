@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {Alert, StyleSheet, Text, View, TouchableOpacity, ImageBackground, FlatList} from 'react-native';
+import {Text, View, TouchableOpacity, ImageBackground, FlatList} from 'react-native';
 import styles from "../../../../components/styles";
-import { Agenda, Calendar } from "react-native-calendars";
+import { Calendar } from "react-native-calendars";
 import { firebase } from "./../../../firebase/config";
 import useUser from "../../../../useUser";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -60,7 +60,6 @@ export default function ProvCalendarScreen({ navigation }) {
   }
 
   const deleteEvent = (id) => {
-    console.log(id);
     docRef.doc(id).delete();
     setDayData( dayData => {
       return dayData.filter(item => item.id != id);
