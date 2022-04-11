@@ -37,6 +37,17 @@ export default StyleSheet.create({
     borderColor: "#d3d3d3",
     borderWidth: 1,
   },
+  regInput: {
+    height: 50,
+    borderRadius: 5,
+    overflow: "hidden",
+    backgroundColor: "white",
+    width: "90%",
+    marginBottom: 18,
+    padding: 16,
+    borderColor: "#d3d3d3",
+    borderWidth: 1
+  },
   searchInput: {
     height: 48,
     borderRadius: 5,

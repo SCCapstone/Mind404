@@ -10,8 +10,8 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./../../../components/styles";
 import { firebase } from "./../../firebase/config";
-import SelectDropdown from "react-native-select-dropdown";
 import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons"
+import RNPickerSelect from "react-native-picker-select";
 
 export default function RegistrationScreen({ navigation }) {
   const [firstName, setFirstName] = useState("");
@@ -19,7 +19,7 @@ export default function RegistrationScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [dob, setDOB] = useState("");
   const [password, setPassword] = useState("");
-  const [typeOfUser, setTypeOfUser] = useState("Not Selected");
+  const [typeOfUser, setTypeOfUser] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const types = ["Client", "Provider"];
@@ -29,7 +29,7 @@ export default function RegistrationScreen({ navigation }) {
   };
 
   const onRegisterPress = () => {
-    if (typeOfUser == "Not Selected") {
+    if (typeOfUser == null) {
       alert("Account type not selected.");
       return;
     }
@@ -140,94 +140,105 @@ export default function RegistrationScreen({ navigation }) {
           style={styles.logo}
           source={require("../../../assets/grubber.png")}
         />
-        <TextInput
-          style={styles.input}
-          placeholder="First Name"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setFirstName(text)}
-          value={firstName}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          maxLength={20}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Last Name"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setLastName(text)}
-          value={lastName}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          maxLength={20}
-        />
-        <SelectDropdown
-          data={types}
-          onSelect={(selectedItem, index) => {
-            setTypeOfUser(selectedItem);
-          }}
-          buttonTextAfterSelection={(selectedItem, index) => {
-            return selectedItem;
-          }}
-          rowTextForSelection={(item, index) => {
-            return item;
-          }}
-          buttonStyle={{
-            backgroundColor: "#FFAC1C",
-            borderRadius: 2,
-            height: 40,
-            marginEnd: 100,
-            marginBottom: 20,
-            marginTop: 15
-          }}
-          buttonTextStyle={{ fontSize: 15 }}
-          defaultButtonText="Select Account Type"
-          dropdownIconPosition="right"
-          renderDropdownIcon={isOpened => {
-            return <MaterialCommunityIcon name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
-          }}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="E-mail"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          maxLength={45}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Date of Birth (mm/dd/yyyy)"
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setDOB(text)}
-          value={dob}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          maxLength={10}
-        />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#aaaaaa"
-          secureTextEntry
-          placeholder="Password"
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          maxLength={20}
-        />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#aaaaaa"
-          secureTextEntry
-          placeholder="Confirm Password"
-          onChangeText={(text) => setConfirmPassword(text)}
-          value={confirmPassword}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          maxLength={20}
-        />
+        <View style={{ alignContent: 'center', justifyContent: 'center', alignItems: 'center'}}>
+          <TextInput
+            style={styles.regInput}
+            placeholder="First Name"
+            placeholderTextColor="#aaaaaa"
+            onChangeText={(text) => setFirstName(text)}
+            value={firstName}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            maxLength={20}
+          />
+          <TextInput
+            style={styles.regInput}
+            placeholder="Last Name"
+            placeholderTextColor="#aaaaaa"
+            onChangeText={(text) => setLastName(text)}
+            value={lastName}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            maxLength={20}
+          />
+          <RNPickerSelect
+              onValueChange={(value) => setTypeOfUser(value)}
+              items={[
+                  { label: 'Client', value: 'Client' },
+                  { label: 'Provider', value: 'Provider' },
+              ]}
+              placeholder={{ label: "Select Account Type", value: null, color: '#9EA0A4' }}
+              value={typeOfUser}
+              useNativeAndroidPickerStyle={false}
+              style={{
+                inputAndroid: {
+                  fontSize: 16,
+                  height: 48,
+                  padding: 15,
+                  borderWidth: 1,
+                  borderColor: '#d3d3d3',
+                  borderRadius: 5,
+                  color: 'black',
+                  backgroundColor: '#FFAC1C',
+                  marginTop: 10,
+                  marginBottom: 18,
+                  width: 225,
+                },
+                iconContainer: {
+                  top: 18,
+                  right: 10,
+                },
+                placeholder: {
+                  color: 'black'
+                }
+              }}
+              Icon={() => {
+                return <MaterialCommunityIcon name="chevron-down" color="#000" size={30} />;
+              }}
+          />
+          <TextInput
+            style={styles.regInput}
+            placeholder="E-mail"
+            placeholderTextColor="#aaaaaa"
+            onChangeText={(text) => setEmail(text)}
+            value={email}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            maxLength={45}
+          />
+          <TextInput
+            style={styles.regInput}
+            placeholder="Date of Birth (mm/dd/yyyy)"
+            placeholderTextColor="#aaaaaa"
+            onChangeText={(text) => setDOB(text)}
+            value={dob}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            maxLength={10}
+          />
+          <TextInput
+            style={styles.regInput}
+            placeholderTextColor="#aaaaaa"
+            secureTextEntry
+            placeholder="Password"
+            onChangeText={(text) => setPassword(text)}
+            value={password}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            maxLength={20}
+          />
+          <TextInput
+            style={styles.regInput}
+            placeholderTextColor="#aaaaaa"
+            secureTextEntry
+            placeholder="Confirm Password"
+            onChangeText={(text) => setConfirmPassword(text)}
+            value={confirmPassword}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            maxLength={20}
+          />
+        </View>
         <TouchableOpacity
           style={styles.button}
           onPress={() => onRegisterPress()}
