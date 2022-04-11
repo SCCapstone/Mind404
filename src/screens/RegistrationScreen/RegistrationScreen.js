@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   View,
   ImageBackground,
-  TouchableHighlight,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./../../../components/styles";
@@ -134,8 +133,8 @@ export default function RegistrationScreen({ navigation }) {
       style={styles.backgroundImage}
     >
       <KeyboardAwareScrollView
-        style={{ flex: 1, width: "100%" }}
-        keyboardShouldPersistTaps="always"
+        style={{ flex: 1, width: "100%"}}
+        keyboardShouldPersistTaps="handled"
       >
         <Image
           style={styles.logo}
@@ -183,8 +182,9 @@ export default function RegistrationScreen({ navigation }) {
           buttonTextStyle={{ fontSize: 15 }}
           defaultButtonText="Select Account Type"
           dropdownIconPosition="right"
-          renderDropdownIcon={() => ( <MaterialCommunityIcon name="chevron-down" color="#000" size={30} />)}
-          
+          renderDropdownIcon={isOpened => {
+            return <MaterialCommunityIcon name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+          }}
         />
         <TextInput
           style={styles.input}

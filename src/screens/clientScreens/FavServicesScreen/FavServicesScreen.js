@@ -37,9 +37,9 @@ export default function ServicesScreen({ navigation }) {
           serviceDetails["id"] = documentSnapshot.id;
           temp.push(serviceDetails);
           setListData(temp);
-          setRefreshing(false);
         });
       });
+      setRefreshing(false);
   }
 
   const itemSeperatorView = () => {

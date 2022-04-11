@@ -38,13 +38,14 @@ export default function BottomTabs() {
         }}
       />
       <Tab.Screen
-        name="Services"
+        name="ServicesStack"
         component={ServicesStackScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="flower" color={color} size={size} />
           ),
           headerShown: false,
+          title: "Services"
         }}
       />
       

@@ -8,6 +8,7 @@ import styles from "./../../../../components/styles";
 import { firebase } from "../../../firebase/config";
 import useUser from "../../../../useUser";
 import RNPickerSelect from "react-native-picker-select";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const ProviderReview = ({ route, navigation }) => {
   const [description, setDescription] = useState('');
@@ -62,7 +63,10 @@ const ProviderReview = ({ route, navigation }) => {
   };
   
   return (
-    <View style={{ padding: 30 }}>
+    <KeyboardAwareScrollView
+        style={{ flex: 1, width: "100%", padding: 25 }}
+        keyboardShouldPersistTaps="handled"
+    >
       <View
         style={{
           marginVertical: 30,
@@ -103,7 +107,7 @@ const ProviderReview = ({ route, navigation }) => {
         />
       </View>
       <Button title="Post Review" onPress={addReview}/>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 export default ProviderReview;

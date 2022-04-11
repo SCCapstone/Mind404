@@ -13,6 +13,7 @@ import useUser from "../../../../useUser";
 import { firebase } from "./../../../firebase/config";
 import * as ImagePicker from "expo-image-picker";
 import * as Progress from "react-native-progress";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function ProvProfileScreen({ navigation }) {
   const [image, setImage] = useState(null);
@@ -87,47 +88,54 @@ export default function ProvProfileScreen({ navigation }) {
       resizeMode="cover"
       style={styles.backgroundImage}
     >
-      <View style={styles.layout}>
-        <View style={styles.profileDescriptionWrapper}>
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <Button style={styles.imageButton} onPress={selectImage}>
-              Select Image
-            </Button>
-          </View>
-          <View style={styles.imageContainer}>
-            {image !== null ? (
-              <Image source={{ uri: image.uri }} style={styles.imageBox} />
-            ) : null}
-            {uploading ? (
-              <View style={styles.progressBarContainer}>
-                <Progress.Bar progress={transferred} width={300} />
-              </View>
-            ) : null}
-            {image ? (
-              <Button style={styles.imageButton} onPress={uploadImage}>
-                Upload image
+      <KeyboardAwareScrollView
+        style={{ flex: 1, width: "100%" }}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={styles.layout}>
+          <View style={styles.profileDescriptionWrapper}>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Button style={styles.imageButton} onPress={selectImage}>
+                Select Image
               </Button>
-            ) : null}
-          </View>
+            </View>
+            <View style={styles.imageContainer}>
+              {image !== null ? (
+                <Image source={{ uri: image.uri }} style={styles.imageBox} />
+              ) : null}
+              {uploading ? (
+                <View style={styles.progressBarContainer}>
+                  <Progress.Bar progress={transferred} width={300} />
+                </View>
+              ) : null}
+              {image ? (
+                <Button style={styles.imageButton} onPress={uploadImage}>
+                  Upload image
+                </Button>
+              ) : null}
+            </View>
 
-          <View>
-            <Text style={styles.titleText}>Services Provided</Text>
+            <View>
+              <Text style={styles.titleText}>Services Provided</Text>
+            </View>
+            <TextInput
+              style={styles.multilineInput}
+              placeholder="Description of services"
+              placeholderTextColor="#aaaaaa"
+              onChangeText={setDecription}
+              value={description}
+              underlineColorAndroid="transparent"
+              autoCapitalize="none"
+              multiline
+              numberOfLines={1}
+              maxLength={325}
+            />
           </View>
-          <TextInput
-            style={styles.multilineInput}
-            placeholder="Description of services"
-            placeholderTextColor="#aaaaaa"
-            onChangeText={setDecription}
-            value={description}
-            underlineColorAndroid="transparent"
-            autoCapitalize="none"
-            multiline
-          ></TextInput>
+          <Button style={styles.profileUpdateButton} onPress={onPostPress}>
+            <Text style={styles.buttonTitle}>Update Profile</Text>
+          </Button>
         </View>
-        <Button style={styles.profileUpdateButton} onPress={onPostPress}>
-          <Text style={styles.buttonTitle}>Update Profile</Text>
-        </Button>
-      </View>
+      </KeyboardAwareScrollView>
     </ImageBackground>
   );
 }

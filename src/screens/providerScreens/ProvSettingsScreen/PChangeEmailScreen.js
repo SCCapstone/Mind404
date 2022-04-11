@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {Text, Alert, TextInput, ImageBackground, TouchableOpacity} from "react-native";
 import styles from "../../../../components/styles";
 import { firebase } from "../../../firebase/config";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function PChangeEmailScreen({navigation}) {
   const [newEmail, updateEmail] = useState("");
@@ -33,6 +34,10 @@ export default function PChangeEmailScreen({navigation}) {
       source={require("../../../../assets/GrubberBackground.png")}
       resizeMode="cover"
       style={styles.backgroundImage}>
+      <KeyboardAwareScrollView
+        style={{ flex: 1, width: "100%" }}
+        keyboardShouldPersistTaps="handled"
+      >
         <TextInput
           style={styles.input}
           placeholderTextColor="#aaaaaa"
@@ -58,7 +63,7 @@ export default function PChangeEmailScreen({navigation}) {
         <TouchableOpacity style={styles.changePasswordButton} onPress={onChangeEmailPress}>
             <Text style={styles.buttonTitle}>Change Email</Text>
         </TouchableOpacity>
-        
+      </KeyboardAwareScrollView>  
     </ImageBackground>
   );
 };

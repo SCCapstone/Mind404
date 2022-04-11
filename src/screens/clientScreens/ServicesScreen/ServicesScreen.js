@@ -20,6 +20,7 @@ import {
 import AntDesign from "react-native-vector-icons/AntDesign";
 import CheckBox from "expo-checkbox";
 import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons"
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function ServicesScreen({ navigation }) {
   //displayed List in services
@@ -358,272 +359,280 @@ export default function ServicesScreen({ navigation }) {
       resizeMode="cover"
       style={styles.backgroundImage}
     >
-      <Text
-        style={{
-          color: "#FFAC1C",
-          paddingTop: 30,
-          fontWeight: "bold",
-          textAlign: "center",
-          fontSize: 33,
-          textShadowColor: "black",
-          textShadowRadius: 2,
-        }}
-      >
-        Services
-      </Text>
-      <View style={{ flex: 1 }}>
-        <Collapse>
-          <CollapseHeader>
-            <View
-              style={{
-                height: 40,
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 18,
-                  fontWeight: "bold",
-                  fontStyle: "italic",
-                  marginEnd: 3,
-                  color: "#1C6FFF",
-                }}
-              >
-                Filter
-              </Text>
-              <AntDesign name="down" color="#1C6FFF" size={15} />
-            </View>
-          </CollapseHeader>
-          <CollapseBody>
-            <View style={styles.filterMenuView}>
-              <View style={styles.filterOptionView}>
-                <Text style={styles.filterOptionText}>Service type:</Text>
-                <SelectDropdown
-                  data={services}
-                  onSelect={(selectedItem, index) => {
-                    setPlaceHolder(selectedItem);
-                    setServiceFilter(selectedItem);
-                  }}
-                  buttonTextAfterSelection={(selectedItem, index) => {
-                    return placeHolder;
-                  }}
-                  rowTextForSelection={(item, index) => {
-                    return item;
-                  }}
-                  buttonStyle={{
-                    backgroundColor: "#FFAC1C",
-                    borderRadius: 2,
-                    height: 30,
-                    width: 160,
-                  }}
-                  buttonTextStyle={{ fontWeight: "bold", color: "white" }}
-                  defaultButtonText={placeHolder}
-                />
-              </View>
-              <View style={styles.filterOptionView}>
-                <Text style={styles.filterOptionText}>
-                  Currently Available to Call:
-                </Text>
-                <CheckBox
-                  disable={false}
-                  value={toggleCheckBox}
-                  onValueChange={(newValue) => {
-                    setToggleCheckBox(newValue);
-                    if (newValue) {
-                      setOverallFilter(setAvail(), 2);
-                      setAvailableList(setAvail());
-                    } else {
-                      setOverallFilter(completeList, 2);
-                      setAvailableList(completeList);
-                    }
-                  }}
-                />
-              </View>
-
-              <View style={styles.filterOptionView}>
-                <Text style={styles.filterOptionText}>Company:</Text>
-                <TextInput
-                  style={styles.cityInput}
-                  placeholder="Company Name"
-                  placeholderTextColor="#aaaaaa"
-                  onChangeText={(text) => {
-                    setCompanyName(text);
-                    setCompanyFilter(text);
-                  }}
-                  value={companyName}
-                  underlineColorAndroid="transparent"
-                  autoCapitalize="none"
-                  maxLength={40}
-                />
-              </View>
-
-              <View style={styles.filterOptionView}>
-                <Text style={styles.filterOptionText}>Location:</Text>
-                <TextInput
-                  style={styles.cityInput}
-                  placeholder="City"
-                  placeholderTextColor="#aaaaaa"
-                  onChangeText={(text) => {
-                    setCity(text);
-                    setCityFilter(text);
-                  }}
-                  value={city}
-                  underlineColorAndroid="transparent"
-                  autoCapitalize="none"
-                  maxLength={40}
-                />
-                <SelectDropdown
-                  data={allStates}
-                  onSelect={(selectedItem, index) => {
-                    setState(selectedItem);
-                    setStateFilter(selectedItem);
-                  }}
-                  buttonTextAfterSelection={(selectedItem, index) => {
-                    return state;
-                  }}
-                  rowTextForSelection={(item, index) => {
-                    return item;
-                  }}
-                  buttonStyle={{
-                    backgroundColor: "white",
-                    borderRadius: 4,
-                    height: 48,
-                    width: 80,
-                    borderColor: "#d3d3d3",
-                    borderWidth: 1,
-                  }}
-                  buttonTextStyle={{ fontSize: 14, color: "#aaaaaa" }}
-                  defaultButtonText={state}
-                />
-              </View>
-
-              <View style={styles.filterOptionView}>
-                <Text style={styles.filterOptionText}>Customer Reviews:</Text>
-              </View>
-              <View style={styles.ratingsContainer}>
-                <TouchableOpacity
-                  style={styles.ratingFilterButton}
-                  onPress={() => {
-                    setRating(4)
-                    setRatingFilter(4)
-                  }}
-                >
-                    <MaterialCommunityIcon name="star" color="#000" size={18} />
-                    <MaterialCommunityIcon name="star" color="#000" size={18} />
-                    <MaterialCommunityIcon name="star" color="#000" size={18} />
-                    <MaterialCommunityIcon name="star" color="#000" size={18} />
-                    <Text styles={{fontSize: 12, fontWeight: 'bold'}}>
-                      {' &'} Up
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.ratingFilterButton}
-                  onPress={() => setRatingFilter(3)}
-                >
-                    <MaterialCommunityIcon name="star" color="#000" size={18} />
-                    <MaterialCommunityIcon name="star" color="#000" size={18} />
-                    <MaterialCommunityIcon name="star" color="#000" size={18} />
-                    <Text styles={{fontSize: 12, fontWeight: 'bold'}}>
-                      {' &'} Up
-                    </Text>
-                </TouchableOpacity>
-              
-                <TouchableOpacity
-                  style={styles.ratingFilterButton}
-                  onPress={() => setRatingFilter(2)}
-                >
-                    <MaterialCommunityIcon name="star" color="#000" size={18} />
-                    <MaterialCommunityIcon name="star" color="#000" size={18} />
-                    <Text styles={{fontSize: 12, fontWeight: 'bold'}}>
-                      {' &'} Up
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.ratingFilterButton}
-                  onPress={() => setRatingFilter(1)}
-                >
-                    <MaterialCommunityIcon name="star" color="#000" size={18} />
-                    <Text styles={{fontSize: 12, fontWeight: 'bold'}}>
-                      {' &'} Up
-                    </Text>
-                </TouchableOpacity>
-              </View>
-              <View style={{alignContent: 'center', justifyContent: 'center', alignItems: 'center'}}>
-                <TouchableOpacity
-                  style={styles.ratingFilterButton}
-                  onPress={() => setRatingFilter(0)}
-                >
-                    <Text styles={{fontSize: 12, fontWeight: 'bold'}}>
-                      Any Rating
-                    </Text>
-                </TouchableOpacity>
-              </View>
-              <View
-                style={{
-                  marginTop: 20,
-                  marginBottom: 20,
-                  flexDirection: "row",
-                  justifyContent: "center",
-                }}
-              >
-                <TouchableOpacity
+        <Text
+          style={{
+            color: "#FFAC1C",
+            paddingTop: 30,
+            fontWeight: "bold",
+            textAlign: "center",
+            fontSize: 33,
+            textShadowColor: "black",
+            textShadowRadius: 2,
+          }}
+        >
+          Services
+        </Text>
+        <KeyboardAwareScrollView
+            keyboardShouldPersistTaps="handled"
+        >
+        <View style={{ flex: 1 }}>
+            <Collapse>
+              <CollapseHeader>
+                <View
                   style={{
-                    borderRadius: 6,
-                    backgroundColor: "#FFAC1C",
-                    width: 130,
-                    height: 30,
+                    height: 40,
+                    flexDirection: "row",
                     justifyContent: "center",
+                    alignItems: "center",
                   }}
-                  onPress={() => setOverallFilter([], 0)}
                 >
-                  <View
+                  <Text
                     style={{
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      alignItems: "center",
+                      fontSize: 18,
+                      fontWeight: "bold",
+                      fontStyle: "italic",
+                      marginEnd: 3,
+                      color: "#1C6FFF",
                     }}
                   >
-                    <AntDesign name="close" color="white" size={15} />
-                    <Text
-                      style={{
-                        fontWeight: "bold",
-                        textAlign: "center",
-                        color: "white",
+                    Filter
+                  </Text>
+                  <AntDesign name="down" color="#1C6FFF" size={15} />
+                </View>
+              </CollapseHeader>
+              <CollapseBody>
+                <View style={styles.filterMenuView}>
+                  <View style={styles.filterOptionView}>
+                    <Text style={styles.filterOptionText}>Service type:</Text>
+                    <SelectDropdown
+                      data={services}
+                      onSelect={(selectedItem, index) => {
+                        setPlaceHolder(selectedItem);
+                        setServiceFilter(selectedItem);
+                      }}
+                      buttonTextAfterSelection={(selectedItem, index) => {
+                        return placeHolder;
+                      }}
+                      rowTextForSelection={(item, index) => {
+                        return item;
+                      }}
+                      buttonStyle={{
+                        backgroundColor: "#FFAC1C",
+                        borderRadius: 2,
+                        height: 30,
+                        width: 160,
+                      }}
+                      buttonTextStyle={{ fontWeight: "bold", color: "white" }}
+                      defaultButtonText={placeHolder}
+                      renderDropdownIcon={isOpened => {
+                        return <MaterialCommunityIcon name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+                      }}
+                    />
+                  </View>
+                  <View style={styles.filterOptionView}>
+                    <Text style={styles.filterOptionText}>
+                      Currently Available to Call:
+                    </Text>
+                    <CheckBox
+                      disable={false}
+                      value={toggleCheckBox}
+                      onValueChange={(newValue) => {
+                        setToggleCheckBox(newValue);
+                        if (newValue) {
+                          setOverallFilter(setAvail(), 2);
+                          setAvailableList(setAvail());
+                        } else {
+                          setOverallFilter(completeList, 2);
+                          setAvailableList(completeList);
+                        }
+                      }}
+                    />
+                  </View>
+
+                  <View style={styles.filterOptionView}>
+                    <Text style={styles.filterOptionText}>Company:</Text>
+                    <TextInput
+                      style={styles.cityInput}
+                      placeholder="Company Name"
+                      placeholderTextColor="#aaaaaa"
+                      onChangeText={(text) => {
+                        setCompanyName(text);
+                        setCompanyFilter(text);
+                      }}
+                      value={companyName}
+                      underlineColorAndroid="transparent"
+                      autoCapitalize="none"
+                      maxLength={40}
+                    />
+                  </View>
+
+                  <View style={styles.filterOptionView}>
+                    <Text style={styles.filterOptionText}>Location:</Text>
+                    <TextInput
+                      style={styles.cityInput}
+                      placeholder="City"
+                      placeholderTextColor="#aaaaaa"
+                      onChangeText={(text) => {
+                        setCity(text);
+                        setCityFilter(text);
+                      }}
+                      value={city}
+                      underlineColorAndroid="transparent"
+                      autoCapitalize="none"
+                      maxLength={40}
+                    />
+                    <SelectDropdown
+                      data={allStates}
+                      onSelect={(selectedItem, index) => {
+                        setState(selectedItem);
+                        setStateFilter(selectedItem);
+                      }}
+                      buttonTextAfterSelection={(selectedItem, index) => {
+                        return state;
+                      }}
+                      rowTextForSelection={(item, index) => {
+                        return item;
+                      }}
+                      buttonStyle={{
+                        backgroundColor: "white",
+                        borderRadius: 4,
+                        height: 48,
+                        width: 80,
+                        borderColor: "#d3d3d3",
+                        borderWidth: 1,
+                      }}
+                      buttonTextStyle={{ fontSize: 14, color: "#aaaaaa" }}
+                      defaultButtonText={state}
+                    />
+                  </View>
+
+                  <View style={styles.filterOptionView}>
+                    <Text style={styles.filterOptionText}>Customer Reviews:</Text>
+                  </View>
+                  <View style={styles.ratingsContainer}>
+                    <TouchableOpacity
+                      style={styles.ratingFilterButton}
+                      onPress={() => {
+                        setRating(4)
+                        setRatingFilter(4)
                       }}
                     >
-                      Clear All Filters
-                    </Text>
+                        <MaterialCommunityIcon name="star" color="#000" size={18} />
+                        <MaterialCommunityIcon name="star" color="#000" size={18} />
+                        <MaterialCommunityIcon name="star" color="#000" size={18} />
+                        <MaterialCommunityIcon name="star" color="#000" size={18} />
+                        <Text styles={{fontSize: 12, fontWeight: 'bold'}}>
+                          {' &'} Up
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.ratingFilterButton}
+                      onPress={() => setRatingFilter(3)}
+                    >
+                        <MaterialCommunityIcon name="star" color="#000" size={18} />
+                        <MaterialCommunityIcon name="star" color="#000" size={18} />
+                        <MaterialCommunityIcon name="star" color="#000" size={18} />
+                        <Text styles={{fontSize: 12, fontWeight: 'bold'}}>
+                          {' &'} Up
+                        </Text>
+                    </TouchableOpacity>
+                  
+                    <TouchableOpacity
+                      style={styles.ratingFilterButton}
+                      onPress={() => setRatingFilter(2)}
+                    >
+                        <MaterialCommunityIcon name="star" color="#000" size={18} />
+                        <MaterialCommunityIcon name="star" color="#000" size={18} />
+                        <Text styles={{fontSize: 12, fontWeight: 'bold'}}>
+                          {' &'} Up
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.ratingFilterButton}
+                      onPress={() => setRatingFilter(1)}
+                    >
+                        <MaterialCommunityIcon name="star" color="#000" size={18} />
+                        <Text styles={{fontSize: 12, fontWeight: 'bold'}}>
+                          {' &'} Up
+                        </Text>
+                    </TouchableOpacity>
                   </View>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </CollapseBody>
-        </Collapse>
-
-        <View
-          style={{
-            borderBottomColor: "#949494",
-            flex: 1,
-            marginBottom: 3,
-          }}
-        />
-        <FlatList
-          data={listData}
-          ItemSeparatorComponent={itemSeperatorView}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => <ServiceListing item={item} />}
-          ListEmptyComponent={() => (
-            <Text style={styles.noEvent}>
-              No services are available with the applied filters.
-            </Text>
-          )}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-        />
-      </View>
+                  <View style={{alignContent: 'center', justifyContent: 'center', alignItems: 'center'}}>
+                    <TouchableOpacity
+                      style={styles.ratingFilterButton}
+                      onPress={() => setRatingFilter(0)}
+                    >
+                        <Text styles={{fontSize: 12, fontWeight: 'bold'}}>
+                          Any Rating
+                        </Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View
+                    style={{
+                      marginTop: 20,
+                      marginBottom: 20,
+                      flexDirection: "row",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <TouchableOpacity
+                      style={{
+                        borderRadius: 6,
+                        backgroundColor: "#FFAC1C",
+                        width: 130,
+                        height: 30,
+                        justifyContent: "center",
+                      }}
+                      onPress={() => setOverallFilter([], 0)}
+                    >
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AntDesign name="close" color="white" size={15} />
+                        <Text
+                          style={{
+                            fontWeight: "bold",
+                            textAlign: "center",
+                            color: "white",
+                          }}
+                        >
+                          Clear All Filters
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </CollapseBody>
+            </Collapse>
+          
+          <View
+            style={{
+              borderBottomColor: "#949494",
+              flex: 1,
+              marginBottom: 3,
+            }}
+          />
+          <FlatList
+            data={listData}
+            ItemSeparatorComponent={itemSeperatorView}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => <ServiceListing item={item} />}
+            ListEmptyComponent={() => (
+              <Text style={styles.noEvent}>
+                No services are available with the applied filters.
+              </Text>
+            )}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+            scrollEnabled={false}
+          />
+        </View>
+        </KeyboardAwareScrollView>
     </ImageBackground>
   );
 }

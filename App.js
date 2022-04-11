@@ -58,12 +58,13 @@ export default function App() {
             component={PTabNavigator}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="Settings" component={SettingsScreen} />
+          <Stack.Screen name="Settings" component={SettingsScreen} options={{title: 'Settings'}}/>
           <Stack.Screen
             name="Change Password"
             component={ChangePasswordScreen}
+            options={{title: 'Change Password'}}
           />
-          <Stack.Screen name="Change Email" component={ChangeEmailScreen} />
+          <Stack.Screen name="Change Email" component={ChangeEmailScreen} options={{title: 'Change Email'}}/>
           <Stack.Screen
             name="Service Details"
             component={ServiceDetailsScreen}
@@ -73,18 +74,21 @@ export default function App() {
             name="Post Your Service"
             component={ServicesPostScreen}
           />
-          <Stack.Screen name="Prov Settings" component={PSettingsScreen} />
+          <Stack.Screen name="Prov Settings" component={PSettingsScreen} options={{title: 'Settings'}}/>
           <Stack.Screen
             name="Prov Change Password"
             component={PChangePasswordScreen}
+            options={{title: 'Change Password'}}
           />
           <Stack.Screen
             name="Prov Change Email"
             component={PChangeEmailScreen}
+            options={{title: 'Change Email'}}
           />
           <Stack.Screen
             name="Prov Edit Profile"
             component={ProvProfileEditScreen}
+            options={{title: 'Edit Profile'}}
           />
           <Stack.Screen name="Add Event" component={AddEvent} />
         </Stack.Navigator>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Text, Alert, TextInput, ImageBackground, TouchableOpacity} from "react-native";
 import styles from "./../../../../components/styles";
 import { firebase } from "../../../firebase/config";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function ChangeEmailScreen({navigation}) {
   const [newEmail, updateEmail] = useState("");
@@ -33,32 +34,36 @@ export default function ChangeEmailScreen({navigation}) {
       source={require("../../../../assets/GrubberBackground.png")}
       resizeMode="cover"
       style={styles.backgroundImage}>
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#aaaaaa"
-          keyboardType="email-address"
-          placeholder="New Email"
-          onChangeText={(text) => updateEmail(text)}
-          value={newEmail}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          maxLength={45}
-        />
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#aaaaaa"
-          secureTextEntry
-          placeholder="Password"
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          maxLength={45}
-        />
-        <TouchableOpacity style={styles.changePasswordButton} onPress={onChangeEmailPress}>
-            <Text style={styles.buttonTitle}>Change Email</Text>
-        </TouchableOpacity>
-        
+        <KeyboardAwareScrollView
+        style={{ flex: 1, width: "100%" }}
+        keyboardShouldPersistTaps="handled"
+        >
+          <TextInput
+            style={styles.input}
+            placeholderTextColor="#aaaaaa"
+            keyboardType="email-address"
+            placeholder="New Email"
+            onChangeText={(text) => updateEmail(text)}
+            value={newEmail}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            maxLength={45}
+          />
+          <TextInput
+            style={styles.input}
+            placeholderTextColor="#aaaaaa"
+            secureTextEntry
+            placeholder="Password"
+            onChangeText={(text) => setPassword(text)}
+            value={password}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            maxLength={45}
+          />
+          <TouchableOpacity style={styles.changePasswordButton} onPress={onChangeEmailPress}>
+              <Text style={styles.buttonTitle}>Change Email</Text>
+          </TouchableOpacity>
+        </KeyboardAwareScrollView>
     </ImageBackground>
   );
 };
