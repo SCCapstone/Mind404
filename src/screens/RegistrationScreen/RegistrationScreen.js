@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   ImageBackground,
+  Alert,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./../../../components/styles";
@@ -79,7 +80,10 @@ export default function RegistrationScreen({ navigation }) {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then((response) => {
+        response.user.sendEmailVerification();
         const uid = response.user.uid;
+        alert("Thank you for joining Grubber! We have sent you a link to your email to confirm your registration.")
+        
         if(typeOfUser == 'Provider'){
           const data = {
             id: uid,
@@ -95,7 +99,7 @@ export default function RegistrationScreen({ navigation }) {
             .doc(uid)
             .set(data)
             .then(() => {
-              navigation.navigate("Prov Home", { user: data });
+              navigation.navigate('Login')
             })
             .catch((error) => {
               alert(error);
@@ -114,7 +118,7 @@ export default function RegistrationScreen({ navigation }) {
             .doc(uid)
             .set(data)
             .then(() => {
-              navigation.navigate("Client Home", { user: data });
+              navigation.navigate('Login')
             })
             .catch((error) => {
               alert(error);

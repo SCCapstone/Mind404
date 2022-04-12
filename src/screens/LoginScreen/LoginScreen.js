@@ -17,6 +17,7 @@ export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setUser } = useUser();
+
   const onFooterLinkPress = () => {
     navigation.navigate("Registration");
   };
@@ -38,35 +39,45 @@ export default function LoginScreen({ navigation }) {
     checkuser();
   }, []);
 
-  const onLoginPress = () => {
+  const onLoginPress = () => {   
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((response) => {
-        const uid = response.user.uid;
-        const usersRef = firebase.firestore().collection("users");
-        usersRef
-          .doc(uid)
-          .get()
-          .then((firestoreDocument) => {
-            if (!firestoreDocument.exists) {
-              alert("User no longer exists.");
-              return;
-            }
-            const user = firestoreDocument.data();
-            setUser(user);
-            const formattedUser = JSON.stringify(user);
-            AsyncStorage.setItem("loggedInUser", formattedUser);
-            let type = user.typeOfUser;
-            if (type != undefined && type.toLowerCase() == "provider") {
-              navigation.navigate("Prov Home", { user });
-            } else {
-              navigation.navigate("Client Home", { user });
-            }
-          })
-          .catch((error) => {
-            alert(error);
-          });
+        //if(!response.user.emailVerified){
+          //alert("Email needs verfication, please check your inbox.")
+        //} else {
+          const uid = response.user.uid;
+          const usersRef = firebase.firestore().collection("users");
+          usersRef
+            .doc(uid)
+            .get()
+            .then((firestoreDocument) => {
+              if (!firestoreDocument.exists) {
+                alert("User no longer exists.");
+                return;
+              }
+              const user = firestoreDocument.data();
+              setUser(user);
+              const formattedUser = JSON.stringify(user);
+              AsyncStorage.setItem("loggedInUser", formattedUser);
+              let type = user.typeOfUser;
+              if (type != undefined && type.toLowerCase() == "provider") {
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: 'Prov Home', params: { user }}],
+                })
+              } else {
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: 'Client Home', params: { user }}],
+                })
+              }
+            })
+            .catch((error) => {
+              alert(error);
+            });
+          //}
       })
       .catch((error) => {
         alert(error);
