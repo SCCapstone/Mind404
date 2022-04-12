@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
-  ImageBackground,
-  FlatList,
   TouchableOpacity,
   Linking,
-  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./styles";
@@ -15,6 +12,8 @@ import { firebase } from "../src/firebase/config";
 
 const ServiceListing = ({ item }) => {
   const [reviews, setReviews] = useState(Array);
+  const [providerData, setProviderData] = useState();
+
   useEffect(() => {
     getReviews();
   }, []);
@@ -26,7 +25,9 @@ const ServiceListing = ({ item }) => {
       .get()
       .then((querySnapshot) => {
         setReviews(querySnapshot.data().reviews);
+        setProviderData(querySnapshot.data());
       });
+
   };
 
   const navigation = useNavigation();

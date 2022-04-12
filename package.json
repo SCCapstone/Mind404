@@ -47,7 +47,6 @@
     "react-native-screens": "~3.10.1",
     "react-native-select-dropdown": "^1.8.0",
     "react-native-svg": "12.1.1",
-    "react-native-vector-icons": "^9.0.0",
     "react-native-web": "0.17.1",
     "react-test-renderer": "^17.0.2",
     "save": "^2.4.0"
@@ -63,12 +62,12 @@
     "jest-expo": "^44.0.0"
   },
   "jest": {
-    "preset": "react-native",
+    "preset": "jest-expo",
     "setupFilesAfterEnv": [
       "@testing-library/jest-native/extend-expect"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!(@react-native|react-native|react-native-vector-icons)/)"
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|sentry-expo|native-base|react-native-svg|@react-native)"
     ]
   },
   "private": true

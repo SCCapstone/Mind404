@@ -39,7 +39,6 @@ export default function ServicesScreen({ navigation }) {
   const [companyName, setCompanyName] = useState("");
   const [companyList, setCompanyList] = useState([]);
 
-  const [rating, setRating] = useState(0);
   const [ratingList, setRatingList] = useState([]);
   const [provRatings, setProvRatings] = useState([]);
 
@@ -166,7 +165,7 @@ export default function ServicesScreen({ navigation }) {
 
   useEffect(() => {
     loadListData();
-    //getAverageRatings();
+    getAverageRatings();
   }, []);
 
   const onRefresh = () => {
@@ -512,10 +511,9 @@ export default function ServicesScreen({ navigation }) {
                   <View style={styles.ratingsContainer}>
                     <TouchableOpacity
                       style={styles.ratingFilterButton}
-                      onPress={() => {
-                        setRating(4)
+                      onPress={() => 
                         setRatingFilter(4)
-                      }}
+                      }
                     >
                         <MaterialCommunityIcon name="star" color="#000" size={18} />
                         <MaterialCommunityIcon name="star" color="#000" size={18} />

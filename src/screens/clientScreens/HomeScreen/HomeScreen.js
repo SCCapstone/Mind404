@@ -11,7 +11,7 @@ import { firebase } from "../../../firebase/config";
 import useUser from "../../../../useUser";
 import ServiceListing from "../../../../components/ServiceListing";
 
-export const firestoreAutoId = (): string => {
+export const firestoreAutoId = () => {
   const CHARS =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
