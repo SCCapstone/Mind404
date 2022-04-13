@@ -90,7 +90,7 @@ export default function ServicesPostScreen({ navigation }) {
       .add(data)
       .then(() => {
         alert("Your service was successfully posted!");
-        navigation.navigate("Prov Home");
+        navigation.goBack()
       });
   };
 

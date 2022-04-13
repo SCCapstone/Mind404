@@ -577,4 +577,16 @@ export default StyleSheet.create({
     borderColor: "#d3d3d3",
     borderWidth: 1,
   },
+  serviceTitle: {
+    fontSize: 25,
+    fontWeight: 'bold',
+  },
+  locationText:{
+    fontSize: 20,
+    fontStyle: 'italic'
+  },
+  editingInputText: {
+    fontSize: 18,
+    fontStyle: 'italic',
+  },
 });
