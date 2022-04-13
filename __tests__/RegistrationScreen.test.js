@@ -3,17 +3,17 @@ import Button from "../components/Button";
 import renderer from "react-test-renderer";
 import {Flatlist,Text} from 'react-native'
 import{fireEvent} from "@testing-library/react-native"
-import HomeScreen from "../src/screens/HomeScreen"
+import RegistrationScreen from "../src/screens/RegistrationScreen"
 
-describe('homeScreen', () => {
-    it('shows date correct', () =>{
+describe('RegistrationScreen', () => {
+    it('shows outputed date correctly', () =>{
         const DateObject = {
             day: 1,
-            month: '11',
-            Year: '2022',
+            month: 11,
+            Year: 22,
         };
-        const result = DisplayDate(DateObject);
-        const expected = 'January 11, 2022';
+        const result = isValidDate(DateObject);
+        const expected = true;
 
         expect(result).toEqual(expected);
 
