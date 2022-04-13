@@ -34,6 +34,8 @@ export { default as ServicesPostScreen } from "./providerScreens/ProvServicesScr
 
 export { default as ProvProfileScreen } from "./providerScreens/ProvProfileScreen/ProvProfileScreen";
 
+export { default as EditServiceScreen } from "./providerScreens/ProvServicesScreen/EditServiceScreen";
+
 export { default as ProvProfileEditScreen } from "./providerScreens/ProvProfileScreen/ProvProfileEditScreen";
 
 export { default as ProvCalendarScreen } from "./providerScreens/ProvCalendarScreen/ProvCalendarScreen";

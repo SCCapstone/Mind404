@@ -5,10 +5,25 @@ import {
   ProvServicesScreen,
   ProvProfileScreen,
   ProvCalendarScreen,
+  EditServiceScreen,
+  ServicesPostScreen
 } from "./src/screens";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { createStackNavigator } from "@react-navigation/stack";
 
 const Tab = createBottomTabNavigator();
+
+const ServicesStack = createStackNavigator();
+
+function ServicesStackScreen() {
+  return ( 
+    <ServicesStack.Navigator>
+      <ServicesStack.Screen name="Services" component={ProvServicesScreen} options={{headerShown: false}}/>
+      <ServicesStack.Screen name="Edit Service" component={EditServiceScreen} />
+      <ServicesStack.Screen name="Post Your Service" component={ServicesPostScreen}/>
+    </ServicesStack.Navigator>
+  )
+}
 
 export default function BottomTabs() {
   return (
@@ -24,13 +39,14 @@ export default function BottomTabs() {
         }}
       />
       <Tab.Screen
-        name="Services"
-        component={ProvServicesScreen}
+        name="Services Stack"
+        component={ServicesStackScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="flower" color={color} size={size} />
           ),
           headerShown: false,
+          title: "Services"
         }}
       />
       <Tab.Screen

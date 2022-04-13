@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -6,18 +6,26 @@ import {
   TouchableOpacity,
   FlatList,
   Linking,
+  RefreshControl,
   Alert,
 } from "react-native";
 import Button from "./../../../../components/Button";
 import styles from "./../../../../components/styles";
 import { firebase } from "./../../../firebase/config";
 import useUser from "../../../../useUser";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function ProvServicesScreen({ navigation }) {
   const [listData, setListData] = React.useState([]);
+  const [refreshing, setRefreshing] = useState(true);
   const { user } = useUser();
 
-  React.useEffect(() => {
+  const onRefresh = () => {
+    setRefreshing(true);
+    loadServices();
+  };
+
+  const loadServices = () => {
     firebase
       .firestore()
       .collection("services")
@@ -30,8 +38,13 @@ export default function ProvServicesScreen({ navigation }) {
           serviceDetails["id"] = documentSnapshot.id;
           temp.push(serviceDetails);
           setListData(temp);
+          setRefreshing(false);
         });
       });
+  }
+
+  useEffect(() => {
+    loadServices();
   }, []);
 
   const itemSeperatorView = () => {
@@ -90,9 +103,15 @@ export default function ProvServicesScreen({ navigation }) {
         <Text style={{ fontSize: 12, color: "#808080" }}>
           Telephone Availability: {`${convertTo12Hour(item.fromTime)}`} - {`${convertTo12Hour(item.toTime)}`}
         </Text>
-        <TouchableOpacity style={{width:139}} onPress={() => serviceDeleteAlert(item.id)}>
-          <Text style={{padding: 7, fontSize: 15, color: 'red',marginEnd: 0}}>Delete this Service</Text>
-        </TouchableOpacity>
+        <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+          <TouchableOpacity style={{width:50, flexDirection: 'row', alignContent: 'center', alignItems: 'center'}} onPress={() => navigation.navigate("Edit Service", { item })}>
+            <FontAwesome name="pencil" color="#788eec" size={13} />
+            <Text style={{padding: 7, fontSize: 15, color: '#788eec',marginEnd: 0}}>Edit</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{width:139}} onPress={() => serviceDeleteAlert(item.id)}>
+            <Text style={{padding: 7, fontSize: 15, color: 'red',marginEnd: 0}}>Delete this Service</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -150,6 +169,9 @@ export default function ProvServicesScreen({ navigation }) {
           ItemSeparatorComponent={itemSeperatorView}
           keyExtractor={(item, index) => index.toString()}
           renderItem={itemView}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         />
         <View style={{marginTop: 3, height: 2, backgroundColor: "grey"}}/>
       </View>
