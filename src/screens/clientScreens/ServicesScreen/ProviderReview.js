@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  TextInput,
-  Button,
-} from "react-native";
+import { View, TextInput, Button } from "react-native";
 import styles from "./../../../../components/styles";
 import { firebase } from "../../../firebase/config";
 import useUser from "../../../../useUser";
@@ -11,29 +7,29 @@ import RNPickerSelect from "react-native-picker-select";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const ProviderReview = ({ route, navigation }) => {
-  const [description, setDescription] = useState('');
-  const [rating, setRating] = useState(0);
   const { providerData, item } = route.params;
+  const [description, setDescription] = useState(item.description);
+  const [rating, setRating] = useState(item.rating);
   const { user } = useUser();
 
-  const getRoundedRate = (rate) =>{
+  const getRoundedRate = (rate) => {
     let rating = 0;
     providerData.reviews.forEach((element) => {
       rating = Number(element.rating) + rating;
-    })
+    });
     rating = rating + rate;
-    let average = rating / (providerData.reviews.length+1);
+    let average = rating / (providerData.reviews.length + 1);
     let roundedRating = Math.round(parseFloat(average) * 2) / 2;
     return roundedRating;
-  }
+  };
 
   const addReview = async () => {
-    if(rating == 0){
-      alert("Please enter a rating")
+    if (rating == 0) {
+      alert("Please enter a rating");
       return;
     }
-    if(description=='') {
-      alert("Please enter a description")
+    if (description == "") {
+      alert("Please enter a description");
       return;
     }
     try {
@@ -46,13 +42,17 @@ const ProviderReview = ({ route, navigation }) => {
             rating,
             lastName: user.lastName,
             firstName: user.firstName,
+            id: user.id,
           },
         ],
       });
       let roundedRate = getRoundedRate(rating);
-      await usersRef.doc(providerData.id).set({
-        avgRating: roundedRate
-      }, { merge: true });
+      await usersRef.doc(providerData.id).set(
+        {
+          avgRating: roundedRate,
+        },
+        { merge: true }
+      );
     } catch (e) {
       console.log(e);
     }
@@ -61,11 +61,11 @@ const ProviderReview = ({ route, navigation }) => {
       item: item,
     });
   };
-  
+
   return (
     <KeyboardAwareScrollView
-        style={{ flex: 1, width: "100%", padding: 25 }}
-        keyboardShouldPersistTaps="handled"
+      style={{ flex: 1, width: "100%", padding: 25 }}
+      keyboardShouldPersistTaps="handled"
     >
       <View
         style={{
@@ -106,7 +106,7 @@ const ProviderReview = ({ route, navigation }) => {
           multiline
         />
       </View>
-      <Button title="Post Review" onPress={addReview}/>
+      <Button title="Post Review" onPress={addReview} />
     </KeyboardAwareScrollView>
   );
 };

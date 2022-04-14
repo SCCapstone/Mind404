@@ -176,7 +176,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
                 providerData.reviews.length > 0 &&
                 providerData.reviews.map((item, index) => {
                   return (
-                    <View
+                    <Pressable
                       style={{
                         borderWidth: 1,
                         borderStyle: "solid",
@@ -186,11 +186,19 @@ export default function ServiceDetailsScreen({ route, navigation }) {
                         marginBottom: 10,
                       }}
                       key={index}
+                      onPress={() => {
+                        if (item.id === user.id) {
+                          navigation.navigate("Post Your Review", {
+                            providerData,
+                            item,
+                          });
+                        }
+                      }}
                     >
                       <Text>{`${item.firstName} ${item.lastName}`}</Text>
                       <Text>{item.description}</Text>
                       <Text>{item.rating}/5.0</Text>
-                    </View>
+                    </Pressable>
                   );
                 })}
               <Pressable
