@@ -12,6 +12,7 @@ import Button from "./../../../../components/Button";
 import useUser from "../../../../useUser";
 import { firebase } from "./../../../firebase/config";
 import * as ImagePicker from "expo-image-picker";
+import * as FileSystem from "expo-file-system";
 import * as Progress from "react-native-progress";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
@@ -21,6 +22,15 @@ export default function ProvProfileScreen({ navigation }) {
   const [transferred, setTransferred] = useState(0);
   const { user, setUser } = useUser();
   const [description, setDecription] = useState(user.description);
+  const getFileInfo = async (fileURI: string) => {
+    const fileInfo = await FileSystem.getInfoAsync(fileURI);
+    return fileInfo;
+  };
+
+  const isLessThanTheMB = (fileSize: number, smallerThanSizeMB: number) => {
+    const isOk = fileSize / 1024 / 1024 < smallerThanSizeMB;
+    return isOk;
+  };
   const onPostPress = () => {
     /** Checks to see if type of service is an empty string */
     if (description == "") {
@@ -44,7 +54,21 @@ export default function ProvProfileScreen({ navigation }) {
       aspect: [4, 3],
       quality: 1,
     });
+    const { uri, type } = result;
+    const fileInfo = await getFileInfo(result.uri);
 
+    if (!fileInfo?.size) {
+      alert("Can't select this file as the size is unknown.");
+      return;
+    }
+
+    if (type === "image") {
+      const isLt10MB = isLessThanTheMB(fileInfo.size, 10);
+      if (!isLt10MB) {
+        alert(`Image size must be smaller than 10MB!`);
+        return;
+      }
+    }
     if (!result.cancelled) {
       setImage(result);
     }
