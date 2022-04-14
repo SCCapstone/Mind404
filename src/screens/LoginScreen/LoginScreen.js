@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   ImageBackground,
+  Alert
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./../../../components/styles";
@@ -17,6 +18,7 @@ export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setUser } = useUser();
+  const [count, setCount] = useState(0);
 
   const onFooterLinkPress = () => {
     navigation.navigate("Registration");
@@ -39,14 +41,36 @@ export default function LoginScreen({ navigation }) {
     checkuser();
   }, []);
 
+  const sendAnotherLink = () => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((response) => {
+        if(count < 4){
+          setCount(count+1)
+          response.user.sendEmailVerification();
+          alert("We have sent another link to your email.")
+        } else {
+          alert("Too many requests, try again later.")
+        }
+      });
+  }
+
   const onLoginPress = () => {   
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((response) => {
-        //if(!response.user.emailVerified){
-          //alert("Email needs verfication, please check your inbox.")
-        //} else {
+        /*if(!response.user.emailVerified){
+          Alert.alert(
+            'Email needs verfication, please check your inbox.',
+            '',
+            [
+              {text: 'Send Another link', onPress: () => sendAnotherLink()},
+              {text: 'Ok'},
+            ]
+          );
+        } else { */
           const uid = response.user.uid;
           const usersRef = firebase.firestore().collection("users");
           usersRef
@@ -77,7 +101,7 @@ export default function LoginScreen({ navigation }) {
             .catch((error) => {
               alert(error);
             });
-          //}
+         //}
       })
       .catch((error) => {
         alert(error);
