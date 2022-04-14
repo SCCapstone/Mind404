@@ -3,3 +3,4 @@ plugins:
 - jekyll-remote-theme
 title: Grubber
 description: Download Grubber today!
+showDownloads: true
