@@ -18,6 +18,7 @@ import Ratings from "../../../../components/Ratings";
 export default function ServiceDetailsScreen({ route, navigation }) {
   const [providerData, setProviderData] = useState(Object);
   const { item, shouldRefresh } = route.params;
+  const [reviewed, setReviewed] = useState(false);
 
   const { user } = useUser();
   var docRef = firebase
@@ -100,6 +101,13 @@ export default function ServiceDetailsScreen({ route, navigation }) {
   if (!providerData.firstName) {
     return null;
   }
+
+  const checkMatch = (id) => {
+    if(user.id == id){
+      return "Click to Edit"
+    }
+  }
+
   return (
     <ImageBackground
       source={require("../../../../assets/GrubberBackground.png")}
@@ -174,7 +182,10 @@ export default function ServiceDetailsScreen({ route, navigation }) {
               )}
               {providerData.reviews &&
                 providerData.reviews.length > 0 &&
-                providerData.reviews.map((item, index) => {
+                providerData.reviews.map((review, index) => {
+                  if(reviewed == false && review.id == user.id) {
+                    setReviewed(true);
+                  }
                   return (
                     <Pressable
                       style={{
@@ -187,27 +198,35 @@ export default function ServiceDetailsScreen({ route, navigation }) {
                       }}
                       key={index}
                       onPress={() => {
-                        if (item.id === user.id) {
+                        if (review.id === user.id) {
                           navigation.navigate("Post Your Review", {
                             providerData,
-                            item,
+                            review,
+                            index,
                           });
                         }
                       }}
                     >
-                      <Text>{`${item.firstName} ${item.lastName}`}</Text>
-                      <Text>{item.description}</Text>
-                      <Text>{item.rating}/5.0</Text>
+                      <Text>{`${review.firstName} ${review.lastName}`}</Text>
+                      <Text>{review.description}</Text>
+                      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Text>{review.rating}/5.0</Text>
+                        <Text style={{fontSize: 15, color: '#788eec'}}>{checkMatch(review.id)}</Text>
+                      </View>
                     </Pressable>
                   );
                 })}
               <Pressable
-                onPress={() =>
-                  navigation.navigate("Post Your Review", {
-                    providerData,
-                    item,
-                  })
-                }
+                onPress={() => {
+                  if(!reviewed) {
+                    navigation.navigate("Post Your Review", {
+                      providerData,
+                      review: {description: "", rating: "", id: "", firstName: "", lastName: ""},
+                    })
+                  } else {
+                    alert("You have already reviewed this provider.  You may edit your posted review, but can not post another.")
+                  }
+              }}
                 style={{
                   backgroundColor: "#FFAC1C",
                   marginEnd: 20,

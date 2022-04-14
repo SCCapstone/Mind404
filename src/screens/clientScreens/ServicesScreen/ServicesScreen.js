@@ -165,7 +165,6 @@ export default function ServicesScreen({ navigation }) {
 
   useEffect(() => {
     loadListData();
-    getAverageRatings();
   }, []);
 
   const onRefresh = () => {
@@ -265,7 +264,6 @@ export default function ServicesScreen({ navigation }) {
     switch (id) {
       case 0:
         loadListData();
-        getAverageRatings();
         setToggleCheckBox(false);
         setPlaceHolder("All");
         setState("State");
@@ -373,6 +371,7 @@ export default function ServicesScreen({ navigation }) {
         </Text>
         <KeyboardAwareScrollView
             keyboardShouldPersistTaps="handled"
+            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
         >
         <View style={{ flex: 1 }}>
             <Collapse>

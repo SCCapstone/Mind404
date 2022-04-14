@@ -70,6 +70,7 @@ export default function App() {
             component={ServiceDetailsScreen}
           />
           <Stack.Screen name="Post Your Review" component={ProviderReview} />
+          
           <Stack.Screen name="Prov Settings" component={PSettingsScreen} options={{title: 'Settings'}}/>
           <Stack.Screen
             name="Prov Change Password"

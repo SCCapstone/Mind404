@@ -7,10 +7,10 @@ import RNPickerSelect from "react-native-picker-select";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const ProviderReview = ({ route, navigation }) => {
-  const { providerData, item } = route.params;
-  const [description, setDescription] = useState(item.description);
-  const [rating, setRating] = useState(item.rating);
+  const { providerData, review, index } = route.params;
   const { user } = useUser();
+  const [description, setDescription] = useState(review.description);
+  const [rating, setRating] = useState(review.rating);
 
   const getRoundedRate = (rate) => {
     let rating = 0;
@@ -23,6 +23,17 @@ const ProviderReview = ({ route, navigation }) => {
     return roundedRating;
   };
 
+  const getUpdatedRate = (oldRate, newRate) => {
+    let rating = 0;
+    providerData.reviews.forEach((element) => {
+      rating = Number(element.rating) + rating;
+    });
+    rating = rating - oldRate + newRate;
+    let average = rating / (providerData.reviews.length);
+    let roundedRating = Math.round(parseFloat(average) * 2) / 2;
+    return roundedRating;
+  }
+
   const addReview = async () => {
     if (rating == 0) {
       alert("Please enter a rating");
@@ -33,33 +44,62 @@ const ProviderReview = ({ route, navigation }) => {
       return;
     }
     try {
-      const usersRef = firebase.firestore().collection("users");
-      await usersRef.doc(providerData.id).update({
-        reviews: [
-          ...providerData.reviews,
+      // if user is adding a review
+      if(review.id == ""){
+        const usersRef = firebase.firestore().collection("users");
+        await usersRef.doc(providerData.id).update({
+          reviews: [
+            ...providerData.reviews,
+            {
+              description,
+              rating,
+              lastName: user.lastName,
+              firstName: user.firstName,
+              id: user.id,
+            },
+          ],
+        });
+        let roundedRate = getRoundedRate(rating);
+        await usersRef.doc(providerData.id).set(
           {
-            description,
-            rating,
-            lastName: user.lastName,
-            firstName: user.firstName,
-            id: user.id,
+            avgRating: roundedRate,
           },
-        ],
-      });
-      let roundedRate = getRoundedRate(rating);
-      await usersRef.doc(providerData.id).set(
-        {
-          avgRating: roundedRate,
-        },
-        { merge: true }
-      );
+          { merge: true }
+        );
+      //if user is editing a review
+      } else {
+        const usersRef = firebase.firestore().collection("users");
+        let temp = [];
+        await usersRef.doc(providerData.id).get().then((doc) => {
+          temp = doc.data().reviews;
+        });
+        const updatedReview = {
+          description,
+          rating,
+          lastName: user.lastName,
+          firstName: user.firstName,
+          id: user.id,
+        }
+        for(let i = 0; i < temp.length; i++){
+          if(temp[i].id == user.id){
+            temp[i] = updatedReview;
+            break
+          }
+        }
+        await usersRef.doc(providerData.id).update({
+          reviews: temp
+        });
+        let roundedRate = getUpdatedRate(review.rating, rating);
+        await usersRef.doc(providerData.id).set(
+          {
+            avgRating: roundedRate,
+          }, { merge: true }
+        );
+      }
     } catch (e) {
       console.log(e);
     }
-    navigation.navigate("Service Details", {
-      shouldRefresh: true,
-      item: item,
-    });
+   navigation.goBack()
   };
 
   return (
