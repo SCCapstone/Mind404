@@ -38,6 +38,9 @@ export default function ServicesScreen({ navigation }) {
           temp.push(serviceDetails);
           setListData(temp);
         });
+        if(querySnapshot.empty){
+          setListData([])
+        }
       });
       setRefreshing(false);
   }
@@ -76,13 +79,6 @@ export default function ServicesScreen({ navigation }) {
       >
         Favorited Services
       </Text>
-      <TouchableOpacity
-        style={styles.refresh2}
-        onPress={() => onRefresh()}
-      >
-        <MaterialCommunityIcons name="refresh" style={{fontSize: 20,color: '#788eec', fontWeight: 'bold'}}/>
-        <Text style={{fontSize: 15, color: '#788eec'}}> Refresh List</Text>
-      </TouchableOpacity>
       <View style={{ flex: 1, paddingTop: 10 }}>
         <FlatList
           data={listData}
