@@ -11,6 +11,9 @@ Grubber is a program that really will help ease your daily life from small proje
 
 ### Highlights
 //Included stock images like recommended?
+![IMG_1081](https://user-images.githubusercontent.com/70234982/163744083-ec3fed97-3021-4ec8-9314-4b7c58e009f1.PNG)
+![IMG_1080](https://user-images.githubusercontent.com/70234982/163744084-6ceb8606-37b5-4050-ae83-ede51b5d925c.PNG)
+![IMG_1082](https://user-images.githubusercontent.com/70234982/163744087-5c8320f2-9be4-4b24-b1b2-5cd2126f305d.PNG)
 
 #### As a Client:
 ![IMG_1076](https://user-images.githubusercontent.com/70234982/163743394-7c6783d5-0462-4774-91dd-2a9ada046583.PNG)
@@ -24,10 +27,13 @@ View provider information as well as reviews by fellow users!<br>
 
 #### As a Provider:
 
-//(insert image of prov services screen)<br>
+![IMG_1078](https://user-images.githubusercontent.com/70234982/163743651-c7734281-b627-40ca-af1f-5738c29babac.PNG)
+
 Upload the services you and/or you company provides to be seen by all users on the app <br>
 <br>
-(insert image of calendar Screen) <br>
+
+![IMG_1079](https://user-images.githubusercontent.com/70234982/163743629-71f7f824-f2dd-4a03-ae6a-56fbe724b51c.PNG)
+
 Your own calendar to keep track of appointments, ToDos, and more! 
 
 ## Authors and Contributors
