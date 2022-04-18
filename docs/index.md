@@ -11,6 +11,9 @@ Grubber is a program that really will help ease your daily life from small proje
 
 ### Highlights
 //Included stock images like recommended?
+![IMG_1081](https://user-images.githubusercontent.com/70234982/163744083-ec3fed97-3021-4ec8-9314-4b7c58e009f1.PNG)
+![IMG_1080](https://user-images.githubusercontent.com/70234982/163744084-6ceb8606-37b5-4050-ae83-ede51b5d925c.PNG)
+![IMG_1082](https://user-images.githubusercontent.com/70234982/163744087-5c8320f2-9be4-4b24-b1b2-5cd2126f305d.PNG)
 
 #### As a Client:
 ![IMG_1076](https://user-images.githubusercontent.com/70234982/163743394-7c6783d5-0462-4774-91dd-2a9ada046583.PNG)
