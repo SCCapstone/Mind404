@@ -13,17 +13,32 @@ import styles from "./../../../components/styles";
 import { firebase } from "./../../firebase/config";
 import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons"
 import RNPickerSelect from "react-native-picker-select";
+import MonthDateYearField from 'react-native-datefield'
 
 export default function RegistrationScreen({ navigation }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [dob, setDOB] = useState("");
+  const [dobFull, setDOBFull] = useState()
   const [password, setPassword] = useState("");
   const [typeOfUser, setTypeOfUser] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const types = ["Client", "Provider"];
+
+  const dobString = (value) => {
+    setDOBFull(value);
+    let day = value.getDate()
+    let month = value.getMonth()+1
+    if(day < 10){
+      day = '0' + day
+    }
+    if(month < 10){
+      month = '0' + month
+    }
+    setDOB(month+'/'+day+'/'+value.getFullYear())
+  }
 
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
@@ -32,6 +47,9 @@ export default function RegistrationScreen({ navigation }) {
   const onRegisterPress = () => {
     if (typeOfUser == null) {
       alert("Account type not selected.");
+      return;
+    }
+    if (!isValidDate(dobFull)) {
       return;
     }
     /** checks to see if passwords match */
@@ -55,12 +73,6 @@ export default function RegistrationScreen({ navigation }) {
     /** checks to see if email field is empty */
     if (email == "") {
       alert("Email field cannot be empty");
-      return;
-    }
-
-    /** checks to see if valid date of birth entry is present */
-    if (!isValidDate(dob)) {
-      alert("Invalid date of birth entry");
       return;
     }
 
@@ -210,16 +222,21 @@ export default function RegistrationScreen({ navigation }) {
             autoCapitalize="none"
             maxLength={45}
           />
-          <TextInput
-            style={styles.regInput}
-            placeholder="Date of Birth (mm/dd/yyyy)"
-            placeholderTextColor="#aaaaaa"
-            onChangeText={(text) => setDOB(text)}
-            value={dob}
-            underlineColorAndroid="transparent"
-            autoCapitalize="none"
-            maxLength={10}
-          />
+          <View style={{marginBottom: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
+            <Text style={{fontSize: 15}}>Date of birth:   </Text>
+            <MonthDateYearField
+              labelDate="Day"
+              labelMonth="Month"
+              labelYear="Year"
+              containerStyle={{
+                borderRadius: 5,
+                backgroundColor: 'white',
+                padding: 7,
+                width:'60%'
+              }}
+              onSubmit={(value)=> dobString(value)}
+            />
+          </View>
           <TextInput
             style={styles.regInput}
             placeholderTextColor="#aaaaaa"
@@ -263,25 +280,28 @@ export default function RegistrationScreen({ navigation }) {
 }
 
 /** algorithm to check to see if a valid date is present within a string*/
-function isValidDate(dateString) {
-  // First check for the pattern
-  if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString)) return false;
-
-  // Parse the date parts to integers
-  var parts = dateString.split("/");
-  var day = parseInt(parts[1], 10);
-  var month = parseInt(parts[0], 10);
-  var year = parseInt(parts[2], 10);
-
-  // Check the ranges of month and year
-  if (year < 1000 || year > 3000 || month == 0 || month > 12) return false;
-
-  var monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-  // Adjust for leap years
-  if (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
-    monthLength[1] = 29;
-
-  // Check the range of the day
-  return day > 0 && day <= monthLength[month - 1];
+function isValidDate(value) {
+  let today = new Date();
+  if(today.getFullYear() - value.getFullYear() < 18){
+    alert("You must be at least 18 years of age to use Grubber.")
+    return false;
+  }
+  if(today.getFullYear() - value.getFullYear() == 18){
+    console.log(today.getMonth()+1, value.getMonth()+1)
+    if(today.getMonth()+1 < value.getMonth()+1){
+      alert("You must be at least 18 years of age to use Grubber.")
+      return false;
+    }
+    if(today.getMonth()+1 == value.getMonth()+1){
+      if(today.getDate() < value.getDate()){
+        alert("You must be at least 18 years of age to use Grubber.")
+        return false;
+      }
+    }
+  }
+  if(today.getFullYear() - value.getFullYear()>110){
+    alert("Please enter a valid date of birth")
+    return false;
+  }
+  return true;
 }
