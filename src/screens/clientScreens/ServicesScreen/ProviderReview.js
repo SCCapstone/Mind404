@@ -99,7 +99,8 @@ const ProviderReview = ({ route, navigation }) => {
     } catch (e) {
       console.log(e);
     }
-   navigation.goBack()
+    alert("Review successfully posted!")
+   navigation.pop()
   };
 
   return (
