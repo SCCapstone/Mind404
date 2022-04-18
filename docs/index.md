@@ -15,11 +15,10 @@ Grubber is a program that really will help ease your daily life from small proje
 #### As a Client:
 
 //(Insert image of services screen with filter options) <br>
-![IMG_1076](https://user-images.githubusercontent.com/70234982/163743219-45a29f12-b566-4e87-8405-8a85fcb4ed18.PNG)
 
 Filter through an abundance of services in your area! <br>
 <br>
-![IMG_1077](https://user-images.githubusercontent.com/70234982/163743240-ad0967f5-a0ab-4b48-bb91-170eb3dc30d6.PNG)
+![IMG_1077](https://user-images.githubusercontent.com/70234982/163743335-92eca6ee-62f6-4996-9bf0-ea9e6158d683.PNG)
 
 View provider information as well as reviews by fellow users!<br>
 
