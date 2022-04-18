@@ -22,12 +22,12 @@ export default function ProvProfileScreen({ navigation }) {
   const [transferred, setTransferred] = useState(0);
   const { user, setUser } = useUser();
   const [description, setDecription] = useState(user.description);
-  const getFileInfo = async (fileURI: string) => {
+  const getFileInfo = async (fileURI) => {
     const fileInfo = await FileSystem.getInfoAsync(fileURI);
     return fileInfo;
   };
 
-  const isLessThanTheMB = (fileSize: number, smallerThanSizeMB: number) => {
+  const isLessThanTheMB = (fileSize, smallerThanSizeMB) => {
     const isOk = fileSize / 1024 / 1024 < smallerThanSizeMB;
     return isOk;
   };

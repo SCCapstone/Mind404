@@ -6,6 +6,11 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
+  sContainer: {
+    flex: 1,
+    alignItems: "center",
+    padding: 10,
+  },
   backgroundImage: {
     width: "100%",
     height: "100%",
@@ -334,7 +339,6 @@ export default StyleSheet.create({
     fontSize: 15,
     color: "blue",
     textDecorationLine: "underline",
-    padding: 7,
     textAlign: "center",
     marginRight: 25,
   },
@@ -538,6 +542,7 @@ export default StyleSheet.create({
     borderRadius: 4,
     width: 110,
     height: 50,
+    marginTop: 15,
     elevation: 4,
     alignContent: 'center',
     justifyContent: 'center'

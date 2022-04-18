@@ -115,7 +115,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
       style={styles.backgroundImage}
     >
       <ScrollView style={{ flex: 1, width: "100%", height: "100%" }}>
-        <View style={styles.container}>
+        <View style={styles.sContainer}>
           <Text style={styles.title}>{item.serviceType}</Text>
           <Text style={styles.description}>{item.description}</Text>
           <Text style={{ fontSize: 15, color: "grey", marginBottom: 20 }}>
@@ -123,12 +123,12 @@ export default function ServiceDetailsScreen({ route, navigation }) {
             {`${convertTo12Hour(item.toTime)}`}
           </Text>
         </View>
-        <View style={styles.locationNumberContainer}>
+        <View style={{} }>
+          <Text style={styles.company}>{checkForName(item.CompanyName)}</Text>
           <Text style={styles.location}>{item.location}</Text>
           <Text style={styles.email}>{item.email}</Text>
-          <Text style={styles.company}>{checkForName(item.CompanyName)}</Text>
         </View>
-        <View>
+        <View style={{alignItems: 'center', justifyContent: 'center', alignContent: 'center'}}>
           <Text style={styles.phoneNumber} onPress={() => contactTel()}>
             {`${checkAvailable(item.fromTime, item.toTime, item.contact)}`}
           </Text>

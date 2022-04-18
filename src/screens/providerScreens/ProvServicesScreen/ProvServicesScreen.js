@@ -40,6 +40,9 @@ export default function ProvServicesScreen({ navigation }) {
           setListData(temp);
           setRefreshing(false);
         });
+        if(querySnapshot.empty){
+          setRefreshing(false)
+        }
       });
   }
 
@@ -163,7 +166,7 @@ export default function ProvServicesScreen({ navigation }) {
     resizeMode="cover"
       style={styles.backgroundImage}
     >
-      <View style={{ flex: 1, paddingTop: 20 }}>
+      <View style={{ flex: 1, paddingTop: 30 }}>
         <FlatList
           data={listData}
           ItemSeparatorComponent={itemSeperatorView}
@@ -172,6 +175,7 @@ export default function ProvServicesScreen({ navigation }) {
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
+          ListEmptyComponent={<Text style={styles.noEvent}>No services currently posted!</Text>}
         />
         <View style={{marginTop: 3, height: 2, backgroundColor: "grey"}}/>
       </View>
