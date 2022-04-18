@@ -7,7 +7,7 @@ Grubber is a program that provides a consumer the autonomous ability to quickly 
   
 ### Usage
 
-// How to use and why description
+Grubber is a program that really will help ease your daily life from small projects you need help with to full on services such as lawn care, pool maintnence and much more. This application allows people as well as companies to advertise their services and allow you to see every service they have to offer to ensure that you will be a happy and satisfied customer. Upon opening Grubber, you are welcomed with our home screen as to which you can login or register. If you are to register you must input your data and specify whether or not you want to be a provider or a client. A provider screen is used for our users to be able to provide  services and add listings, whether you are a single individual or a company, this will be the account type for you. If you do not want to provide a service go ahead and click "Client" so you are able to browse listings and request aid for any project or service you may need. 
 
 ### Highlights
 //Included stock images like recommended?
@@ -33,5 +33,5 @@ Your own calendar to keep track of appointments, ToDos, and more!
 Raymond Seas: [Github: rseas](https://github.com/rseas), [LinkedIn: Raymond Seas](linkedin.com/in/raymond-seas-96a4b6220)<br>
 Adam Farley <br>
 Petros Yiannikouros <br>
-Douglas Wendel <br>
+Douglas Wendel: [GitHub: dpwendel](https://github.com/dpwendel), [LinkedIn: Douglas Wendel](https://linkedin.com/in/douglaswendel3) <br>
 Tyler Shatley <br>
