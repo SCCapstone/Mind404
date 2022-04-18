@@ -13,11 +13,11 @@ Grubber is a program that really will help ease your daily life from small proje
 //Included stock images like recommended?
 
 #### As a Client:
-
-//(Insert image of services screen with filter options) <br>
+![IMG_1076](https://user-images.githubusercontent.com/70234982/163743394-7c6783d5-0462-4774-91dd-2a9ada046583.PNG)
 
 Filter through an abundance of services in your area! <br>
 <br>
+
 ![IMG_1077](https://user-images.githubusercontent.com/70234982/163743335-92eca6ee-62f6-4996-9bf0-ea9e6158d683.PNG)
 
 View provider information as well as reviews by fellow users!<br>
