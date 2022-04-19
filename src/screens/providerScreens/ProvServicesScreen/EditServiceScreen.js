@@ -127,6 +127,7 @@ export default function EditServiceScreen({ route, navigation }) {
             fromTime,
             toTime,
             providerId: user.id,
+            avgRating:  user.avgRating,
         };
         firebase
             .firestore()
