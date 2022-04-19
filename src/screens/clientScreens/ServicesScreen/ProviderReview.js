@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, TextInput, Button } from "react-native";
 import styles from "./../../../../components/styles";
 import { firebase } from "../../../firebase/config";
@@ -7,7 +7,7 @@ import RNPickerSelect from "react-native-picker-select";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const ProviderReview = ({ route, navigation }) => {
-  const { providerData, review, index } = route.params;
+  const { providerData, service, review } = route.params;
   const { user } = useUser();
   const [description, setDescription] = useState(review.description);
   const [rating, setRating] = useState(review.rating);
@@ -47,6 +47,8 @@ const ProviderReview = ({ route, navigation }) => {
       // if user is adding a review
       if(review.id == ""){
         const usersRef = firebase.firestore().collection("users");
+        const serviceRef = firebase.firestore().collection("services");
+
         await usersRef.doc(providerData.id).update({
           reviews: [
             ...providerData.reviews,
@@ -66,9 +68,18 @@ const ProviderReview = ({ route, navigation }) => {
           },
           { merge: true }
         );
+        serviceRef.where('providerId', '==', providerData.id)
+          .get()
+          .then((docSnapshot) => {
+            docSnapshot.forEach(doc=> {
+              serviceRef.doc(doc.id).update({avgRating: roundedRate})
+            })
+          });
       //if user is editing a review
       } else {
         const usersRef = firebase.firestore().collection("users");
+        const serviceRef = firebase.firestore().collection("services");
+        
         let temp = [];
         await usersRef.doc(providerData.id).get().then((doc) => {
           temp = doc.data().reviews;
@@ -95,12 +106,19 @@ const ProviderReview = ({ route, navigation }) => {
             avgRating: roundedRate,
           }, { merge: true }
         );
-      }
+        serviceRef.where('providerId', '==', providerData.id)
+          .get()
+          .then((docSnapshot) => {
+            docSnapshot.forEach(doc=> {
+              serviceRef.doc(doc.id).update({avgRating: roundedRate})
+            })
+          });
+        }
     } catch (e) {
       console.log(e);
     }
     alert("Review successfully posted!")
-   navigation.pop()
+    navigation.pop()
   };
 
   return (

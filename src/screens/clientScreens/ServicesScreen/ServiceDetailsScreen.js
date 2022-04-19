@@ -173,7 +173,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
             >
               <Text style={styles.titleText}>Reviews</Text>
               <Ratings
-                reviews={providerData.reviews ? providerData.reviews : []}
+                rating={providerData.avgRating}
               />
             </View>
             <View style={styles.marginTop10}>
@@ -201,8 +201,8 @@ export default function ServiceDetailsScreen({ route, navigation }) {
                         if (review.id === user.id) {
                           navigation.navigate("Post Your Review", {
                             providerData,
+                            service: item,
                             review,
-                            index,
                           });
                         }
                       }}
@@ -221,6 +221,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
                   if(!reviewed) {
                     navigation.navigate("Post Your Review", {
                       providerData,
+                      service: item,
                       review: {description: "", rating: "", id: "", firstName: "", lastName: ""},
                     })
                   } else {

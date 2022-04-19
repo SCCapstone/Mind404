@@ -73,6 +73,10 @@ export default function ServicesPostScreen({ navigation }) {
     if(tTime == 12 && tTime == 'A.M.'){
       toTime = 0;
     }
+    let avgRating = 0;
+    if(user.avgRating != null){
+      avgRating = user.avgRating;
+    }
     const data = {
       contact,
       email,
@@ -83,6 +87,7 @@ export default function ServicesPostScreen({ navigation }) {
       fromTime,
       toTime,
       providerId: user.id,
+      avgRating,
     };
     firebase
       .firestore()

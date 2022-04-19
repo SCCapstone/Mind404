@@ -170,7 +170,7 @@ export default function ServicesScreen({ navigation }) {
   const onRefresh = () => {
     setCompleteList([]);
     setListData([]);
-    setOverallFilter([], 0);
+    filter(false)
   };
 
   const itemSeperatorView = () => {
@@ -187,13 +187,11 @@ export default function ServicesScreen({ navigation }) {
   const setServiceFilter = (service) => {
     if (service == "All") {
       setServiceList(completeList);
-      setOverallFilter(completeList, 1);
     } else {
       const serviceFiltered = completeList.filter(
         (item) => item.serviceType == service
       );
       setServiceList(serviceFiltered);
-      setOverallFilter(serviceFiltered, 1);
     }
   };
 
@@ -207,7 +205,6 @@ export default function ServicesScreen({ navigation }) {
       locationFiltered = completeList;
     }
     setCityList(locationFiltered);
-    setOverallFilter(locationFiltered, 3);
   };
 
   const setStateFilter = (loca) => {
@@ -221,7 +218,6 @@ export default function ServicesScreen({ navigation }) {
     }
 
     setStateList(locationFiltered);
-    setOverallFilter(locationFiltered, 4);
   };
 
   const setCompanyFilter = (name) => {
@@ -230,17 +226,15 @@ export default function ServicesScreen({ navigation }) {
         (item) => item.CompanyName == name
       );
       setCompanyList(companyFiltered);
-      setOverallFilter(companyFiltered, 5);
     } else {
       setCompanyList(completeList);
-      setOverallFilter(completeList, 5);
+
     }
   };
 
   const setRatingFilter = (rate) => {
     if(rate == 0){
       setRatingList(completeList)
-      setOverallFilter(completeList, 6)
     } else {
       getAverageRatings();
       const temp = completeList;
@@ -255,77 +249,31 @@ export default function ServicesScreen({ navigation }) {
         })
       })
       setRatingList(ratingFiltered)
-      setOverallFilter(ratingFiltered, 6)
     }
   };
 
-  const setOverallFilter = (list, id) => {
-    let overall = completeList;
-    switch (id) {
-      case 0:
-        loadListData();
-        setToggleCheckBox(false);
-        setPlaceHolder("All");
-        setState("State");
-        setCity("");
-        setCompanyName("");
-        break;
-      case 1:
-        overall = overall.filter((item) => list.includes(item));
-        overall = overall.filter((item) => availableList.includes(item));
-        overall = overall.filter((item) => cityList.includes(item));
-        overall = overall.filter((item) => stateList.includes(item));
-        overall = overall.filter((item) => companyList.includes(item));
-        overall = overall.filter((item) => ratingList.includes(item));
-        setListData(overall);
-        break;
-      case 2:
-        overall = overall.filter((item) => list.includes(item));
-        overall = overall.filter((item) => serviceList.includes(item));
-        overall = overall.filter((item) => cityList.includes(item));
-        overall = overall.filter((item) => stateList.includes(item));
-        overall = overall.filter((item) => companyList.includes(item));
-        overall = overall.filter((item) => ratingList.includes(item));
-        setListData(overall);
-        break;
-      case 3:
-        overall = overall.filter((item) => list.includes(item));
-        overall = overall.filter((item) => serviceList.includes(item));
-        overall = overall.filter((item) => availableList.includes(item));
-        overall = overall.filter((item) => stateList.includes(item));
-        overall = overall.filter((item) => companyList.includes(item));
-        overall = overall.filter((item) => ratingList.includes(item));
-        setListData(overall);
-        break;
-      case 4:
-        overall = overall.filter((item) => list.includes(item));
-        overall = overall.filter((item) => serviceList.includes(item));
-        overall = overall.filter((item) => availableList.includes(item));
-        overall = overall.filter((item) => cityList.includes(item));
-        overall = overall.filter((item) => companyList.includes(item));
-        overall = overall.filter((item) => ratingList.includes(item));
-        setListData(overall);
-        break;
-      case 5:
-        overall = overall.filter((item) => list.includes(item));
-        overall = overall.filter((item) => serviceList.includes(item));
-        overall = overall.filter((item) => availableList.includes(item));
-        overall = overall.filter((item) => cityList.includes(item));
-        overall = overall.filter((item) => stateList.includes(item));
-        overall = overall.filter((item) => ratingList.includes(item));
-        setListData(overall);
-        break;
-      case 6:
-        overall = overall.filter((item) => list.includes(item));
-        overall = overall.filter((item) => serviceList.includes(item));
-        overall = overall.filter((item) => availableList.includes(item));
-        overall = overall.filter((item) => cityList.includes(item));
-        overall = overall.filter((item) => stateList.includes(item));
-        overall = overall.filter((item) => companyList.includes(item));
-        setListData(overall);
-      default:
+  const filter = (filt) => {
+    setRefreshing(true)
+    if(filt){
+      let overall = completeList;
+      overall = overall.filter((item) => serviceList.includes(item));
+      overall = overall.filter((item) => availableList.includes(item));
+      overall = overall.filter((item) => cityList.includes(item));
+      overall = overall.filter((item) => stateList.includes(item));
+      overall = overall.filter((item) => companyList.includes(item));
+      overall = overall.filter((item) => ratingList.includes(item));
+      setListData(overall)
+    } else {
+      loadListData();
+      setToggleCheckBox(false);
+      setPlaceHolder("All");
+      setState("State");
+      setCity("");
+      setCompanyName("");
     }
-  };
+    setRefreshing(false)
+  }
+
 
   const setAvail = () => {
     let currentHour = new Date().getHours();
@@ -437,10 +385,8 @@ export default function ServicesScreen({ navigation }) {
                       onValueChange={(newValue) => {
                         setToggleCheckBox(newValue);
                         if (newValue) {
-                          setOverallFilter(setAvail(), 2);
                           setAvailableList(setAvail());
                         } else {
-                          setOverallFilter(completeList, 2);
                           setAvailableList(completeList);
                         }
                       }}
@@ -569,7 +515,7 @@ export default function ServicesScreen({ navigation }) {
                       marginTop: 20,
                       marginBottom: 20,
                       flexDirection: "row",
-                      justifyContent: "center",
+                      justifyContent: 'space-evenly',
                     }}
                   >
                     <TouchableOpacity
@@ -580,7 +526,7 @@ export default function ServicesScreen({ navigation }) {
                         height: 30,
                         justifyContent: "center",
                       }}
-                      onPress={() => setOverallFilter([], 0)}
+                      onPress={() => filter(false)}
                     >
                       <View
                         style={{
@@ -600,6 +546,26 @@ export default function ServicesScreen({ navigation }) {
                           Clear All Filters
                         </Text>
                       </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={{
+                        borderRadius: 6,
+                        backgroundColor: "#FFAC1C",
+                        width: 130,
+                        height: 30,
+                        justifyContent: "center",
+                      }}
+                      onPress={() => filter(true)}
+                    >
+                      <Text
+                        style={{
+                          fontWeight: "bold",
+                          textAlign: "center",
+                          color: "white",
+                        }}
+                      >
+                        Apply
+                      </Text>
                     </TouchableOpacity>
                   </View>
                 </View>

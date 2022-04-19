@@ -3,20 +3,14 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { View, Text } from "react-native";
 import { firebase } from "../src/firebase/config";
 
-const Ratings = ({ reviews, size = 30 }) => {
-  let rating = 0;
-  if (reviews == null || reviews.length == 0) {
+const Ratings = ({ rating, size = 30 }) => {
+  if (rating == 0) {
     return (
       <View>
         <Text>No Reviews</Text>
       </View>
     );
   }
-  reviews.forEach((element) => {
-    rating = Number(element.rating) + rating;
-  });
-  const average = rating / reviews.length;
-  const roundedRating = Math.round(parseFloat(average) * 2) / 2;
 
   let stars = [];
   for (let i = 1; i <= 5; i++) {
@@ -28,7 +22,7 @@ const Ratings = ({ reviews, size = 30 }) => {
         size={size}
       />
     );
-    if (i <= roundedRating) {
+    if (i <= rating) {
       Icon = (
         <MaterialCommunityIcons
           name="star"
@@ -37,7 +31,7 @@ const Ratings = ({ reviews, size = 30 }) => {
           size={size}
         />
       );
-    } else if (i - roundedRating === 0.5) {
+    } else if (i - rating === 0.5) {
       Icon = (
         <MaterialCommunityIcons
           name="star-half-full"

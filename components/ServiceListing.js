@@ -65,7 +65,7 @@ const ServiceListing = ({ item }) => {
             </Text>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Ratings service={item} reviews={reviews} size={20} />
+            <Ratings rating={item.avgRating} size={20} />
           </View>
         </View>
         <View style={{ flexDirection: "row" }}>
