@@ -18,7 +18,7 @@ export default function ServicesScreen({ navigation }) {
   const { user } = useUser(); 
   const [refreshing, setRefreshing] = useState(true);
 
-  var docRef = firebase.firestore().collection("users/"+user.id+"/ClientFavorites");
+  var docRef = firebase.firestore().collection("users");
 
   React.useEffect(() => {
     loadServices();
@@ -84,7 +84,7 @@ export default function ServicesScreen({ navigation }) {
           data={listData}
           ItemSeparatorComponent={itemSeperatorView}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => <ServiceListing item={item} />}
+          renderItem={({ item }) => <ServiceListing item={item} rate={false}/>}
           ListEmptyComponent={()=> <Text style={styles.noEvent}>No services currently favorited.</Text>}
           refreshControl={
             <RefreshControl 

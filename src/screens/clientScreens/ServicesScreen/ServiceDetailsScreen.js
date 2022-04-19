@@ -62,16 +62,29 @@ export default function ServiceDetailsScreen({ route, navigation }) {
     }
   };
   const onAddPress = () => {
+    let today = new Date();
+    let dateAdded = today.getMonth()+1 + '/' + today.getDate() + '/' + today.getFullYear();
     docRef
       .doc(item.id)
       .get()
       .then((docSnapshot) => {
         if (!docSnapshot.exists) {
-          firebase
-            .firestore()
-            .collection("users/" + user.id + "/ClientFavorites")
+          docRef
             .doc(item.id)
-            .set(item)
+            .set(
+              {
+                CompanyName: item.CompanyName,
+                contact: item.contact,
+                description: item.description,
+                email: item.email,
+                fromTime: item.fromTime,
+                id: item.id,
+                location: item.location,
+                providerId: item.providerId,
+                serviceType: item.serviceType,
+                toTime: item.toTime,
+                dateAdded,
+              })
             .then(() => {
               Alert.alert("Service has been favorited!");
               navigation.navigate("Client Home");

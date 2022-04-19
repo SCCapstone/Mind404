@@ -236,17 +236,11 @@ export default function ServicesScreen({ navigation }) {
     if(rate == 0){
       setRatingList(completeList)
     } else {
-      getAverageRatings();
-      const temp = completeList;
       const ratingFiltered = [];
-      provRatings.forEach(provider => {
-        temp.forEach(service => {
-          if(provider[0] == service.providerId){
-            if(provider[1] >= rate){
-              ratingFiltered.push(service)
-            }
-          }
-        })
+      completeList.forEach(service => {
+        if(service.avgRating >= rate) {
+          ratingFiltered.push(service);
+        }
       })
       setRatingList(ratingFiltered)
     }
@@ -583,7 +577,7 @@ export default function ServicesScreen({ navigation }) {
             data={listData}
             ItemSeparatorComponent={itemSeperatorView}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => <ServiceListing item={item} />}
+            renderItem={({ item }) => <ServiceListing item={item} rate={true} />}
             ListEmptyComponent={() => (
               <Text style={styles.noEvent}>
                 No services are available with the applied filters.

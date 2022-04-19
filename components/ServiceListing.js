@@ -11,7 +11,7 @@ import Ratings from "./Ratings";
 import { firebase } from "../src/firebase/config";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-const ServiceListing = ({ item }) => {
+const ServiceListing = ({ item, rate }) => {
   const [reviews, setReviews] = useState(Array);
   const [providerData, setProviderData] = useState();
 
@@ -44,6 +44,14 @@ const ServiceListing = ({ item }) => {
     }
   };
 
+  const ratingDisplay = () => {
+    if(rate){
+      return <Ratings rating={item.avgRating} size={20} />
+    } else {
+      return <Text>Favorited on {item.dateAdded}</Text>
+    }
+  }
+
   return (
     <TouchableOpacity onPress={() => detailsPage()}>
       <View
@@ -65,7 +73,7 @@ const ServiceListing = ({ item }) => {
             </Text>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Ratings rating={item.avgRating} size={20} />
+            {ratingDisplay()}
           </View>
         </View>
         <View style={{ flexDirection: "row" }}>

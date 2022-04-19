@@ -117,7 +117,7 @@ export default function HomeScreen({ navigation }) {
           Recommended Service:
         </Text>
       </View>
-      <View>{randomService && <ServiceListing item={randomService} />}</View>
+      <View>{randomService && <ServiceListing item={randomService} rate={true}/>}</View>
     </ImageBackground>
   );
 }
