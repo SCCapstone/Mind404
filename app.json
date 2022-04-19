@@ -4,7 +4,7 @@
     "slug": "finaltest",
     "version": "0.1.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/grubber_G.png",
     "splash": {
       "image": "./assets/grubber_splash.png",
       "resizeMode": "contain",
@@ -21,7 +21,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/grubber_resized.png",
+        "foregroundImage": "./assets/grubber_G.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.Mind404.Grubber"
