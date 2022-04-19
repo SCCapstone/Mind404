@@ -116,7 +116,7 @@ export default function EditServiceScreen({ route, navigation }) {
         let location = item.location;
         let serviceType = item.serviceType;
         let contact = number;
-        let CompanyName = company;
+        let CompanyName = checkForName(company);
         const data = {
             contact,
             email,
@@ -330,7 +330,7 @@ function checkForName (companyName) {
     if (companyName) {
       return companyName;
     } else {
-      return;
+      return "";
     }
 };
 
