@@ -17,6 +17,7 @@ Grubber is a program that provides a consumer the autonomous ability to quickly 
 
 ### As a Client:
 
+<br>
 <p align= "center">
   <img src="https://user-images.githubusercontent.com/70233387/163876061-c9423b50-8428-4681-a424-b76ac460240a.png" width="40%" height="40%">
   <img src="https://user-images.githubusercontent.com/70233387/163876192-db3deaea-a6e5-48ae-af1e-3e8335acffbf.png" width="40%" height="40%">
@@ -39,6 +40,7 @@ Grubber is a program that provides a consumer the autonomous ability to quickly 
 
 ### As a Provider:
 
+<br>
 <p align= "center">
   <img src="https://user-images.githubusercontent.com/70233387/163875695-6acd0d42-dde6-4e0a-bd46-a687a83b46cf.png" width="40%" height="40%">
   <img src="https://user-images.githubusercontent.com/70233387/163875756-a993b537-863e-47bc-8c14-81354063989d.png" width="40%" height="40%">
