@@ -9,6 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import styles from "./styles";
 import Ratings from "./Ratings";
 import { firebase } from "../src/firebase/config";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const ServiceListing = ({ item }) => {
   const [reviews, setReviews] = useState(Array);
@@ -63,7 +64,7 @@ const ServiceListing = ({ item }) => {
               {item.serviceType}
             </Text>
           </View>
-          <View>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Ratings service={item} reviews={reviews} size={20} />
           </View>
         </View>

@@ -184,7 +184,7 @@ export default function ServicesPostScreen({ navigation }) {
         />
         <TextInput
           style={styles.multilineInput}
-          placeholder="Description of services"
+          placeholder="Description of service"
           placeholderTextColor="#aaaaaa"
           onChangeText={(text) => setDecription(text)}
           value={description}
