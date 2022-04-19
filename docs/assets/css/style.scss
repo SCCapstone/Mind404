@@ -220,7 +220,7 @@ td {
 /* Header */
 
 header {
-	background-color: #1C6FFF;
+	background-color: #9CC0FF;
 	color: #FDFDFB;
   width:170px;
   float:left;
@@ -277,12 +277,12 @@ header li {
 	padding: 6px 6px 6px 7px;
 
 	background: #FFAC1C;
-	background: -moz-linear-gradient(top, #AF0011 0%, #820011 100%);
+	background: -moz-linear-gradient(top, #FFAC1C 0%, #EDA11C 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f8f8f8), color-stop(100%,#dddddd));
-  background: -webkit-linear-gradient(top, #AF0011 0%,#820011 100%);
-  background: -o-linear-gradient(top, #AF0011 0%,#820011 100%);
-  background: -ms-linear-gradient(top, #AF0011 0%,#820011 100%);
-  background: linear-gradient(to top, #AF0011 0%,#820011 100%);
+  background: -webkit-linear-gradient(top, #FFAC1C 0%,#EDA11C 100%);
+  background: -o-linear-gradient(top, #FFAC1C 0%,#EDA11C 100%);
+  background: -ms-linear-gradient(top, #FFAC1C 0%,#EDA11C 100%);
+  background: linear-gradient(to top, #FFAC1C 0%,#EDA11C 100%);
 
 	border-radius:4px;
   border:1px solid #0D0D0D;
@@ -294,12 +294,12 @@ header li {
 
 header li:hover {
 	background: #FCAF28;
-	background: -moz-linear-gradient(top, #C3001D 0%, #950119 100%);
+	background: -moz-linear-gradient(top, #FCAF28 0%, #EB9D15 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f8f8f8), color-stop(100%,#dddddd));
-  background: -webkit-linear-gradient(top, #C3001D 0%,#950119 100%);
-  background: -o-linear-gradient(top, #C3001D 0%,#950119 100%);
-  background: -ms-linear-gradient(top, #C3001D 0%,#950119 100%);
-  background: linear-gradient(to top, #C3001D 0%,#950119 100%);
+  background: -webkit-linear-gradient(top, #C3001D 0%,#EB9D15 100%);
+  background: -o-linear-gradient(top, #FCAF28 0%,#EB9D15 100%);
+  background: -ms-linear-gradient(top, #FCAF28 0%,#EB9D15 100%);
+  background: linear-gradient(to top, #FCAF28 0%,#EB9D15 100%);
 }
 
 a.buttons {
