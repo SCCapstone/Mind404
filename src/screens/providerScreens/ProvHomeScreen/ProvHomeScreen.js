@@ -40,7 +40,7 @@ export default function ProvHomeScreen({ navigation }) {
     navigation.navigate("Prov Settings");
   };
   const onAddPress = () => {
-    navigation.navigate("Services")
+    navigation.navigate("Services Stack")
   }
 
   const getEvents = () => {

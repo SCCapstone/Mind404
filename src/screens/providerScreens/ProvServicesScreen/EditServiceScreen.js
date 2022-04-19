@@ -44,6 +44,40 @@ export default function EditServiceScreen({ route, navigation }) {
         12,
     ]
 
+    const updateFavorites = (data, id) => {
+        firebase
+        .firestore()
+        .collection("users")
+        .get()
+        .then((users) =>
+            users.forEach((user) =>
+            user.ref.collection("ClientFavorites")
+            .get()
+            .then((doc) => {
+                doc.forEach((documentSnapshot) => {
+                if (documentSnapshot.id == id){
+                    firebase
+                        .firestore()
+                        .collection("users/"+user.id+"/ClientFavorites")
+                        .doc(id)
+                        .set({
+                            contact: data.contact,
+                            email: data.email,
+                            description: data.description,
+                            location: data.location,
+                            serviceType: data.serviceType,
+                            CompanyName: data.CompanyName,
+                            fromTime: data.fromTime,
+                            toTime: data.toTime,
+                            providerId: data.providerId
+                        }), {merge: true}
+                }
+                });
+            })
+            )
+        )
+    }
+
     const updateService = () => {
         /**Checks to see if phone number is a valid entry */
         if (!validPhoneCheck(number)) {
@@ -100,6 +134,7 @@ export default function EditServiceScreen({ route, navigation }) {
             .doc(item.id)
             .set(data)
             .then(() => {
+                updateFavorites(data, item.id)
                 alert("Your service has been successfully updated!");
                 navigation.goBack()
             });
