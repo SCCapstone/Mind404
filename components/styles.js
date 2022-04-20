@@ -174,8 +174,9 @@ export default StyleSheet.create({
     marginTop: 30,
     height: 35,
     borderRadius: 9,
-    alignItems: "flex-end",
-    justifyContent: "flex-end",
+    width: 30,
+    flexDirection: 'row',
+    marginLeft: 'auto'
   },
   changePasswordButton: {
     backgroundColor: "#FFAC1C",

@@ -34,7 +34,7 @@ export default function ProvProfileScreen({ navigation }) {
   const onPostPress = () => {
     /** Checks to see if type of service is an empty string */
     if (description == "") {
-      alert("Please enter services offered.");
+      alert("Please tell us some information about you and/or your company!");
       return;
     }
     const usersRef = firebase.firestore().collection("users");
@@ -140,7 +140,7 @@ export default function ProvProfileScreen({ navigation }) {
             </View>
 
             <View>
-              <Text style={styles.titleText}>Services Provided</Text>
+              <Text style={styles.titleText}>About</Text>
             </View>
             <TextInput
               style={styles.multilineInput}
