@@ -4,8 +4,11 @@ Grubber is a program that provides a consumer the autonomous ability to quickly 
 
 ## Demo
 
-### _// Video will go here (needs to be embedded, drag and drop .mp4 file)_
-  
+<p align="center">
+   // Final Demo video will go here
+  <video align="center" src="https://user-images.githubusercontent.com/70233387/164254323-21aa7cba-6f10-48f4-a921-992460f89e80.mp4" controls="true" style="max-width: 730px;"/>
+</p>
+
 ## Usage
 
 <p>Grubber allows indivudals, as well as companies, to advertise their services, allowing clients to see what each provider has to offer. Upon opening Grubber, you are welcomed by the login screen, where you can either login with a registered account or be redirected to create a new one. To register, you must input the information requested and specify whether or not you want to create a provider or a client account. After registering with your chosen account type, confirm your registration by clicking the link in the email that will be sent to your inbox. </p>
