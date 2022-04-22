@@ -61,7 +61,7 @@ export default function LoginScreen({ navigation }) {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((response) => {
-        /*if(!response.user.emailVerified){
+        if(!response.user.emailVerified){
           Alert.alert(
             'Email needs verfication, please check your inbox.',
             '',
@@ -70,7 +70,7 @@ export default function LoginScreen({ navigation }) {
               {text: 'Ok'},
             ]
           );
-        } else { */
+        } else { 
           const uid = response.user.uid;
           const usersRef = firebase.firestore().collection("users");
           usersRef
@@ -101,7 +101,7 @@ export default function LoginScreen({ navigation }) {
             .catch((error) => {
               alert(error);
             });
-         //}
+         }
       })
       .catch((error) => {
         alert(error);
