@@ -96,7 +96,7 @@ export default function ProvProfileScreen({ navigation }) {
             </View>
             <View style={styles.marginTop10}>
               {providerData.reviews && providerData.reviews.length == 0 && (
-                <Text>This Service Provider has no reviews yet.</Text>
+                <Text>You have no reviews yet.</Text>
               )}
               {providerData.reviews &&
                 providerData.reviews.length > 0 &&

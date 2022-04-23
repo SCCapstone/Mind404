@@ -144,7 +144,7 @@ export default function ProvProfileScreen({ navigation }) {
             </View>
             <TextInput
               style={styles.multilineInput}
-              placeholder="Description of services"
+              placeholder="About you and your services"
               placeholderTextColor="#aaaaaa"
               onChangeText={setDecription}
               value={description}

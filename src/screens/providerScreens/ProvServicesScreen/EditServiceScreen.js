@@ -50,15 +50,15 @@ export default function EditServiceScreen({ route, navigation }) {
         .collection("users")
         .get()
         .then((users) =>
-            users.forEach((user) =>
-            user.ref.collection("ClientFavorites")
+            users.forEach((userT) =>
+            userT.ref.collection("ClientFavorites")
             .get()
             .then((doc) => {
                 doc.forEach((documentSnapshot) => {
                 if (documentSnapshot.id == id){
                     firebase
                         .firestore()
-                        .collection("users/"+user.id+"/ClientFavorites")
+                        .collection("users/"+userT.id+"/ClientFavorites")
                         .doc(id)
                         .set({
                             contact: data.contact,
@@ -69,7 +69,7 @@ export default function EditServiceScreen({ route, navigation }) {
                             CompanyName: data.CompanyName,
                             fromTime: data.fromTime,
                             toTime: data.toTime,
-                            providerId: data.providerId
+                            providerId: data.providerId,
                         }), {merge: true}
                 }
                 });
@@ -112,11 +112,14 @@ export default function EditServiceScreen({ route, navigation }) {
         if(tTime == 12 && tTime == 'A.M.'){
         toTime = 0;
         }
-
+        let avgRating = 0;
         let location = item.location;
         let serviceType = item.serviceType;
         let contact = number;
         let CompanyName = checkForName(company);
+        if(user.avgRating){
+            avgRating = user.avgRating;
+        } 
         const data = {
             contact,
             email,
@@ -127,7 +130,7 @@ export default function EditServiceScreen({ route, navigation }) {
             fromTime,
             toTime,
             providerId: user.id,
-            avgRating:  user.avgRating,
+            avgRating,
         };
         firebase
             .firestore()
