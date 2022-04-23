@@ -62,6 +62,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
     }
   };
   const onAddPress = () => {
+    console.log(item)
     let today = new Date();
     let dateAdded = today.getMonth()+1 + '/' + today.getDate() + '/' + today.getFullYear();
     docRef

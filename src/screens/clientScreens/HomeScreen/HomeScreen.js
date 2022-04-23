@@ -49,7 +49,10 @@ export default function HomeScreen({ navigation }) {
         .get();
       const newRandomService = [];
       queryRef.forEach((documentSnapshot) => {
-        newRandomService.push(documentSnapshot.data());
+        let serviceDetails = {};
+        serviceDetails = documentSnapshot.data();
+        serviceDetails["id"] = documentSnapshot.id;
+        newRandomService.push(serviceDetails);
       });
       if (newRandomService.length === 0) {
         queryRef = await servicesRef
@@ -58,7 +61,10 @@ export default function HomeScreen({ navigation }) {
           .limit(1)
           .get();
         queryRef.forEach((documentSnapshot) => {
-          newRandomService.push(documentSnapshot.data());
+          let serviceDetails = {};
+          serviceDetails = documentSnapshot.data();
+          serviceDetails["id"] = documentSnapshot.id;
+          newRandomService.push(serviceDetails);
         });
       }
       setRandomService(newRandomService[0]);
