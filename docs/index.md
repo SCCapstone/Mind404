@@ -5,8 +5,7 @@ Grubber is a program that provides a consumer the autonomous ability to quickly 
 ## Demo
 
 <p align="center">
-   // Final Demo video will go here
-  <video align="center" src="https://user-images.githubusercontent.com/70233387/164254323-21aa7cba-6f10-48f4-a921-992460f89e80.mp4" controls="true" style="max-width: 730px;"/>
+   <iframe width="560" height="315" src="https://www.youtube.com/embed/NZv_4bODGoo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </p>
 
 ## Usage
