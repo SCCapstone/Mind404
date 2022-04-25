@@ -3,7 +3,7 @@ import Button from "../components/Button";
 import renderer from "react-test-renderer";
 import {Flatlist,Text} from 'react-native'
 import{fireEvent} from "@testing-library/react-native"
-import LoginScreen from "../src/screens/providerScreens/ProvCalendarScreen/AddEvent"
+import AddEvent from "../src/screens/providerScreens/ProvCalendarScreen/AddEvent"
 import { it } from "jest-circus";
 
 
