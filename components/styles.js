@@ -167,7 +167,6 @@ export default StyleSheet.create({
   headerWelcome: {
     fontSize: 32, color: '#FFAC1C',fontWeight: 'bold', textAlign: 'left', paddingStart: 20, paddingTop: 20
   },
-  //
   // SettingsScreen
   settingsButton: {
     marginRight: 15,
