@@ -24,7 +24,7 @@ export default function ProvServicesScreen({ navigation }) {
     setRefreshing(true);
     loadServices();
   };
-
+  //loading services
   const loadServices = () => {
     firebase
       .firestore()
@@ -118,7 +118,7 @@ export default function ProvServicesScreen({ navigation }) {
       </View>
     );
   };
-
+  //alerting on service delte press
   const serviceDeleteAlert = (id) => {
     Alert.alert(
       'Are you sure you want to delete this service?',
@@ -133,6 +133,7 @@ export default function ProvServicesScreen({ navigation }) {
     );
   }
 
+  //delete service from firebase and all collections
   const deleteService = (id) => {
     firebase.firestore().collection("services").doc(id).delete();
     firebase

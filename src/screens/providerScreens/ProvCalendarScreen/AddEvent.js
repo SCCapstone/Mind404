@@ -37,7 +37,7 @@ export default function AddEvent({ navigation }) {
     const showDatepicker = () => {
          showMode('date');
     };
-
+    //add event to firebase
     const onAddPress = () => {
         if (subject == "") {
             alert("Please enter a subject.");

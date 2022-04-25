@@ -43,6 +43,7 @@ export default function ProvHomeScreen({ navigation }) {
     navigation.navigate("Services Stack")
   }
 
+  //get all user events
   const getEvents = () => {
     firebase
       .firestore()
@@ -59,7 +60,7 @@ export default function ProvHomeScreen({ navigation }) {
         eventsToday(getDateString(), temp)
       });
   };
-
+  //display events for today
   const eventsToday = (dateString, list) => {
     const tempDate = dateString
     const temp = list.filter(

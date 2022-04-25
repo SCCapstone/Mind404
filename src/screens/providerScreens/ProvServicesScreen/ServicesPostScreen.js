@@ -26,6 +26,7 @@ export default function ServicesPostScreen({ navigation }) {
   const [fTime, setFTime] = useState(9);
   const [tTime, setTTime] = useState(5);
 
+  //adding service to firebase
   const onPostPress = () => {
     /** Checks to see if type of service is an empty string */
     if (serviceType == "") {

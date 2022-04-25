@@ -43,7 +43,7 @@ export default function EditServiceScreen({ route, navigation }) {
         11,
         12,
     ]
-
+    //updating services in user favorites
     const updateFavorites = (data, id) => {
         firebase
         .firestore()
@@ -77,7 +77,7 @@ export default function EditServiceScreen({ route, navigation }) {
             )
         )
     }
-
+    //updating service in all collections
     const updateService = () => {
         /**Checks to see if phone number is a valid entry */
         if (!validPhoneCheck(number)) {
