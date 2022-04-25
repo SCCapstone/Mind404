@@ -12,6 +12,7 @@ const ProviderReview = ({ route, navigation }) => {
   const [description, setDescription] = useState(review.description);
   const [rating, setRating] = useState(review.rating);
 
+  //calculating average rate
   const getRoundedRate = (rate) => {
     let rating = 0;
     providerData.reviews.forEach((element) => {
@@ -23,6 +24,7 @@ const ProviderReview = ({ route, navigation }) => {
     return roundedRating;
   };
 
+  //calculating avg rate when updating review
   const getUpdatedRate = (oldRate, newRate) => {
     let rating = 0;
     providerData.reviews.forEach((element) => {
@@ -34,6 +36,7 @@ const ProviderReview = ({ route, navigation }) => {
     return roundedRating;
   }
 
+  //adding review to firebase
   const addReview = async () => {
     if (rating == 0) {
       alert("Please enter a rating");

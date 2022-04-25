@@ -116,6 +116,7 @@ export default function ServicesScreen({ navigation }) {
     "WY",
   ];
 
+  //loading all services and setting filter lists to default, containing all services
   const loadListData = () => {
     firebase
       .firestore()
@@ -184,6 +185,7 @@ export default function ServicesScreen({ navigation }) {
     );
   };
 
+  //filtering through specific lists dedicated to each aspect of the filter based on what user selects
   const setServiceFilter = (service) => {
     if (service == "All") {
       setServiceList(completeList);
@@ -246,6 +248,7 @@ export default function ServicesScreen({ navigation }) {
     }
   };
 
+  //filtering main list by separate filter lists to get overall filter
   const filter = (filt) => {
     setRefreshing(true)
     if(filt){
@@ -268,7 +271,7 @@ export default function ServicesScreen({ navigation }) {
     setRefreshing(false)
   }
 
-
+  //setting available filter list based on time of day 
   const setAvail = () => {
     let currentHour = new Date().getHours();
     let temp = [];

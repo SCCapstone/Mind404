@@ -11,6 +11,7 @@ import { firebase } from "../../../firebase/config";
 import useUser from "../../../../useUser";
 import ServiceListing from "../../../../components/ServiceListing";
 
+//calculating random id
 export const firestoreAutoId = () => {
   const CHARS =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -39,6 +40,7 @@ export default function HomeScreen({ navigation }) {
     setCurrentDate(displayDate(month,day,year));
   }, []);
 
+  //displaying random recommended service
   useEffect(() => {
     const servicesRef = firebase.firestore().collection("services");
     const query = async () => {
@@ -127,6 +129,7 @@ export default function HomeScreen({ navigation }) {
     </ImageBackground>
   );
 }
+//getting date to display
 function displayDate(month, day, year){
   let monthName = "";
   switch(month){

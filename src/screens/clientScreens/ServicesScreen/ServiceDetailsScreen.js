@@ -24,7 +24,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
   var docRef = firebase
     .firestore()
     .collection("users/" + user.id + "/ClientFavorites");
-
+  //gathering provider data
   useEffect(() => {
     firebase
       .firestore()
@@ -47,6 +47,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
     }
   }, [shouldRefresh]);
 
+  //getting contact information based on time
   const contactTel = () => {
     if (checkAvailable(item.fromTime, item.toTime, item.contact) != "") {
       Linking.openURL(`tel:${item.contact}`);
@@ -61,6 +62,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
       return;
     }
   };
+  //favoriting service, adds to firebase
   const onAddPress = () => {
     console.log(item)
     let today = new Date();
@@ -95,6 +97,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
         }
       });
   };
+  //unfavoriting service deletes from firebase
   const onUnfavoritePress = () => {
     docRef
       .doc(item.id)
@@ -116,6 +119,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
     return null;
   }
 
+  //checking if user can edit review
   const checkMatch = (id) => {
     if(user.id == id){
       return "Click to Edit"
@@ -290,6 +294,7 @@ export default function ServiceDetailsScreen({ route, navigation }) {
   );
 }
 
+//prompt for out of hours
 function promptOutOfHours(fromTime, toTime, contact) {
   if (checkAvailable(fromTime, toTime, contact) == "") {
     return "Check back later during the allotted availability times for the provider's phone number!";
@@ -298,6 +303,7 @@ function promptOutOfHours(fromTime, toTime, contact) {
   }
 }
 
+//convert from 24 hour time to 12 hour time
 function convertTo12Hour(time) {
   if (time < 12 && time > 0) {
     return time.toString() + " A.M.";
@@ -310,6 +316,7 @@ function convertTo12Hour(time) {
   }
 }
 
+//checking if provider is available
 function checkAvailable(fromTime, toTime, tel) {
   let currentHour = new Date().getHours();
 

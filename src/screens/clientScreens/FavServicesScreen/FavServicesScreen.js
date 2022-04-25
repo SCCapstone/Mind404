@@ -25,6 +25,7 @@ export default function ServicesScreen({ navigation }) {
     onRefresh();
   }, [navigation]);
 
+  //loading favorited services from firebase
   const loadServices = () => {
     firebase
       .firestore()
