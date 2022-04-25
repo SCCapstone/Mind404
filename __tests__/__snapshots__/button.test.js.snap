@@ -36,3 +36,40 @@ exports[`renders correctly 1`] = `
   </Text>
 </View>
 `;
+
+exports[`renders correctly 2`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "backgroundColor": "blue",
+      "margin": 10,
+      "padding": 15,
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "color": "white",
+        "fontSize": 16,
+        "fontWeight": "bold",
+        "textAlign": "center",
+      }
+    }
+  >
+    Sign Up
+  </Text>
+</View>
+`;

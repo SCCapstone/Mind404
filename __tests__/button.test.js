@@ -10,6 +10,11 @@ it(`renders correctly`, () => {
   expect(tree).toMatchSnapshot();
 });
 
+it(`renders correctly`, () => {
+  const tree = renderer.create(<Button>Sign Up</Button>);
+  expect(tree).toMatchSnapshot();
+});
+
 
 
 //testing user inputs email and password and then it logs in
